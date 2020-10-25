@@ -18,7 +18,6 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
   declarations: [
     AppComponent,
     LoginComponent,
-    AppComponent,
     HeaderComponent,
     FooterComponent
   ],
