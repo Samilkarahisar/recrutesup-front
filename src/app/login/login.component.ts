@@ -8,7 +8,7 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  
   form: any = {};
   isLoggedIn = false;
   isLoginFailed = false;

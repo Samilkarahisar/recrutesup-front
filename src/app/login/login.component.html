@@ -1,15 +1,18 @@
-<div class="col-md-12">
-    <div class="card card-container">
-      <form
-        *ngIf="!isLoggedIn"
-        name="form"
-        (ngSubmit)="f.form.valid && onSubmit()"
-        #f="ngForm"
-        novalidate
-      >
-        <div class="form-group">
-          <label for="username">Username</label>
+<mat-card class="col-md-12">
+  <mat-card class="card card-container">
+    <h3>Connexion</h3>
+    <form
+      *ngIf="!isLoggedIn"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <p>
+        <mat-form-field class="form-group">
+          <mat-label for="username">Username</mat-label>
           <input
+            matInput 
             type="text"
             class="form-control"
             name="username"
@@ -17,17 +20,23 @@
             required
             #username="ngModel"
           />
-          <div
+          <mat-hint
             class="alert alert-danger"
             role="alert"
             *ngIf="f.submitted && username.invalid"
           >
-            Un username est requis
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password">Mot de passe</label>
+              Un username est requis
+          </mat-hint>
+        </mat-form-field>
+      </p>
+
+     
+
+      <p>
+        <mat-form-field class="form-group">
+          <mat-label for="password">Mot de passe</mat-label>
           <input
+            matInput
             type="password"
             class="form-control"
             name="password"
@@ -36,35 +45,39 @@
             minlength="6"
             #password="ngModel"
           />
-          <div
+          <mat-hint
             class="alert alert-danger"
             role="alert"
             *ngIf="f.submitted && password.invalid"
           >
-            <div *ngIf="password.errors.required">Un mot de passe est requis</div>
-            <div *ngIf="password.errors.minlength">
-              Le mot de passe doit avoir au moins 6 caractères
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block">
-            Connexion
-          </button>
-        </div>
-        <div class="form-group">
-          <div
-            class="alert alert-danger"
-            role="alert"
-            *ngIf="f.submitted && isLoginFailed"
-          >
-            Connexion échouée {{ errorMessage }}
-          </div>
-        </div>
-      </form>
-  
-      <div class="alert alert-success" *ngIf="isLoggedIn">
-        Connecté en tant que {{ role }}.
+            <mat-label *ngIf="password.errors.required">Un mot de passe est requis</mat-label>
+            <mat-label *ngIf="password.errors.minlength">Le mot de passe doit avoir au moins 6 caractères</mat-label>
+          </mat-hint>
+        </mat-form-field>
+      </p>
+
+      <div class="form-group">
+        <button mat-raised-button class="btn btn-primary btn-block">
+          Connexion
+        </button>
       </div>
-    </div>
-  </div>
+
+      <p>
+        <mat-label
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="f.submitted && isLoginFailed"
+        >
+          Connexion échouée {{ errorMessage }}
+        </mat-label>
+      </p>
+
+    </form>
+
+    <p>
+      <mat-label class="alert alert-success" *ngIf="isLoggedIn">
+        Connecté en tant que {{ role }}.
+      </mat-label>
+    </p>
+  </mat-card>
+</mat-card>
