@@ -18,7 +18,8 @@
           required
           #email="ngModel"
         />
-        <mat-error *ngIf="formSubmitted && email.invalid"> {{getEmailErrorMessage()}} </mat-error>
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="formSubmitted && email.invalid"> L'adresse mail est invalide </mat-error>
       </mat-form-field>
     </p>
 
@@ -36,9 +37,7 @@
           minlength="6"
           #password="ngModel"
         />
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         <mat-error
           class="alert alert-danger"
           role="alert"
@@ -62,7 +61,7 @@
         role="alert"
         *ngIf="f.submitted && isLoginFailed"
       >
-        Connexion échouée {{ errorMessage }}
+        Connexion échouée
       </mat-label>
     </p>
   </form>
