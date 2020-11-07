@@ -9,23 +9,16 @@
   >
     <p>
       <mat-form-field class="form-group">
-        <mat-label for="username">Username</mat-label>
-        <input
-          matInput 
-          type="text"
+        <mat-label for="email">Adresse Mail</mat-label>
+        <input matInput 
+          type="email"
           class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
+          name="email"
+          [(ngModel)]="form.email"
           required
-          #username="ngModel"
+          #email="ngModel"
         />
-        <mat-hint
-          class="alert alert-danger"
-          role="alert"
-          *ngIf="f.submitted && username.invalid"
-        >
-            Un username est requis
-        </mat-hint>
+        <mat-error *ngIf="formSubmitted && email.invalid"> {{getEmailErrorMessage()}} </mat-error>
       </mat-form-field>
     </p>
 
@@ -34,9 +27,8 @@
     <p>
       <mat-form-field class="form-group">
         <mat-label for="password">Mot de passe</mat-label>
-        <input
-          matInput
-          type="password"
+        <input matInput
+          [type]="hide ? 'password' : 'text'"
           class="form-control"
           name="password"
           [(ngModel)]="form.password"
@@ -44,19 +36,22 @@
           minlength="6"
           #password="ngModel"
         />
-        <mat-hint
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error
           class="alert alert-danger"
           role="alert"
-          *ngIf="f.submitted && password.invalid"
+          *ngIf="formSubmitted && password.invalid"
         >
           <mat-label *ngIf="password.errors.required">Un mot de passe est requis</mat-label>
           <mat-label *ngIf="password.errors.minlength">Le mot de passe doit avoir au moins 6 caractères</mat-label>
-        </mat-hint>
+        </mat-error>
       </mat-form-field>
     </p>
 
     <div class="form-group">
-      <button mat-raised-button class="btn btn-primary btn-block">
+      <button mat-raised-button (click)="formSubmitted = true" class="btn btn-primary btn-block">
         Connexion
       </button>
     </div>

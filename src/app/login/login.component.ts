@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 
@@ -8,6 +9,12 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  formSubmitted = false;
+  hide = true;
+  email = new FormControl('', [Validators.required,
+                               Validators.email,
+                               Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
   
   form: any = {};
   isLoggedIn = false;
@@ -40,6 +47,14 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
       }
     );
+  }
+
+  getEmailErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'Une adresse mail est requise';
+    }
+
+    return this.email.hasError('pattern') ? 'L\'adresse mail n\'est pas valide' : '';
   }
 
   reloadPage(): void {
