@@ -1,70 +1,74 @@
-<div class="col-md-12">
-    <div class="card card-container">
-      <form
-        *ngIf="!isLoggedIn"
-        name="form"
-        (ngSubmit)="f.form.valid && onSubmit()"
-        #f="ngForm"
-        novalidate
-      >
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            name="username"
-            [(ngModel)]="form.username"
-            required
-            #username="ngModel"
-          />
-          <div
-            class="alert alert-danger"
-            role="alert"
-            *ngIf="f.submitted && username.invalid"
-          >
-            Un username est requis
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password">Mot de passe</label>
-          <input
-            type="password"
-            class="form-control"
-            name="password"
-            [(ngModel)]="form.password"
-            required
-            minlength="6"
-            #password="ngModel"
-          />
-          <div
-            class="alert alert-danger"
-            role="alert"
-            *ngIf="f.submitted && password.invalid"
-          >
-            <div *ngIf="password.errors.required">Un mot de passe est requis</div>
-            <div *ngIf="password.errors.minlength">
-              Le mot de passe doit avoir au moins 6 caractères
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block">
-            Connexion
-          </button>
-        </div>
-        <div class="form-group">
-          <div
-            class="alert alert-danger"
-            role="alert"
-            *ngIf="f.submitted && isLoginFailed"
-          >
-            Connexion échouée {{ errorMessage }}
-          </div>
-        </div>
-      </form>
-  
-      <div class="alert alert-success" *ngIf="isLoggedIn">
-        Connecté en tant que {{ role }}.
-      </div>
+<mat-card class="card card-container">
+  <h3>Connexion</h3>
+  <form
+    *ngIf="!isLoggedIn"
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <p>
+      <mat-form-field class="form-group">
+        <mat-label for="email">Adresse Mail</mat-label>
+        <input matInput 
+          type="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          #email="ngModel"
+        />
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="formSubmitted && email.invalid"> L'adresse mail est invalide </mat-error>
+      </mat-form-field>
+    </p>
+
+    
+
+    <p>
+      <mat-form-field class="form-group">
+        <mat-label for="password">Mot de passe</mat-label>
+        <input matInput
+          [type]="hide ? 'password' : 'text'"
+          class="form-control"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          minlength="6"
+          #password="ngModel"
+        />
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-error
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="formSubmitted && password.invalid"
+        >
+          <mat-label *ngIf="password.errors.required">Un mot de passe est requis</mat-label>
+          <mat-label *ngIf="password.errors.minlength">Le mot de passe doit avoir au moins 6 caractères</mat-label>
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <div class="form-group">
+      <button mat-raised-button (click)="formSubmitted = true" class="btn btn-primary btn-block">
+        Connexion
+      </button>
     </div>
-  </div>
+
+    <p>
+      <mat-label
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="f.submitted && isLoginFailed"
+      >
+        Connexion échouée
+      </mat-label>
+    </p>
+  </form>
+
+  <p>
+    <mat-label class="alert alert-success" *ngIf="isLoggedIn">
+      Connecté en tant que {{ role }}.
+    </mat-label>
+  </p>
+</mat-card>
