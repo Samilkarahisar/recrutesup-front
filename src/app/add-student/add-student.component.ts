@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-add-student',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddStudentComponent implements OnInit {
 
-  constructor() { }
+  form : any = {};
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
 
+  onSubmit(): void {
+    this.userService.createUser(this.form).subscribe(
+      
+    )
+  }
 }
