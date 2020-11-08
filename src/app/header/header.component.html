@@ -1,10 +1,19 @@
 <mat-toolbar color="primary">
    
-    <span>RecruteSup</span>
+    <button mat-icon-button routerLink="/">RecruteSup</button>
     <span class="example-spacer"></span>
     
 
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <a href="/login" class="nav-link" routerLink="login">Connexion</a>
+    <button *ngIf="!isLoggedIn" routerLink="login" mat-raised-button class="btn btn-primary btn-block" aria-label="Example icon-button with menu icon">
+      Connexion
     </button>
-  </mat-toolbar>
+    <div *ngIf="isLoggedIn">
+      <mat-label *ngIf="password.errors.required">{{ user.firstname }}</mat-label>
+      <button mat-icon-button routerLink="profil">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <button   (click)="logout()" mat-raised-button class="btn btn-primary btn-block" aria-label="Example icon-button with menu icon">
+        Déconnexion
+      </button>
+    </div>
+</mat-toolbar>
