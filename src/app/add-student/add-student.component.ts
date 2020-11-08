@@ -14,6 +14,8 @@ interface SchoolYear {
 export class AddStudentComponent implements OnInit {
 
   form : any = {};
+  isCreationFailed = false;
+  errorMessage = '';
   years: SchoolYear[] = [
     {value: '3A', viewValue: '3A'},
     {value: '4A', viewValue: '4A'},
@@ -28,10 +30,11 @@ export class AddStudentComponent implements OnInit {
   onSubmit(): void {
     this.userService.createStudent(this.form).subscribe(
       data => {
-
+        window.location.reload();
       },
       err => {
-        
+        this.errorMessage = err.error.message;        
+        this.isCreationFailed = true;
       }
     )
   }

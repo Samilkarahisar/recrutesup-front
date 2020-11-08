@@ -50,30 +50,30 @@
           </mat-form-field>
       </p>
 
-  <p>
-    <mat-form-field class="form-group">
-      <mat-label for="email">Adresse mail</mat-label>
-      <input
-        matInput 
-        type="email"
-        class="form-control"
-        name="email"
-        [(ngModel)]="form.email"
-        required
-        #email="ngModel"
-      />
-      <mat-icon matSuffix>mail</mat-icon>
-      <mat-error
-        class="alert alert-danger"
-        role="alert"
-        *ngIf="f.submitted && email.invalid"
-      >
-          Une adresse mail est requise
-      </mat-error>
-    </mat-form-field>
-  </p>
+    <p>
+      <mat-form-field class="form-group">
+        <mat-label for="email">Adresse mail</mat-label>
+        <input
+          matInput 
+          type="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          #email="ngModel"
+        />
+        <mat-icon matSuffix>mail</mat-icon>
+        <mat-error
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="f.submitted && email.invalid"
+        >
+            Une adresse mail est requise
+        </mat-error>
+      </mat-form-field>
+    </p>
 
-  <p>
+    <p>
       <mat-form-field class="form-group">
         <mat-label for="phone">Numéro de téléphone</mat-label>
         <input
@@ -118,5 +118,15 @@
         Valider
       </button>
     </div>
+
+    <p>
+      <mat-label
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="f.submitted && isCreationFailed"
+      >
+      Echec de l'ajout : {{ errorMessage }}
+      </mat-label>
+    </p>
   </form>
 </mat-card>
