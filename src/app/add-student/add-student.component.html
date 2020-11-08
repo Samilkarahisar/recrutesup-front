@@ -1,4 +1,3 @@
-<p>add-student works!</p>
 <mat-card class="card card-container">
   <h3>Ajouter Etudiant</h3>
   <form
@@ -92,15 +91,18 @@
     <p>
       <mat-form-field class="form-group">
         <mat-label for="schoolyear">Année scolaire</mat-label>
-        <input
+        <mat-select
           matInput 
           type="text"
           class="form-control"
           name="schoolyear"
           [(ngModel)]="form.schoolyear"
           required
-          #schoolyear="ngModel"
-        />
+          #schoolyear="ngModel">
+          <mat-option *ngFor="let year of years" [value]="year.value">
+            {{year.viewValue}}
+          </mat-option>
+        </mat-select>
         <mat-error
           class="alert alert-danger"
           role="alert"

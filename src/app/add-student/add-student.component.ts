@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { StudentService } from '../services/student.service';
+
+interface SchoolYear {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-add-student',
@@ -9,15 +14,25 @@ import { UserService } from '../services/user.service';
 export class AddStudentComponent implements OnInit {
 
   form : any = {};
+  years: SchoolYear[] = [
+    {value: '3A', viewValue: '3A'},
+    {value: '4A', viewValue: '4A'},
+    {value: '5A', viewValue: '5A'}
+  ];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: StudentService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    this.userService.createUser(this.form).subscribe(
-      
+    this.userService.createStudent(this.form).subscribe(
+      data => {
+
+      },
+      err => {
+        
+      }
     )
   }
 }
