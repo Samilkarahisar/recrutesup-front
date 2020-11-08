@@ -13,13 +13,15 @@ import { MaterialModule } from './material.module';
 import { LoginComponent } from './login/login.component';
 
 import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AddStudentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,120 @@
+<p>add-student works!</p>
+<mat-card class="card card-container">
+  <h3>Ajouter Etudiant</h3>
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+      <p>
+          <mat-form-field class="form-group">
+          <mat-label for="lastname">Nom</mat-label>
+          <input
+              matInput 
+              type="text"
+              class="form-control"
+              name="lastname"
+              [(ngModel)]="form.lastname"
+              required
+              #lastname="ngModel"
+          />
+          <mat-error
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && lastname.invalid"
+          >
+              Un nom est requis
+          </mat-error>
+          </mat-form-field>
+      </p>
+
+      <p>
+          <mat-form-field class="form-group">
+              <mat-label for="firstname">Prénom</mat-label>
+              <input
+              matInput 
+              type="text"
+              class="form-control"
+              name="firstname"
+              [(ngModel)]="form.firstname"
+              required
+              #firstname="ngModel"
+              />
+              <mat-error
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && firstname.invalid"
+              >
+                  Un prénom est requis
+              </mat-error>
+          </mat-form-field>
+      </p>
+
+  <p>
+    <mat-form-field class="form-group">
+      <mat-label for="email">Adresse mail</mat-label>
+      <input
+        matInput 
+        type="email"
+        class="form-control"
+        name="email"
+        [(ngModel)]="form.email"
+        required
+        #email="ngModel"
+      />
+      <mat-icon matSuffix>mail</mat-icon>
+      <mat-error
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="f.submitted && email.invalid"
+      >
+          Une adresse mail est requise
+      </mat-error>
+    </mat-form-field>
+  </p>
+
+  <p>
+      <mat-form-field class="form-group">
+        <mat-label for="phone">Numéro de téléphone</mat-label>
+        <input
+          matInput 
+          type="text"
+          class="form-control"
+          name="phone"
+          [(ngModel)]="form.phone"
+          #phone="ngModel"
+        />
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="form-group">
+        <mat-label for="schoolyear">Année scolaire</mat-label>
+        <input
+          matInput 
+          type="text"
+          class="form-control"
+          name="schoolyear"
+          [(ngModel)]="form.schoolyear"
+          required
+          #schoolyear="ngModel"
+        />
+        <mat-error
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="f.submitted && schoolyear.invalid"
+        >
+            Une année scolaire est requise
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <div class="form-group">
+      <button mat-raised-button class="btn btn-primary btn-block">
+        Valider
+      </button>
+    </div>
+  </form>
+</mat-card>
