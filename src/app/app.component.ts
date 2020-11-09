@@ -8,10 +8,7 @@ import { TokenStorageService } from './services/token-storage.service';
 })
 export class AppComponent implements OnInit {
   isLoggedIn = false;
-  showAdminBoard = false;
-  showCompanyBoard = false;
-  showStudentBoard = false;
-  username: string;
+  private user;
   private role: string;
 
   constructor(private tokenStorageService: TokenStorageService) { }
@@ -20,14 +17,8 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      
-      this.role = user.role;
-      this.showAdminBoard = this.role.includes('ADMIN');
-      this.showCompanyBoard = this.role.includes('COMPANY');
-      this.showStudentBoard = this.role.includes('STUDENT');
+      this.user = this.tokenStorageService.getUser();
 
-      this.username = user.username;
     }
   }
 

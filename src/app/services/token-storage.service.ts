@@ -14,6 +14,10 @@ export class TokenStorageService {
     window.sessionStorage.clear();
   }
 
+  isConnected(): Boolean {
+    return (this.getUser() != null);
+  }
+
   public saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
