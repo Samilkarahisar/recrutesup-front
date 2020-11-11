@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { AddStudentComponent } from './add-student/add-student.component';
+import { AddCompanyComponent } from './add-company/add-company.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AddStudentComponent } from './add-student/add-student.component';
     LoginComponent,
     HeaderComponent,
     FooterComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    AddCompanyComponent
   ],
   imports: [
     BrowserModule,
