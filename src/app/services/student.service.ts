@@ -76,7 +76,6 @@ export class StudentService {
   updateStudent(student): Observable<any> {
     return this.http.put(API, {
       id: student.id,
-      mailAddress: student.mailAddress,
       phoneNumber: student.phoneNumber,
       label: student.label,
       description: student.description,
