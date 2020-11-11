@@ -30,6 +30,7 @@ function DataURIToBlob(dataURI: string) {
 export class StudentService {
 
   constructor(private http: HttpClient) { }
+
   uploadProfileImage(id,file):Observable<any>{
     var formData = new FormData();
     const fileup = DataURIToBlob(file);
@@ -98,8 +99,7 @@ export class StudentService {
       id: student.id,
       phoneNumber: student.phoneNumber,
       label: student.label,
-      description: student.description,
-      labelPicture: student.labelPicture
+      description: student.description
     })
   }
 }
