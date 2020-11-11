@@ -86,7 +86,7 @@
     </p>
 
     <p>
-      <mat-form-field class="form-group">
+      <mat-form-field class="form-group" style="width:800px;">
         <mat-label for="label">Label</mat-label>
         <input
           matInput 
@@ -95,7 +95,11 @@
           name="label"
           [(ngModel)]="student.label"
           #label="ngModel"
+          maxlength="100"
         />
+      <mat-hint>
+        {{label.value.length}} / 100
+      </mat-hint>
       </mat-form-field>
     </p>
 
