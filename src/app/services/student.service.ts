@@ -68,4 +68,19 @@ export class StudentService {
     const body = {idUser, phoneNumber, label, description};
     return this.http.patch<Student>(API, body);
   }
+
+  getStudent(idUser): Observable<any> {
+    return this.http.get(`${API}/${idUser}`);
+  }
+
+  updateStudent(student): Observable<any> {
+    return this.http.put(API, {
+      id: student.id,
+      mailAddress: student.mailAddress,
+      phoneNumber: student.phoneNumber,
+      label: student.label,
+      description: student.description,
+      labelPicture: student.labelPicture
+    })
+  }
 }

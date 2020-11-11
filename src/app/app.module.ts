@@ -18,6 +18,7 @@ import { MaterialModule } from './material.module';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { errorInterceptorProviders } from './helpers/error.interceptor';
+import { StudentProfilComponent } from './profils/student-profil/student-profil.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { errorInterceptorProviders } from './helpers/error.interceptor';
     AddStudentComponent,
     AddCompanyComponent,
     AddEmployeeComponent,
-    DashboardComponent
+    DashboardComponent,
+    StudentProfilComponent,
   ],
   imports: [
     BrowserModule,
