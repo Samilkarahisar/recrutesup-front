@@ -5,6 +5,14 @@
     #f="ngForm"
     novalidate
   >
+
+  <p>
+    <mat-label>Photo</mat-label> <br><br>
+
+    <img *ngIf="profilPictureURL" [src]="profilPictureURL">
+
+    <input type="file" id="userFile" (change)="onSelectFile($event)">
+  </p>
     <p>
       <mat-form-field class="form-group">
         <mat-label for="lastname">Nom</mat-label>
@@ -120,13 +128,7 @@
     </p>
 
 
-    <p>
-      <mat-label>Photo</mat-label> <br><br>
-      <input type="file" id="userFile" (change)="onSelectFile($event)">
-    </p>
     
-    <img *ngIf="profilPicture" [src]="profilPicture">
-
     <div class="form-group">
       <button mat-raised-button class="btn btn-primary btn-block">
         Modifier
