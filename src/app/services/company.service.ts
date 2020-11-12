@@ -22,4 +22,18 @@ export class CompanyService {
       websiteUrl: company.url
     })
   }
+
+  getAllCompanies():Observable<any> {
+    return this.http.get(API + '/all');
+  }
+
+  createEmployee(employee): Observable<any> {
+    return this.http.post(API + '/employee', {
+      firstname: employee.firstname,
+      lastname: employee.lastname,
+      mailAddress: employee.email,
+      phoneNumber: employee.phone,
+      idCompany: employee.company
+    })
+  }
 }
