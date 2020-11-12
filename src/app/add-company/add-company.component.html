@@ -1,0 +1,84 @@
+<mat-card class="card card-container">
+    <h3>Ajouter Entreprise</h3>
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+        <p>
+            <mat-form-field class="form-group">
+            <mat-label for="name">Nom de l'entreprise</mat-label>
+            <input
+                matInput 
+                type="text"
+                class="form-control"
+                name="name"
+                [(ngModel)]="form.name"
+                required
+                #name="ngModel"
+            />
+            <mat-error
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && name.invalid"
+            >
+                Un nom est requis
+            </mat-error>
+            </mat-form-field>
+        </p>
+  
+      <p>
+        <mat-form-field class="form-group">
+          <mat-label for="email">Adresse mail de contact</mat-label>
+          <input
+            matInput 
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="form.email"
+            required
+            #email="ngModel"
+          />
+          <mat-icon matSuffix>mail</mat-icon>
+          <mat-error
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && email.invalid"
+          >
+              Une adresse mail est requise
+          </mat-error>
+        </mat-form-field>
+      </p>
+  
+      <p>
+        <mat-form-field class="form-group">
+          <mat-label for="url">URL de site internet</mat-label>
+          <input
+            matInput 
+            type="text"
+            class="form-control"
+            name="url"
+            [(ngModel)]="form.url"
+            #url="ngModel"
+          />
+        </mat-form-field>    
+      </p>
+  
+      <div class="form-group">
+        <button mat-raised-button class="btn btn-primary btn-block">
+          Valider
+        </button>
+      </div>
+  
+      <p>
+        <mat-label
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="f.submitted && isCreationFailed"
+        >
+        Echec de l'ajout : {{ errorMessage }}
+        </mat-label>
+      </p>
+    </form>
+  </mat-card>
