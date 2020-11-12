@@ -3,14 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddCompanyComponent } from './add-company/add-company.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AddStudentComponent } from './add-student/add-student.component';
+import { AuthGuard } from './helpers/auth.guard';
 
 import { LoginComponent } from './login/login.component';
+import { Role } from './models/Role';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'add-student', component: AddStudentComponent },
-  { path: 'add-company', component: AddCompanyComponent },
-  { path: 'add-employee', component: AddEmployeeComponent },
+  { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
+  { path: 'add-company', component: AddCompanyComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
+  { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 
