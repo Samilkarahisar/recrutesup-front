@@ -19,6 +19,9 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { errorInterceptorProviders } from './helpers/error.interceptor';
 import { StudentProfilComponent } from './profils/student-profil/student-profil.component';
+import { AdminProfilComponent } from './profils/admin-profil/admin-profil.component';
+import { CompanyProfilComponent } from './profils/company-profil/company-profil.component';
+import { EmployeeProfilComponent } from './profils/employee-profil/employee-profil.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { StudentProfilComponent } from './profils/student-profil/student-profil.
     AddEmployeeComponent,
     DashboardComponent,
     StudentProfilComponent,
+    AdminProfilComponent,
+    CompanyProfilComponent,
+    EmployeeProfilComponent,
   ],
   imports: [
     BrowserModule,
