@@ -8,21 +8,26 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn = false;
+  
   user;
 
   constructor(private router: Router, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-    if(this.isLoggedIn) {
+    this.getUserAndToken();
+  }
+
+  getUserAndToken(): boolean {
+    if(!!this.tokenStorageService.getToken()) {
       this.user = this.tokenStorageService.getUser();
+      return true;
     }
+    return false;
   }
 
   logout(): void {
     this.tokenStorageService.signOut();
-    this.isLoggedIn = false;
+    this.user = null;
     this.router.navigate(['/']);
   }
 

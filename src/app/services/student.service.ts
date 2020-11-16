@@ -24,4 +24,8 @@ export class StudentService {
       schoolYear: student.schoolyear
     })
   }
+
+  getAllStudents():Observable<any> {
+    return this.http.get(API + '/all');
+  }
 }

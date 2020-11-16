@@ -1,19 +1,18 @@
 <mat-toolbar color="primary">
-   
   <button mat-icon-button routerLink="/" style="margin-right: 100px;"><h1>RecruteSUP</h1></button>
-  <div *ngIf="isLoggedIn && user.role == 'ROLE_ADMIN'">
+  <div *ngIf="getUserAndToken() && user.role == 'ROLE_ADMIN'">
     <a mat-button [routerLink]="'/dashboard'"> Tableau de bord </a>
     <a mat-button [routerLink]="'/companies'"> Entreprises </a>
     <a mat-button [routerLink]="'/students'"> Etudiants </a>
     <a mat-button [routerLink]="'/offers'"> Offres </a>
   </div>
-  <div *ngIf="isLoggedIn && user.role == 'ROLE_COMPANY'">
+  <div *ngIf="getUserAndToken() && user.role == 'ROLE_COMPANY'">
     <a mat-button [routerLink]="'/dashboard'"> Tableau de bord </a>
     <a mat-button [routerLink]="'/students'"> Etudiants </a>
     <a mat-button [routerLink]="'/offers'"> Offres </a>
     <a mat-button [routerLink]="'/wishes'"> Voeux </a>
   </div>
-  <div *ngIf="isLoggedIn && user.role == 'ROLE_STUDENT'">
+  <div *ngIf="getUserAndToken() && user.role == 'ROLE_STUDENT'">
     <a mat-button [routerLink]="'/dashboard'"> Tableau de bord </a>
     <a mat-button [routerLink]="'/companies'"> Entreprises </a>
     <a mat-button [routerLink]="'/offers'"> Offres </a>
@@ -22,10 +21,10 @@
   
   <span class="example-spacer"></span>
 
-  <button *ngIf="!isLoggedIn" routerLink="login" mat-raised-button class="btn btn-primary btn-block" aria-label="Example icon-button with menu icon">
+  <button *ngIf="!getUserAndToken()" routerLink="login" mat-raised-button class="btn btn-primary btn-block" aria-label="Example icon-button with menu icon">
     Connexion
   </button>
-  <div *ngIf="isLoggedIn">
+  <div *ngIf="getUserAndToken()">
     <mat-label>{{ user.firstname + " " + user.lastname }}</mat-label>
     <button mat-icon-button routerLink="profil">
       <mat-icon>account_circle</mat-icon>
