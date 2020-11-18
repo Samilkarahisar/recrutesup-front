@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompanyService } from '../services/company.service';
+import { OfferService } from '../services/offer.service';
 import { StudentService } from '../services/student.service';
 import { TokenStorageService } from '../services/token-storage.service';
+import { WishService } from '../services/wish.service';
 
 
 @Component({
@@ -41,12 +43,24 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router,
               private tokenStorageService: TokenStorageService,
               private companyService: CompanyService,
-              private studentService: StudentService) { }
+              private studentService: StudentService,
+              private offerService: OfferService,
+              private wishService: WishService) { }
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
-    this.getCompanyStates();
-    this.getStudentStates();
+    if(this.user.role === "ROLE_ADMIN") {
+      this.getCompanyStates();
+      this.getStudentStates();
+      this.getOfferStates();
+      this.getWishStates();
+    } else if(this.user.role === "ROLE_COMPANY") {
+
+    } else if(this.user.role === "ROLE_STUDENT") {
+
+    }
+    
+    
   }
 
   getCompanyStates(): void {
@@ -73,6 +87,23 @@ export class DashboardComponent implements OnInit {
         
       }
     )
+  }
+
+  getOfferStates(): void {
+    this.offerService.getAllOffersLight().subscribe(
+      data => {
+        for(let offerDTO of data)  {
+          this.student_states.find(x => x.libelle === offerDTO.state).number++;
+        }
+      },
+      err => {
+        
+      }
+    )
+  }
+
+  getWishStates(): void {
+    // TODO
   }
 
   getTotal(list: Array<{libelle: string, number: number}>): Number {
