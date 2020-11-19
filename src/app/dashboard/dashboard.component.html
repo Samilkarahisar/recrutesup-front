@@ -1,0 +1,99 @@
+<mat-card class="card card-container">
+    <h3>Tableau de bord</h3>
+    <mat-accordion multi>
+        <mat-expansion-panel *ngIf="user.role == 'ROLE_ADMIN'">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ getTotal(company_states) }} Entreprises
+                </mat-panel-title>
+                <mat-panel-description>
+                    Etats des entreprises enregistrées
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
+                {{ getNumberFromState(company_states, "VALIDE") }} Entreprises Validées
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'">
+                {{ getNumberFromState(company_states, "ENREGISTRE") }} Entreprises Enregistrées
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'salmon'">
+                {{ getNumberFromState(company_states, "INVALIDE") }} Entreprises Invalides
+            </mat-card>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="card-expansion-panel" *ngIf="user.role == 'ROLE_ADMIN'">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ getTotal(student_states) }} Etudiants
+                </mat-panel-title>
+                <mat-panel-description>
+                    Etats des étudiants enregistrés
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
+                {{ getNumberFromState(student_states, "VALIDE") }} Etudiants Validés
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'">
+                {{ getNumberFromState(student_states, "ENREGISTRE") }} Etudiants Enregistrés
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'">
+                {{ getNumberFromState(student_states, "INDISPONIBLE") }} Etudiants Indisponibles
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'salmon'">
+                {{ getNumberFromState(student_states, "INVALIDE") }} Etudiants Invalides
+            </mat-card>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="card-expansion-panel" *ngIf="user.role == 'ROLE_ADMIN' || user.role == 'ROLE_COMPANY'">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ getTotal(offer_states) }} Offres
+                </mat-panel-title>
+                <mat-panel-description *ngIf="user.role == 'ROLE_ADMIN'">
+                    Etats des offres créées par les entreprises
+                </mat-panel-description>
+                <mat-panel-description *ngIf="user.role == 'ROLE_COMPANY'">
+                    Etats de vos offres
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
+                {{ getNumberFromState(offer_states, "DISPONIBLE") }} Offres Disponibles
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'">
+                {{ getNumberFromState(offer_states, "EN_VALIDATION") }} Offres En validation
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'" *ngIf="user.role == 'ROLE_COMPANY'">
+                {{ getNumberFromState(offer_states, "BROUILLON") }} Offres Brouillon
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'salmon'">
+                {{ getNumberFromState(offer_states, "INDISPONIBLE") }} Offres Indisponibles
+            </mat-card>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="card-expansion-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ getTotal(wish_states) }} Voeux
+                </mat-panel-title>
+                <mat-panel-description *ngIf="user.role == 'ROLE_ADMIN'">
+                    Etats des voeux des étudiants et entreprises
+                </mat-panel-description>
+                <mat-panel-description *ngIf="user.role != 'ROLE_ADMIN'">
+                    Etats de vos voeux 
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
+                {{ getNumberFromState(wish_states, "MEETING_ORGANISE") }} Meetings Organisés
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
+                {{ getNumberFromState(wish_states, "VALIDE") }} Voeux Validés
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'">
+                {{ getNumberFromState(wish_states, "TRANSMIS") }} Voeux Transmis
+            </mat-card>
+            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'salmon'">
+                {{ getNumberFromState(wish_states, "REFUSE") }} Voeux Refusés
+            </mat-card>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-card>
