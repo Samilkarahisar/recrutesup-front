@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddCompanyComponent } from './components/add-company/add-company.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { AddMeetingComponent } from './components/add-meeting/add-meeting/add-meeting.component';
+import { AddOfferComponent } from './add-offer/add-offer/add-offer.component';
 import { AddStudentComponent } from './components/add-student/add-student.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
   { path: 'add-company', component: AddCompanyComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
   { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
+  { path: 'add-offer', component: AddOfferComponent, canActivate: [AuthGuard], data: { roles: [Role.Company]} },
   { path: 'studentprofil', component: StudentProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Student]}  },
   { path: 'adminprofil', component: AdminProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}  },
   { path: 'employeeprofil', component: EmployeeProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Company]}  },

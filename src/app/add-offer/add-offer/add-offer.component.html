@@ -1,0 +1,132 @@
+<mat-card class="card card-container">
+    <h3>Ajouter Offre</h3>
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+        <p>
+            <mat-form-field class="form-group">
+            <mat-label for="label">Titre</mat-label>
+            <input
+                matInput 
+                type="text"
+                class="form-control"
+                name="label"
+                [(ngModel)]="form.label"
+                required
+                #label="ngModel"
+            />
+            <mat-error
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && label.invalid"
+            >
+                Un titre est requis
+            </mat-error>
+            </mat-form-field>
+        </p>
+  
+        <p>
+            <mat-form-field class="form-group">
+                <mat-label for="address">Adresse</mat-label>
+                <input
+                matInput 
+                type="text"
+                class="form-control"
+                name="address"
+                [(ngModel)]="form.address"
+                required
+                #address="ngModel"
+                />
+                <mat-error
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && address.invalid"
+                >
+                    Une adresse est requise
+                </mat-error>
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field class="form-group">
+                <mat-label for="city">Ville</mat-label>
+                <input
+                matInput 
+                type="text"
+                class="form-control"
+                name="city"
+                [(ngModel)]="form.city"
+                required
+                #city="ngModel"
+                />
+                <mat-error
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && city.invalid"
+                >
+                    Une ville est requise
+                </mat-error>
+            </mat-form-field>
+        </p>
+  
+      <p>
+        <mat-form-field class="form-group">
+          <mat-label for="email">Adresse mail de contact</mat-label>
+          <input
+            matInput 
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="form.email"
+            required
+            #email="ngModel"
+          />
+          <mat-icon matSuffix>mail</mat-icon>
+          <mat-error
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && email.invalid"
+          >
+              Une adresse mail est requise
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p class="form-group">
+        <mat-label for="description">Description</mat-label> <br>
+        <textarea id="clipboard-example-textarea"
+            cols="100"
+            rows="5"
+            class="form-control"
+            name="description"
+            [(ngModel)]="form.description"
+            #description="ngModel"
+            maxlength="500"
+            style="resize: 'none'"
+            value=""
+        >
+        </textarea>
+        <br> {{description.value? description.value.length: 0}} / 500<br>
+      </p>
+
+  
+      <div class="form-group">
+        <button mat-raised-button class="btn btn-primary btn-block">
+          Valider
+        </button>
+      </div>
+  
+      <p>
+        <mat-label
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="f.submitted && isCreationFailed"
+        >
+        Echec de l'ajout : {{ errorMessage }}
+        </mat-label>
+      </p>
+    </form>
+  </mat-card>
