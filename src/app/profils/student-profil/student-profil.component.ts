@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/student.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { ImageService } from 'src/app/services/image.service';
+import { NotifService } from 'src/app/services/notif.service';
 
 interface SchoolYear {
   value: string;
@@ -19,7 +20,6 @@ export class StudentProfilComponent implements OnInit {
   student = null;
   profilPicture = null;
   profilPictureURL = null;
-  errorMessage = '';
   years: SchoolYear[] = [
     {value: '3A', viewValue: '3A'},
     {value: '4A', viewValue: '4A'},
@@ -27,7 +27,11 @@ export class StudentProfilComponent implements OnInit {
   ];
   file = null;
 
-  constructor(private studentService: StudentService, private tokenStorage: TokenStorageService, private imageService: ImageService) { }
+  constructor(
+    private studentService: StudentService,
+    private tokenStorage: TokenStorageService,
+    private imageService: ImageService,
+    private notifService: NotifService) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -41,21 +45,24 @@ export class StudentProfilComponent implements OnInit {
           
         },
         err => {
-          this.errorMessage = err.error.message;
+          this.notifService.error('Erreur', err.error.message);
         }
       )
-
-
     }
   }
 
   onSubmit(): void {
-    this.studentService.updateStudent(this.student).subscribe(
+    this.studentService.updateStudent(
+      this.student.id,
+      this.student.phoneNumber,
+      this.student.label,
+      this.student.description
+      ).subscribe(
       data => {
-        window.location.reload();
+        this.notifService.success('Profil à jour', '');
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.notifService.error('Erreur Mise à jour', err.error.message);
       }
     )
   }

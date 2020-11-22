@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
+import { NotifService } from 'src/app/services/notif.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
@@ -11,21 +12,23 @@ export class AdminProfilComponent implements OnInit {
 
   id;
   admin = null;
-  errorMessage = '';
 
-  constructor(private adminService: AdminService, private tokenStorage: TokenStorageService) { }
+  constructor(
+    private adminService: AdminService,
+    private tokenStorage: TokenStorageService, 
+    private notifService: NotifService) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.id = this.tokenStorage.getUser().id;
 
       this.adminService.getAdmin(this.id).subscribe(
-        data => {
-          this.admin = data;
+        admin => {
+          this.admin = admin;
           this.admin.id = this.id;          
         },
         err => {
-          this.errorMessage = err.error.message;
+          this.notifService.error('Erreur', err.error.message);
         }
       )
     }
@@ -34,10 +37,10 @@ export class AdminProfilComponent implements OnInit {
   onSubmit(): void {
     this.adminService.updateAdmin(this.admin).subscribe(
       data => {
-        window.location.reload();
+        this.notifService.success('Profil à jour', '');
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.notifService.error('Erreur Mise à jour', err.error.message);
       }
     )
   }

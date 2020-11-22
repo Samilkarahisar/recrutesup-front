@@ -1,7 +1,7 @@
 <mat-card class="card card-container">
     <h3>Profil Admin</h3>
     <form
-      *ngIf="admin"
+      *ngIf="admin != null"
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
       novalidate

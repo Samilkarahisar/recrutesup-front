@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
+import { NotifService } from 'src/app/services/notif.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
@@ -11,9 +12,11 @@ export class EmployeeProfilComponent implements OnInit {
 
   id;
   employee = null;
-  errorMessage = '';
 
-  constructor(private companyService: CompanyService, private tokenStorage: TokenStorageService) { }
+  constructor(
+    private companyService: CompanyService,
+    private tokenStorage: TokenStorageService,
+    private notifService: NotifService) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -25,19 +28,22 @@ export class EmployeeProfilComponent implements OnInit {
           this.employee.id = this.id;          
         },
         err => {
-          this.errorMessage = err.error.message;
+          this.notifService.error('Erreur', err.error.message);
         }
       )
     }
   }
 
   onSubmit(): void {
-    this.companyService.updateEmployee(this.employee).subscribe(
+    this.companyService.updateEmployee(
+      this.employee.id,
+      this.employee.phoneNumber
+    ).subscribe(
       data => {
-        window.location.reload();
+        this.notifService.success('Profil à jour', '');
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.notifService.error('Erreur Mise à jour', err.error.message);
       }
     )
   }
