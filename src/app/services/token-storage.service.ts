@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../models/user';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -28,12 +29,12 @@ export class TokenStorageService {
     return localStorage.getItem(TOKEN_KEY);
   }
 
-  public saveUser(user): void {
+  public saveUser(user: User): void {
     window.localStorage.removeItem(USER_KEY);
     window.localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
-  public getUser(): any {
+  public getUser(): User {
     return JSON.parse(localStorage.getItem(USER_KEY));
   }
 }

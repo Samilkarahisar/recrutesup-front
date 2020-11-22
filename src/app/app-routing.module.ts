@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddCompanyComponent } from './add-company/add-company.component';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
-import { AddStudentComponent } from './add-student/add-student.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddCompanyComponent } from './components/add-company/add-company.component';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { AddStudentComponent } from './components/add-student/add-student.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './components/login/login.component';
+import { Role } from './constants/role';
 import { AuthGuard } from './helpers/auth.guard';
-
-import { LoginComponent } from './login/login.component';
-import { Role } from './models/Role';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

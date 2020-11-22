@@ -1,9 +1,10 @@
-import { HTTP_INTERCEPTORS, HttpEvent } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
 import { TokenStorageService } from '../services/token-storage.service';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 

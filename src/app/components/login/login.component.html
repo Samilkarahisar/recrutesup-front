@@ -1,7 +1,6 @@
 <mat-card class="card card-container">
   <h3>Connexion</h3>
   <form
-    *ngIf="!isLoggedIn"
     name="form"
     (ngSubmit)="f.form.valid && onSubmit()"
     #f="ngForm"
@@ -19,7 +18,7 @@
           #email="ngModel"
         />
         <mat-icon matSuffix>person</mat-icon>
-        <mat-error *ngIf="formSubmitted && email.invalid"> L'adresse mail est invalide </mat-error>
+        <mat-error *ngIf="f.submitted && email.invalid"> L'adresse mail est invalide </mat-error>
       </mat-form-field>
     </p>
 
@@ -41,7 +40,7 @@
         <mat-error
           class="alert alert-danger"
           role="alert"
-          *ngIf="formSubmitted && password.invalid"
+          *ngIf="f.submitted && password.invalid"
         >
           <mat-label *ngIf="password.errors.required">Un mot de passe est requis</mat-label>
           <mat-label *ngIf="password.errors.minlength">Le mot de passe doit avoir au moins 6 caractères</mat-label>
@@ -50,25 +49,9 @@
     </p>
 
     <div class="form-group">
-      <button mat-raised-button (click)="formSubmitted = true" class="btn btn-primary btn-block">
+      <button mat-raised-button class="btn btn-primary btn-block">
         Connexion
       </button>
     </div>
-
-    <p>
-      <mat-label
-        class="alert alert-danger"
-        role="alert"
-        *ngIf="f.submitted && isLoginFailed"
-      >
-        Connexion échouée
-      </mat-label>
-    </p>
   </form>
-
-  <p>
-    <mat-label class="alert alert-success" *ngIf="isLoggedIn">
-      Connecté en tant que {{ role }}.
-    </mat-label>
-  </p>
 </mat-card>
