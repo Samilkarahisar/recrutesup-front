@@ -15,11 +15,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(credentials): Observable<any> {
-    return this.http.post(AUTH_API + 'signin', {
-      mailAddress: credentials.email,
-      password: credentials.password
-    }, httpOptions);
+  login(
+    mailAddress: string,
+    password: string
+  ): Observable<any> {
+    const body = {mailAddress, password}
+    return this.http.post(AUTH_API + 'signin', body, httpOptions);
   }
 
 }

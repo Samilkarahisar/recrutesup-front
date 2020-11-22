@@ -2,7 +2,7 @@
   <h3>Ajouter Etudiant</h3>
   <form
     name="form"
-    (ngSubmit)="f.form.valid && onSubmit()"
+    (ngSubmit)="f.form.valid && onSubmit(f)"
     #f="ngForm"
     novalidate
   >
@@ -118,15 +118,5 @@
         Valider
       </button>
     </div>
-
-    <p>
-      <mat-label
-        class="alert alert-danger"
-        role="alert"
-        *ngIf="f.submitted && isCreationFailed"
-      >
-      Echec de l'ajout : {{ errorMessage }}
-      </mat-label>
-    </p>
   </form>
 </mat-card>

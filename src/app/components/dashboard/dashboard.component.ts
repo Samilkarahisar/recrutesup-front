@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CompanyService } from '../services/company.service';
-import { OfferService } from '../services/offer.service';
-import { StudentService } from '../services/student.service';
-import { TokenStorageService } from '../services/token-storage.service';
-import { WishService } from '../services/wish.service';
-
+import { User } from 'src/app/models/user';
+import { CompanyService } from 'src/app/services/company.service';
+import { NotifService } from 'src/app/services/notif.service';
+import { OfferService } from 'src/app/services/offer.service';
+import { StudentService } from 'src/app/services/student.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { WishService } from 'src/app/services/wish.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,18 +15,20 @@ import { WishService } from '../services/wish.service';
 })
 export class DashboardComponent implements OnInit {
 
-  user;
+  user: User;
   company_states: Array<{libelle: string, number: number}> = [
     {libelle: "ENREGISTRE", number: 0},
     {libelle: "VALIDE", number: 0},
     {libelle: "INVALIDE", number: 0},
   ];
+  
   student_states: Array<{libelle: string, number: number}> = [
     {libelle: "ENREGISTRE", number: 0},
     {libelle: "VALIDE", number: 0},
     {libelle: "INVALIDE", number: 0},
     {libelle: "INDISPONIBLE", number: 0},
   ];
+
   offer_states: Array<{libelle: string, number: number}> = [
     {libelle: "INDISPONIBLE", number: 0},
     {libelle: "BROUILLON", number: 0},
@@ -33,6 +36,7 @@ export class DashboardComponent implements OnInit {
     {libelle: "DISPONIBLE", number: 0},
     {libelle: "SUPPRIME", number: 0},
   ];
+
   wish_states: Array<{libelle: string, number: number}> = [
     {libelle: "VALIDE", number: 0},
     {libelle: "TRANSMIS", number: 0},
@@ -45,7 +49,8 @@ export class DashboardComponent implements OnInit {
               private companyService: CompanyService,
               private studentService: StudentService,
               private offerService: OfferService,
-              private wishService: WishService) { }
+              private wishService: WishService,
+              private notifService: NotifService) { }
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
@@ -59,8 +64,6 @@ export class DashboardComponent implements OnInit {
     } else if(this.user.role === "ROLE_STUDENT") {
 
     }
-    
-    
   }
 
   getCompanyStates(): void {
@@ -71,7 +74,7 @@ export class DashboardComponent implements OnInit {
         }
       },
       err => {
-
+        this.notifService.permanentError('Erreur', err.error.message);
       }
     )
   }
@@ -84,7 +87,7 @@ export class DashboardComponent implements OnInit {
         }
       },
       err => {
-        
+        this.notifService.permanentError('Erreur', err.error.message);
       }
     )
   }
@@ -93,11 +96,11 @@ export class DashboardComponent implements OnInit {
     this.offerService.getAllOffersLight().subscribe(
       data => {
         for(let offerDTO of data)  {
-          this.student_states.find(x => x.libelle === offerDTO.state).number++;
+          this.offer_states.find(x => x.libelle === offerDTO.state).number++;
         }
       },
       err => {
-        
+        this.notifService.permanentError('Erreur', err.error.message);
       }
     )
   }
@@ -115,7 +118,7 @@ export class DashboardComponent implements OnInit {
     return count;
   }
 
-  getNumberFromState(list: Array<{libelle: string, number: number}>, state: String): Number {
+  getNumberFromState(list: Array<{libelle: string, number: number}>, state: string): Number {
     return list.find(x => x.libelle === state).number;
   }
 
