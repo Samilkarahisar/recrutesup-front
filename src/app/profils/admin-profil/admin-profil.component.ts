@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin.service';
 import { NotifService } from 'src/app/services/notif.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -34,8 +35,13 @@ export class AdminProfilComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    this.adminService.updateAdmin(this.admin).subscribe(
+  onSubmit(f: NgForm): void {
+    this.adminService.updateAdmin(
+      this.admin.id,
+      this.admin.lastname,
+      this.admin.firstname,
+      this.admin.phone
+      ).subscribe(
       data => {
         this.notifService.success('Profil à jour', '');
       },
