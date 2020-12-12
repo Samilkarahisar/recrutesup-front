@@ -1,12 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Offer } from '../models/offer';
 
 const API = 'http://localhost:8080/offer';
 
-const apiGetAllOffersLight: string = '/list';
-const apiGetAllOffers: string = '/all';
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,44 @@ const apiGetAllOffers: string = '/all';
 export class OfferService {
 
   constructor(private http: HttpClient) { }
+
+  /**
+   * Récupérer une offre
+   * @param idOffer 
+   */
+  getOffer(idOffer: number): Observable<Offer> {
+    return this.http.get<Offer>(API + '/' + idOffer, httpOptions);
+  }
+
+  /**
+   * Récupérer toutes les offres
+   */
+  getAllOffers(): Observable<Offer[]> {
+    return this.http.get<Offer[]>(API + '/all', httpOptions);
+  }
+
+  /**
+   * Récupérer toutes les offres par entreprise
+   * @param idCompany 
+   */
+  getAllOffersByCompany(idCompany: number): Observable<Offer[]> {
+    return this.http.get<Offer[]>(API + '/all/' + idCompany, httpOptions);
+  }
+
+  /**
+   * Récupérer toutes les offres en objets légers
+   */
+  getAllOffersLight(): Observable<Offer[]> {
+    return this.http.get<Offer[]>(API + '/light/all', httpOptions);
+  }
+
+  /**
+   * Récupérer toutes les offres par entreprise, en objets légers
+   * @param idCompany 
+   */
+  getAllOfferLightByCompany(idCompany: number): Observable<Offer[]> {
+    return this.http.get<Offer[]>(API + '/light/all/' + idCompany, httpOptions);
+  }
 
   /**
    * Créer une offre
@@ -35,37 +74,7 @@ export class OfferService {
     userId: number
   ): Observable<Offer> {
     const body =  {label, description, address, city, mailAddress, attachmentNamesList, userId};
-    return this.http.post<Offer>(API, body);
-  }
-
-  /**
-   * Récupérer une offre
-   * @param idOffer 
-   */
-  getOffer(idOffer: number): Observable<Offer> {
-    return this.http.get<Offer>(API + '/' + idOffer);
-  }
-
-  /**
-   * Récupérer toutes les offres
-   */
-  getAllOffers(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(API + apiGetAllOffers);
-  }
-
-  /**
-   * Récupérer toutes les offres en objets légers
-   */
-  getAllOffersLight(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(API + apiGetAllOffersLight);
-  }
-
-  /**
-   * Récupérer toutes les offres en objets légers pour une entreprise
-   * @param idCompany 
-   */
-  getAllOffersByCompanyLight(idCompany): Observable<Offer[]> {
-    return this.http.get<Offer[]>(API + '/allByCompany/' + idCompany + '/list');
+    return this.http.post<Offer>(API, body, httpOptions);
   }
 
   /**
@@ -77,6 +86,7 @@ export class OfferService {
    * @param city 
    * @param mailAddress 
    * @param attachmentNamesList 
+   * @param userId
    */
   updateOffer(
     idOffer: number,
@@ -86,9 +96,10 @@ export class OfferService {
     city: string,
     mailAddress: string,
     attachmentNamesList: string[],
+    userId: number
   ): Observable<Offer> {
-    const body =  {idOffer, label, description, address, city, mailAddress, attachmentNamesList};
-    return this.http.patch<Offer>(API, body);
+    const body =  {label, description, address, city, mailAddress, attachmentNamesList, userId};
+    return this.http.patch<Offer>(API + '/' + idOffer, body, httpOptions);
   }
 
   /**
@@ -96,7 +107,7 @@ export class OfferService {
    * @param idOffer 
    */
   deleteOffer(idOffer: number) {
-    return this.http.delete<Offer>(API + '/' + idOffer);
+    return this.http.delete<Offer>(API + '/' + idOffer, httpOptions);
   }
 
 }

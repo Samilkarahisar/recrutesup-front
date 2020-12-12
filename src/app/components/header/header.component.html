@@ -26,8 +26,17 @@
   </button>
   <div *ngIf="getUserAndToken()">
     <mat-label>{{ user.firstname + " " + user.lastname }}</mat-label>
-    <button mat-icon-button routerLink="profil">
+    <button mat-icon-button *ngIf="user.role == 'ROLE_STUDENT'" routerLink="studentprofil">
       <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="user.role == 'ROLE_COMPANY'" routerLink="employeeprofil">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="adminprofil">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button *ngIf="user.role == 'ROLE_COMPANY'" mat-icon-button routerLink="companyprofil">
+      <mat-icon>business</mat-icon>
     </button>
     <button   (click)="logout()" mat-raised-button class="btn btn-primary btn-block" aria-label="Example icon-button with menu icon">
       Déconnexion

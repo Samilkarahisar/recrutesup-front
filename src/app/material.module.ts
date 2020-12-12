@@ -10,6 +10,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {TextFieldModule} from '@angular/cdk/text-field';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatSelectModule,
     MatExpansionModule,
     MatBadgeModule,
+    MatGridListModule,
+    TextFieldModule,
   ],
   exports: [
     MatToolbarModule,
@@ -35,6 +39,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatSelectModule,
     MatExpansionModule,
     MatBadgeModule,
+    MatGridListModule,
+    TextFieldModule,
   ]
 })
 export class MaterialModule {}

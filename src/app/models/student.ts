@@ -1,3 +1,6 @@
+import { Attachment } from './attachment';
+import { Wish } from './wish';
+
 export class Student {
     id: number;
     firstname: string;
@@ -8,4 +11,7 @@ export class Student {
     label: string;
     description: string;
     state: string;
+    wishesSended: Wish[];
+    wishesReceived: Wish[];
+    attachments: Attachment[];
 }

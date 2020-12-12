@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.form.password
         ).subscribe(
         user => {
-          this.tokenStorage.saveToken(user.accessToken);
+          this.tokenStorage.saveToken(user.token);
           this.tokenStorage.saveUser(user);
           this.notifService.success('Connecté', 'vous êtes connectés');
           this.router.navigate(['/']);

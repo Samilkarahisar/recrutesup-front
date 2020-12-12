@@ -1,4 +1,5 @@
 import { Attachment } from './attachment';
+import { Wish } from './wish';
 
 export class Offer {
     id: number;
@@ -11,7 +12,8 @@ export class Offer {
     userFirstname: string;
     userLastname: string;
     state: string;
-    idCompany: string;
-    attachmentList: Attachment[];
-
+    companyId: number;
+    companyName: string;
+    attachments: Attachment[];
+    wishes: Wish[];
 }

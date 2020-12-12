@@ -36,8 +36,10 @@ export class AddStudentComponent implements OnInit {
       this.form.firstname,
       this.form.lastname,
       this.form.email,
+      this.form.schoolyear,
       this.form.phone,
-      this.form.schoolyear
+      this.form.label,
+      this.form.description
       ).subscribe(
       student => {
         f.resetForm();

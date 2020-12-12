@@ -6,12 +6,6 @@ import { Employee } from '../models/employee';
 
 const API = 'http://localhost:8080/company';
 
-const apiCreateEmployee: string = '/employee';
-const apiGetAllCompanies: string = '/all';
-const apiGetAllEmployees: string = '/employee/all';
-const apiGetEmployee: string = '/employee/';
-const apiUpdateEmlpoyee: string = '/employee';
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -25,6 +19,40 @@ export class CompanyService {
 
 
   /**
+   * Récupérer toutes les entreprises
+   */
+  getAllCompanies(): Observable<Company[]> {
+    return this.http.get<Company[]>(API + '/all', httpOptions);
+  }
+
+  /**
+   * Récupérer une entreprise
+   * @param idCompany
+   */
+  getCompany(idCompany: number): Observable<Company> {
+    return this.http.get<Company>(API + '/' + idCompany, httpOptions);
+  }
+
+  /**
+   * Mettre à jour une entreprise
+   * @param idCompany
+   * @param name
+   * @param mailAddress 
+   * @param websiteUrl 
+   * @param description 
+   */
+  updateCompany(
+    idCompany: number,
+    name: string,
+    mailAddress: string,
+    websiteUrl: string,
+    description: string
+  ): Observable<Company> {
+    const body = {name, mailAddress, websiteUrl, description};
+    return this.http.patch<Company>(API + '/' + idCompany, body, httpOptions);
+  }
+
+  /**
    * Créer une entreprise
    * @param name 
    * @param mailAddress 
@@ -36,7 +64,55 @@ export class CompanyService {
     websiteUrl: string
     ): Observable<Company> {
     const body =  {name, mailAddress, websiteUrl};
-    return this.http.post<Company>(API, body);
+    return this.http.post<Company>(API, body, httpOptions);
+  }
+
+
+  // EMPLOYEE
+
+
+  /**
+   * Récupérer tous les employés
+   */
+  getAllEmployees(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(API + '/employee/all', httpOptions);
+  }
+
+  /**
+   * Récupèrer tous les employés d'une entreprise
+   * @param idCompany 
+   */
+  getAllEmployeesByCompany(idCompany: number) : Observable<Employee[]> {
+    return this.http.get<Employee[]>(API + '/employee/all/' + idCompany, httpOptions);
+  }
+
+  /**
+   * Récupérer un employé
+   * @param idUser 
+   */
+  getEmployee(idUser: number): Observable<Employee> {
+    return this.http.get<Employee>(API + '/employee/' + idUser, httpOptions);
+  }
+
+  /**
+   * Mettre à jour un employé
+   * @param idUser
+   * @param firstname
+   * @param lastname
+   * @param mailAddress
+   * @param phoneNumber
+   * @param idCompany 
+   */
+  updateEmployee(
+    idUser: number,
+    firstname: string,
+    lastname: string,
+    mailAddress: string,
+    phoneNumber: string,
+    idCompany: number
+  ): Observable<Employee> {
+    const body = {firstname, lastname, mailAddress, phoneNumber, idCompany};
+    return this.http.patch<Employee>(API + '/employee/' + idUser, body, httpOptions);
   }
 
   /**
@@ -55,65 +131,6 @@ export class CompanyService {
     idCompany: number
     ): Observable<Employee> {
     const body = {firstname, lastname, mailAddress, phoneNumber, idCompany};
-    return this.http.post<Employee>(API + apiCreateEmployee, body);
+    return this.http.post<Employee>(API + '/employee', body, httpOptions);
   }
-
-  /**
-   * Récupérer toutes les entreprises
-   */
-  getAllCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>(API + apiGetAllCompanies);
-  }
-
-  /**
-   * Récupérer tous les employés
-   */
-  getAllEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(API + apiGetAllEmployees);
-  }
-
-  /**
-   * Récupérer une entreprise
-   * @param idCompany
-   */
-  getCompany(idCompany: number): Observable<Company> {
-    return this.http.get<Company>(API + '/' + idCompany);
-  }
-
-  /**
-   * Récupérer un employé
-   * @param idUser 
-   */
-  getEmployee(idUser: number): Observable<Employee> {
-    return this.http.get<Employee>(API + apiGetEmployee + idUser);
-  }
-
-  /**
-   * Mettre à jour une entreprise
-   * @param mailAddress 
-   * @param websiteUrl 
-   * @param description 
-   */
-  updateCompany(
-    idCompany: number,
-    mailAddress: string,
-    websiteUrl: string,
-    description: string
-  ): Observable<Company> {
-    const body = {idCompany, mailAddress, websiteUrl, description};
-    return this.http.patch<Company>(API, body);
-  }
-
-  /**
-   * Mettre à jour un employé
-   * @param phoneNumber 
-   */
-  updateEmployee(
-    idUser: number,
-    phoneNumber: string
-  ): Observable<Employee> {
-    const body = {idUser, phoneNumber};
-    return this.http.patch<Employee>(API + apiUpdateEmlpoyee, body);
-  }
-
 }

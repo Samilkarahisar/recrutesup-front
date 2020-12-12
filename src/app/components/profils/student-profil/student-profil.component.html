@@ -1,0 +1,140 @@
+<mat-card class="card card-container">
+  <h3>Profil Etudiant</h3>
+  <form
+    *ngIf="student != null"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+
+  <p>
+    <mat-label>Photo</mat-label> <br><br>
+    <img *ngIf="profilPictureURL" [src]="profilPictureURL"><br>
+    <input type="file" id="userFile" (change)="onSelectFile($event)">
+  </p>
+
+    <p>
+      <mat-form-field class="form-group">
+        <mat-label for="lastname">Nom</mat-label>
+        <input
+            matInput 
+            disabled
+            type="text"
+            class="form-control"
+            name="lastname"
+            [(ngModel)]="student.lastname"
+            required
+            #lastname="ngModel"
+        />
+      </mat-form-field>
+    </p>
+
+    <div class="state-class">
+      Etat : {{ getLabelFromState() }}
+    </div>
+
+    <p>
+      <mat-form-field class="form-group">
+          <mat-label for="firstname">Prénom</mat-label>
+          <input
+          matInput 
+          disabled
+          type="text"
+          class="form-control"
+          name="firstname"
+          [(ngModel)]="student.firstname"
+          required
+          #firstname="ngModel"
+          />
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="form-group">
+        <mat-label for="email">Adresse mail</mat-label>
+        <input
+          matInput 
+          disabled
+          type="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="student.mailAddress"
+          required
+          #email="ngModel"
+        />
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="form-group">
+        <mat-label for="schoolyear">Année scolaire</mat-label>
+        <input
+            matInput 
+            disabled
+            type="text"
+            class="form-control"
+            name="schoolyear"
+            [(ngModel)]="student.schoolYear"
+            required
+            #schoolyear="ngModel"
+            />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="form-group">
+        <mat-label for="phone">Numéro de téléphone</mat-label>
+        <input
+          matInput 
+          type="text"
+          class="form-control"
+          name="phone"
+          [(ngModel)]="student.phoneNumber"
+          maxlength="10"
+          #phone="ngModel"
+        />
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="form-group" style="width:800px;">
+        <mat-label for="label">Label</mat-label>
+        <input
+          matInput 
+          type="text"
+          class="form-control"
+          name="label"
+          [(ngModel)]="student.label"
+          #label="ngModel"
+          maxlength="100"
+        />
+      <mat-hint *ngIf="label.value">
+        {{label.value.length}} / 100
+      </mat-hint>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-label for="description">Description</mat-label> <br>
+      <textarea id="clipboard-example-textarea"
+        cols="103"
+        rows="5"
+        class="form-control"
+        name="description"
+        [(ngModel)]="student.description"
+        #description="ngModel"
+        maxlength="500"
+        style="resize: 'none'"
+      >
+      </textarea>
+      <br><div *ngIf="description.value">{{description.value.length}} / 500</div><br>
+    </p>
+    
+    <div class="form-group">
+      <button mat-raised-button class="btn btn-primary btn-block">
+        Modifier
+      </button>
+    </div>
+  </form>
+</mat-card>
