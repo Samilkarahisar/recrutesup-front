@@ -4,6 +4,6 @@ export class User {
     lastname: string;
     mailAddress: string;
     role: string;
-    accessToken: string;
+    token: string;
     tokenType: string;
 }

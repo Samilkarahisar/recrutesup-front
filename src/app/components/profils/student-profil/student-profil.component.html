@@ -29,6 +29,10 @@
       </mat-form-field>
     </p>
 
+    <div class="state-class">
+      Etat : {{ getLabelFromState() }}
+    </div>
+
     <p>
       <mat-form-field class="form-group">
           <mat-label for="firstname">Prénom</mat-label>
@@ -126,8 +130,6 @@
       </textarea>
       <br><div *ngIf="description.value">{{description.value.length}} / 500</div><br>
     </p>
-
-
     
     <div class="form-group">
       <button mat-raised-button class="btn btn-primary btn-block">

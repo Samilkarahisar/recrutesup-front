@@ -1,4 +1,7 @@
 export class Admin {
     id: number;
-    label: string;
+    firstname: string;
+    lastname: string;
+    mailAddress: string;
+    phoneNumber: string;
 }

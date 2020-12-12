@@ -5,5 +5,5 @@ export class Employee {
     mailAddress: string;
     phoneNumber: string;
     idCompany: number;
-    nameCompany: string;
+    companyName: string;
 }

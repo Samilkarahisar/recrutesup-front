@@ -21,23 +21,32 @@ export class AdminService {
    * @param idUser 
    */
   getAdmin(idUser: number): Observable<Admin> {
-    return this.http.get<Admin>(`${API}/${idUser}`);
+    return this.http.get<Admin>(`${API}/${idUser}`, httpOptions);
+  }
+
+  /**
+   * Récupèrer tous les admins
+   */
+  getAllAdmins(): Observable<Admin[]> {
+    return this.http.get<Admin[]>(`${API}/all`, httpOptions);
   }
 
   /**
    * Mettre à jour un admin
-   * @param id 
-   * @param lastname 
+   * @param idUser 
    * @param firstname 
+   * @param lastname 
+   * @param mailAddress
    * @param phoneNumber 
    */
   updateAdmin(
-    id: number,
-    lastname: string,
+    idUser: number,
     firstname: string,
+    lastname: string,
+    mailAddress: string,
     phoneNumber: string
   ): Observable<Admin> {
-    const body = {id, lastname, firstname, phoneNumber};
-    return this.http.patch<Admin>(API, body);
+    const body = {firstname, lastname, mailAddress, phoneNumber};
+    return this.http.patch<Admin>(API + '/' + idUser, body, httpOptions);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Admin } from 'src/app/models/admin';
 import { AdminService } from 'src/app/services/admin.service';
 import { NotifService } from 'src/app/services/notif.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -11,8 +12,8 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 })
 export class AdminProfilComponent implements OnInit {
 
-  id;
-  admin = null;
+  idUser;
+  admin: Admin = null;
 
   constructor(
     private adminService: AdminService,
@@ -21,12 +22,12 @@ export class AdminProfilComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
-      this.id = this.tokenStorage.getUser().id;
+      this.idUser = this.tokenStorage.getUser().id;
 
-      this.adminService.getAdmin(this.id).subscribe(
+      this.adminService.getAdmin(this.idUser).subscribe(
         admin => {
           this.admin = admin;
-          this.admin.id = this.id;          
+          this.admin.id = this.idUser;          
         },
         err => {
           this.notifService.error('Erreur', err.error.message);
@@ -38,16 +39,17 @@ export class AdminProfilComponent implements OnInit {
   onSubmit(f: NgForm): void {
     this.adminService.updateAdmin(
       this.admin.id,
-      this.admin.lastname,
       this.admin.firstname,
-      this.admin.phone
+      this.admin.lastname,
+      this.admin.mailAddress,
+      this.admin.phoneNumber
       ).subscribe(
-      data => {
-        this.notifService.success('Profil à jour', '');
-      },
-      err => {
-        this.notifService.error('Erreur Mise à jour', err.error.message);
-      }
+        data => {
+          this.notifService.success('Profil à jour', '');
+        },
+        err => {
+          this.notifService.error('Erreur Mise à jour', err.error.message);
+        }
     )
   }
 }

@@ -3,6 +3,8 @@ import { StudentService } from 'src/app/services/student.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { ImageService } from 'src/app/services/image.service';
 import { NotifService } from 'src/app/services/notif.service';
+import { Student } from 'src/app/models/student';
+import { WorkflowState } from 'src/app/constants/workflowState';
 
 interface SchoolYear {
   value: string;
@@ -16,8 +18,9 @@ interface SchoolYear {
 })
 export class StudentProfilComponent implements OnInit {
 
-  id;
-  student = null;
+  idUser;
+  student: Student = null;
+
   profilPicture = null;
   profilPictureURL = null;
   years: SchoolYear[] = [
@@ -35,13 +38,13 @@ export class StudentProfilComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
-      this.id = this.tokenStorage.getUser().id;
+      this.idUser = this.tokenStorage.getUser().id;
 
-      this.studentService.getStudent(this.id).subscribe(
+      this.studentService.getStudent(this.idUser).subscribe(
         data => {
           this.student = data;
-          this.student.id = this.id;
-          this.profilPictureURL = this.imageService.getImageById(this.id);
+          this.student.id = this.idUser;
+          this.profilPictureURL = this.imageService.getImageById(this.idUser);
           
         },
         err => {
@@ -54,6 +57,10 @@ export class StudentProfilComponent implements OnInit {
   onSubmit(): void {
     this.studentService.updateStudent(
       this.student.id,
+      this.student.firstname,
+      this.student.lastname,
+      this.student.mailAddress,
+      this.student.schoolYear,
       this.student.phoneNumber,
       this.student.label,
       this.student.description
@@ -65,6 +72,10 @@ export class StudentProfilComponent implements OnInit {
         this.notifService.error('Erreur Mise à jour', err.error.message);
       }
     )
+  }
+
+  getLabelFromState() : string {
+    return WorkflowState.find(x => x.variable === this.student.state).label;
   }
 
   onSelectFile(event) {
@@ -81,7 +92,7 @@ export class StudentProfilComponent implements OnInit {
     reader.onload = (event: any) => {
       this.profilPicture = event.target.result;
       console.log(this.profilPicture);
-      this.studentService.uploadProfileImage(this.id,this.profilPicture).subscribe(
+      this.studentService.uploadProfileImage(this.idUser,this.profilPicture).subscribe(
         (response) =>{this.profilPictureURL = response.imageUrl, window.location.reload()},
         (error) => console.log(error)
       );

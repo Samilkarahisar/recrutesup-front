@@ -25,7 +25,7 @@ export class WishService {
     idOffer: number
   ): Observable<Wish> {
     const body =  {idUser, idOffer};
-    return this.http.post<Wish>(API + apiCreateStudentWish, body);
+    return this.http.post<Wish>(API + apiCreateStudentWish, body, httpOptions);
   }
 
   createCompanyWish(
@@ -33,35 +33,35 @@ export class WishService {
     idUser: number
   ): Observable<Wish> {
     const body =  {idCompany, idUser};
-    return this.http.post<Wish>(API + apiCreationCompanyWish, body);
+    return this.http.post<Wish>(API + apiCreationCompanyWish, body, httpOptions);
   }
 
   getWish(idWish: number): Observable<Wish> {
-    return this.http.get<Wish>(API + '/' + idWish);
+    return this.http.get<Wish>(API + '/' + idWish, httpOptions);
   }
 
   getAllWishes(): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes);
+    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
   }
 
   getAllSendedWishesByCompany(idCompany: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes);
+    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
   }
 
   getAllReceivedWishesByCompany(idCompany: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes);
+    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
   }
 
   getAllReceivedWishesByOffer(idOffer: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes);
+    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
   }
 
   getAllSendedWishesByStudent(idUser: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes);
+    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
   }
 
   getAllReceivedWishesByStudent(idUser: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes);
+    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
   }
 
 }

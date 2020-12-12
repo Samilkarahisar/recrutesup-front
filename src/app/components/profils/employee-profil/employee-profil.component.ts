@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WorkflowState } from 'src/app/constants/workflowState';
+import { Employee } from 'src/app/models/employee';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotifService } from 'src/app/services/notif.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -10,8 +12,8 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 })
 export class EmployeeProfilComponent implements OnInit {
 
-  id;
-  employee = null;
+  idUser;
+  employee: Employee = null;
 
   constructor(
     private companyService: CompanyService,
@@ -20,12 +22,12 @@ export class EmployeeProfilComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
-      this.id = this.tokenStorage.getUser().id;
+      this.idUser = this.tokenStorage.getUser().id;
 
-      this.companyService.getEmployee(this.id).subscribe(
+      this.companyService.getEmployee(this.idUser).subscribe(
         data => {
           this.employee = data;
-          this.employee.id = this.id;          
+          this.employee.id = this.idUser;          
         },
         err => {
           this.notifService.error('Erreur', err.error.message);
@@ -37,7 +39,11 @@ export class EmployeeProfilComponent implements OnInit {
   onSubmit(): void {
     this.companyService.updateEmployee(
       this.employee.id,
-      this.employee.phoneNumber
+      this.employee.firstname,
+      this.employee.lastname,
+      this.employee.mailAddress,
+      this.employee.phoneNumber,
+      null
     ).subscribe(
       data => {
         this.notifService.success('Profil à jour', '');
