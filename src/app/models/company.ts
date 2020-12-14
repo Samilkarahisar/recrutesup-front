@@ -11,6 +11,5 @@ export class Company {
     state: string;
     offers: Offer[];
     employees: Employee[];
-    wishes: Wish[];
-    
+    wishSendList: Wish[];
 }

@@ -14,6 +14,6 @@ export class Offer {
     state: string;
     companyId: number;
     companyName: string;
-    attachments: Attachment[];
-    wishes: Wish[];
+    attachmentList: Attachment[];
+    wishReceivedList: Wish[];
 }

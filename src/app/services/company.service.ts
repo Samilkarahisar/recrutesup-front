@@ -34,6 +34,14 @@ export class CompanyService {
   }
 
   /**
+   * Récupérer une entreprise à partir d'un id d'utilisateur étant employé
+   * @param idUser 
+   */
+  getCompanyContainingEmployee(idUser: number): Observable<Company> {
+    return this.http.get<Company>(API + '/byemployee/' + idUser, httpOptions);
+  }
+
+  /**
    * Mettre à jour une entreprise
    * @param idCompany
    * @param name
