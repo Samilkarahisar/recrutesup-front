@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getUserAndToken(): boolean {
-    if(!!this.tokenStorageService.getToken()) {
+    if(!!this.tokenStorageService.getToken() && this.tokenStorageService.isConnected()) {
       this.user = this.tokenStorageService.getUser();
       return true;
     }

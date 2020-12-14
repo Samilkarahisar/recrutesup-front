@@ -18,11 +18,10 @@ const routes: Routes = [
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
   { path: 'add-company', component: AddCompanyComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
   { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
-  { path: 'add-student', component: AddStudentComponent },
-  { path: 'studentprofil', component: StudentProfilComponent },
-  { path: 'adminprofil', component: AdminProfilComponent },
-  { path: 'employeeprofil', component: EmployeeProfilComponent },
-  { path: 'companyprofil', component: CompanyProfilComponent },
+  { path: 'studentprofil', component: StudentProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Student]}  },
+  { path: 'adminprofil', component: AdminProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}  },
+  { path: 'employeeprofil', component: EmployeeProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Company]}  },
+  { path: 'companyprofil', component: CompanyProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Company]}  },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 

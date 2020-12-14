@@ -11,7 +11,7 @@ export class Student {
     label: string;
     description: string;
     state: string;
-    wishesSended: Wish[];
-    wishesReceived: Wish[];
-    attachments: Attachment[];
+    wishSendList: Wish[];
+    wishReceivedList: Wish[];
+    attachmentList: Attachment[];
 }

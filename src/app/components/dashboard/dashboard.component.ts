@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotifService } from 'src/app/services/notif.service';
@@ -15,7 +16,7 @@ import { WishService } from 'src/app/services/wish.service';
 })
 export class DashboardComponent implements OnInit {
 
-  user: User;
+  user: User = null;
   company_states: Array<{libelle: string, number: number}> = [
     {libelle: "ENREGISTRE", number: 0},
     {libelle: "VALIDE", number: 0},
@@ -55,18 +56,44 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
     if(this.user.role === "ROLE_ADMIN") {
-      this.getCompanyStates();
-      this.getStudentStates();
-      this.getOfferStates();
-      this.getWishStates();
+      this.getAllCompanyStates();
+      this.getAllStudentStates();
+      this.getAllOfferStates();
+      this.getAllWishStates();
     } else if(this.user.role === "ROLE_COMPANY") {
-
+      this.companyService.getCompany(this.user.idCompany).subscribe(
+        company => {
+          console.log(company);
+          if(company.offers) {
+            for(let offer of company.offers)  {
+              this.offer_states.find(x => x.libelle === offer.state).number++;
+            }
+          }
+          if(company.wishSendList != null) {
+            for(let wish of company.wishSendList) {
+              this.wish_states.find(x => x.libelle === wish.state).number++;
+            }
+          }
+        }, err => {
+          this.notifService.permanentError('Erreur', err.error.message);
+        }
+      )
     } else if(this.user.role === "ROLE_STUDENT") {
-
+      this.studentService.getStudent(this.user.id).subscribe(
+        student => {
+          if(student.wishSendList != null) {
+            for(let wish of student.wishSendList) {
+              this.wish_states.find(x => x.libelle === wish.state).number++;
+            }
+          }
+        }, err => {
+          this.notifService.permanentError('Erreur', err.error.message);
+        }
+      )
     }
   }
 
-  getCompanyStates(): void {
+  getAllCompanyStates(): void {
     this.companyService.getAllCompanies().subscribe(
       data => {
         for(let companyDTO of data)  {
@@ -79,7 +106,7 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  getStudentStates(): void {
+  getAllStudentStates(): void {
     this.studentService.getAllStudents().subscribe(
       data => {
         for(let studentDTO of data)  {
@@ -92,7 +119,7 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  getOfferStates(): void {
+  getAllOfferStates(): void {
     this.offerService.getAllOffersLight().subscribe(
       data => {
         for(let offerDTO of data)  {
@@ -105,8 +132,17 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  getWishStates(): void {
-    // TODO
+  getAllWishStates(): void {
+    this.wishService.getAllWishes().subscribe(
+      data => {
+        for(let wishDTO of data) {
+          this.wish_states.find(x => x.libelle === wishDTO.state).number++;
+        }
+      },
+      err => {
+        this.notifService.permanentError('Erreur', err.error.message);
+      }
+    )
   }
 
   getTotal(list: Array<{libelle: string, number: number}>): Number {
@@ -121,5 +157,4 @@ export class DashboardComponent implements OnInit {
   getNumberFromState(list: Array<{libelle: string, number: number}>, state: string): Number {
     return list.find(x => x.libelle === state).number;
   }
-
 }

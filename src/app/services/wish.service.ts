@@ -5,10 +5,6 @@ import { Wish } from '../models/wish';
 
 const API = 'http://localhost:8080/wish';
 
-const apiCreateStudentWish = '/student';
-const apiCreationCompanyWish = '/company';
-const apiGetAllWishes = '/all';
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -20,48 +16,35 @@ export class WishService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Récupérer tous les voeux (étudiants et entreprises)
+   */
+  getAllWishes(): Observable<Wish[]> {
+    return this.http.get<Wish[]>(API + '/all', httpOptions);
+  }
+
+  /**
+   * Créer un voeu étudiant, liant un étudiant à une offre
+   * @param idUser 
+   * @param idOffer 
+   */
   createStudentWish(
     idUser: number,
     idOffer: number
   ): Observable<Wish> {
-    const body =  {idUser, idOffer};
-    return this.http.post<Wish>(API + apiCreateStudentWish, body, httpOptions);
+    return this.http.post<Wish>(API + '/student/' + idUser + "/" + idOffer, httpOptions);
   }
 
+  /**
+   * Créer un voeu entreprise, liant une entreprise à un étudiant
+   * @param idCompany 
+   * @param idUser 
+   */
   createCompanyWish(
     idCompany: number,
     idUser: number
   ): Observable<Wish> {
-    const body =  {idCompany, idUser};
-    return this.http.post<Wish>(API + apiCreationCompanyWish, body, httpOptions);
-  }
-
-  getWish(idWish: number): Observable<Wish> {
-    return this.http.get<Wish>(API + '/' + idWish, httpOptions);
-  }
-
-  getAllWishes(): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
-  }
-
-  getAllSendedWishesByCompany(idCompany: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
-  }
-
-  getAllReceivedWishesByCompany(idCompany: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
-  }
-
-  getAllReceivedWishesByOffer(idOffer: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
-  }
-
-  getAllSendedWishesByStudent(idUser: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
-  }
-
-  getAllReceivedWishesByStudent(idUser: number): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + apiGetAllWishes, httpOptions);
+    return this.http.post<Wish>(API + '/company/' + idCompany + "/" + idUser, httpOptions);
   }
 
 }
