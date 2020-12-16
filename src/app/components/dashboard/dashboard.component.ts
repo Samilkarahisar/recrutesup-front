@@ -32,8 +32,10 @@ export class DashboardComponent implements OnInit {
 
   offer_states: Array<{libelle: string, number: number}> = [
     {libelle: "INDISPONIBLE", number: 0},
+    {libelle: "BROUILLON", number: 0},
     {libelle: "EN_VALIDATION", number: 0},
     {libelle: "DISPONIBLE", number: 0},
+    {libelle: "SUPPRIME", number: 0},
   ];
 
   wish_states: Array<{libelle: string, number: number}> = [
@@ -121,7 +123,9 @@ export class DashboardComponent implements OnInit {
     this.offerService.getAllOffersLight().subscribe(
       data => {
         for(let offerDTO of data)  {
-          this.offer_states.find(x => x.libelle === offerDTO.state).number++;
+          if(offerDTO.state != "BROUILLON" && offerDTO.state != "SUPPRIME") {
+            this.offer_states.find(x => x.libelle === offerDTO.state).number++;
+          }
         }
       },
       err => {
