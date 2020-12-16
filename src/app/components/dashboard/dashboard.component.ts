@@ -32,10 +32,8 @@ export class DashboardComponent implements OnInit {
 
   offer_states: Array<{libelle: string, number: number}> = [
     {libelle: "INDISPONIBLE", number: 0},
-    {libelle: "BROUILLON", number: 0},
     {libelle: "EN_VALIDATION", number: 0},
     {libelle: "DISPONIBLE", number: 0},
-    {libelle: "SUPPRIME", number: 0},
   ];
 
   wish_states: Array<{libelle: string, number: number}> = [
