@@ -16,13 +16,12 @@
           [(ngModel)]="form.email"
           required
           #email="ngModel"
+          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         />
         <mat-icon matSuffix>person</mat-icon>
         <mat-error *ngIf="f.submitted && email.invalid"> L'adresse mail est invalide </mat-error>
       </mat-form-field>
     </p>
-
-    
 
     <p>
       <mat-form-field class="form-group">

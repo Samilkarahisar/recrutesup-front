@@ -13,6 +13,10 @@
     <input type="file" id="userFile" (change)="onSelectFile($event)">
   </p>
 
+  <div class="state-class">
+    Etat : {{ getLabelFromState() }}
+  </div>
+
     <p>
       <mat-form-field class="form-group">
         <mat-label for="lastname">Nom</mat-label>
@@ -28,10 +32,6 @@
         />
       </mat-form-field>
     </p>
-
-    <div class="state-class">
-      Etat : {{ getLabelFromState() }}
-    </div>
 
     <p>
       <mat-form-field class="form-group">
@@ -61,6 +61,7 @@
           [(ngModel)]="student.mailAddress"
           required
           #email="ngModel"
+          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         />
         <mat-icon matSuffix>mail</mat-icon>
       </mat-form-field>

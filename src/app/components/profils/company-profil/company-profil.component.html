@@ -39,6 +39,7 @@
             [(ngModel)]="company.mailAddress"
             required
             #email="ngModel"
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           />
           <mat-icon matSuffix>mail</mat-icon>
         </mat-form-field>
