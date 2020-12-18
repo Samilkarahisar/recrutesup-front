@@ -49,4 +49,19 @@ export class AdminService {
     const body = {firstname, lastname, mailAddress, phoneNumber};
     return this.http.patch<Admin>(API + '/' + idUser, body, httpOptions);
   }
+
+  /**
+   * Changement de mot de passe
+   * @param idUser 
+   * @param mailAddress 
+   * @param password 
+   */
+  changePassword(
+    idUser: number,
+    mailAddress: string,
+    password: string
+  ): Observable<Admin> {
+    const body = {mailAddress, password};
+    return this.http.patch<Admin>(API + '/changePW/' + idUser, body, httpOptions);
+  }
 }

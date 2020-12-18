@@ -19,7 +19,10 @@ interface SchoolYear {
 export class StudentProfilComponent implements OnInit {
 
   idUser;
+  hide: boolean = true;
   student: Student = null;
+  form: any = {};
+  changePW: boolean = false;
 
   profilPicture = null;
   profilPictureURL = null;
@@ -55,23 +58,43 @@ export class StudentProfilComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.studentService.updateStudent(
-      this.student.id,
-      this.student.firstname,
-      this.student.lastname,
-      this.student.mailAddress,
-      this.student.schoolYear,
-      this.student.phoneNumber,
-      this.student.label,
-      this.student.description
-      ).subscribe(
-      data => {
-        this.notifService.success('Profil à jour', '');
-      },
-      err => {
-        this.notifService.error('Erreur Mise à jour', err.error.message);
+    if(!this.changePW) {
+      this.studentService.updateStudent(
+        this.student.id,
+        this.student.firstname,
+        this.student.lastname,
+        this.student.mailAddress,
+        this.student.schoolYear,
+        this.student.phoneNumber,
+        this.student.label,
+        this.student.description
+        ).subscribe(
+        response => {
+          this.notifService.success('Profil à jour', 'Votre profil a été mis à jour');
+        },
+        err => {
+          this.notifService.error('Erreur Mise à jour', err.error.message);
+        }
+      )
+    } else {
+      if(this.form.password === this.form.confirmpassword) {
+        this.studentService.changePassword(
+          this.idUser,
+          this.student.mailAddress,
+          this.form.password
+        ).subscribe(
+          response => {
+            this.notifService.success('Profil à jour', 'Votre mot de passe a été mis à jour');
+          },
+          err => {
+            this.notifService.error('Erreur', err.error.message);
+          }
+        )
+      } else {
+        this.notifService.error('Mot de passe incorect', 'Veuillez saisir 2 mots de passe identiques');
       }
-    )
+    }
+    
   }
 
   getLabelFromState() : string {

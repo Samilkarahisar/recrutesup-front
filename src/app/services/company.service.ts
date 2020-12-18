@@ -103,6 +103,25 @@ export class CompanyService {
   }
 
   /**
+   * Créer un employé
+   * @param firstname 
+   * @param lastname 
+   * @param mailAddress 
+   * @param phoneNumber 
+   * @param idCompany 
+   */
+  createEmployee(
+    firstname: string,
+    lastname: string,
+    mailAddress: string,
+    phoneNumber: string,
+    idCompany: number
+    ): Observable<Employee> {
+    const body = {firstname, lastname, mailAddress, phoneNumber, idCompany};
+    return this.http.post<Employee>(API + '/employee', body, httpOptions);
+  }
+
+  /**
    * Mettre à jour un employé
    * @param idUser
    * @param firstname
@@ -124,21 +143,18 @@ export class CompanyService {
   }
 
   /**
-   * Créer un employé
-   * @param firstname 
-   * @param lastname 
+   * Changement de mot de passe
+   * @param idUser 
    * @param mailAddress 
-   * @param phoneNumber 
-   * @param idCompany 
+   * @param password 
    */
-  createEmployee(
-    firstname: string,
-    lastname: string,
+  changePassword(
+    idUser: number,
     mailAddress: string,
-    phoneNumber: string,
-    idCompany: number
-    ): Observable<Employee> {
-    const body = {firstname, lastname, mailAddress, phoneNumber, idCompany};
-    return this.http.post<Employee>(API + '/employee', body, httpOptions);
+    password: string
+  ): Observable<Employee> {
+    const body = {mailAddress, password};
+    return this.http.patch<Employee>(API + '/changePW/' + idUser, body, httpOptions);
   }
+
 }

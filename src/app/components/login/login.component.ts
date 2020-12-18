@@ -13,6 +13,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class LoginComponent implements OnInit {
 
   hide: boolean = true;  
+  forgotPW: boolean = false;
   form: any = {};
 
   constructor(
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-
+    if(!this.forgotPW) {
       this.authService.login(
         this.form.email,
         this.form.password
@@ -58,5 +59,16 @@ export class LoginComponent implements OnInit {
             this.notifService.error('Connexion échouée', err.error.message);
           }
       );
+    } else {
+      this.authService.recupPassword(this.form.email).subscribe(
+        response => {
+          this.notifService.success('Récupération mot de passe', 'un email a été envoyé à ' + this.form.email);
+        },
+        err => {
+          this.notifService.error('L\'adresse mail n\'est pas correct', err.error.message);
+        }
+      )
+    }
+      
   }
 }
