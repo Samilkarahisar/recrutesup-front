@@ -22,6 +22,8 @@ import { StudentProfilComponent } from './components/profils/student-profil/stud
 import { AdminProfilComponent } from './components/profils/admin-profil/admin-profil.component';
 import { CompanyProfilComponent } from './components/profils/company-profil/company-profil.component';
 import { EmployeeProfilComponent } from './components/profils/employee-profil/employee-profil.component';
+import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { EmployeeProfilComponent } from './components/profils/employee-profil/em
     AdminProfilComponent,
     CompanyProfilComponent,
     EmployeeProfilComponent,
+    ListVoeuxComponent,
   ],
   imports: [
     BrowserModule,
