@@ -13,7 +13,10 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class EmployeeProfilComponent implements OnInit {
 
   idUser;
+  hide: boolean = true;
   employee: Employee = null;
+  form: any = {}
+  changePW: boolean = false;
 
   constructor(
     private companyService: CompanyService,
@@ -37,20 +40,40 @@ export class EmployeeProfilComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.companyService.updateEmployee(
-      this.employee.id,
-      this.employee.firstname,
-      this.employee.lastname,
-      this.employee.mailAddress,
-      this.employee.phoneNumber,
-      null
-    ).subscribe(
-      data => {
-        this.notifService.success('Profil à jour', '');
-      },
-      err => {
-        this.notifService.error('Erreur Mise à jour', err.error.message);
+    if(!this.changePW) {
+      this.companyService.updateEmployee(
+        this.employee.id,
+        this.employee.firstname,
+        this.employee.lastname,
+        this.employee.mailAddress,
+        this.employee.phoneNumber,
+        null
+      ).subscribe(
+        response => {
+          this.notifService.success('Profil à jour', 'Votre profil a été mis à jour');
+        },
+        err => {
+          this.notifService.error('Erreur Mise à jour', err.error.message);
+        }
+      )
+    } else {
+      if(this.form.password === this.form.confirmpassword) {
+        this.companyService.changePassword(
+          this.idUser,
+          this.employee.mailAddress,
+          this.form.password
+        ).subscribe(
+          response => {
+            this.notifService.success('Profil à jour', 'Votre mot de passe a été mis à jour');
+          },
+          err => {
+            this.notifService.error('Erreur', err.error.message);
+          }
+        )
+      } else {
+        this.notifService.error('Mot de passe incorect', 'Veuillez saisir 2 mots de passe identiques');
       }
-    )
+    }
+    
   }
 }

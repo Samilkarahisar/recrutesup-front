@@ -1,94 +1,164 @@
 <mat-card class="card card-container">
-    <h3>Profil Admin</h3>
+    <h3>Profil Utilisateur</h3>
     <form
+      name="form"
       *ngIf="admin != null"
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
       novalidate
     >
-      <p>
-        <mat-form-field class="form-group">
-          <mat-label for="lastname">Nom</mat-label>
-          <input
-              matInput 
-              type="text"
-              class="form-control"
-              name="lastname"
-              [(ngModel)]="admin.lastname"
-              required
-              #lastname="ngModel"
-          />
-          <mat-error
-            class="alert alert-danger"
-            role="alert"
-            *ngIf="f.submitted && lastname.invalid"
-            >
-                Un nom est requis
-            </mat-error>
-        </mat-form-field>
-      </p>
-  
-      <p>
-        <mat-form-field class="form-group">
-            <mat-label for="firstname">Prénom</mat-label>
+    <mat-accordion>
+      <mat-expansion-panel (opened)="changePW = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Données Utilisateur
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p *ngIf="!changePW">
+          <mat-form-field class="form-group">
+            <mat-label for="lastname">Nom</mat-label>
             <input
-            matInput 
-            type="text"
-            class="form-control"
-            name="firstname"
-            [(ngModel)]="admin.firstname"
-            required
-            #firstname="ngModel"
+                matInput 
+                type="text"
+                class="form-control"
+                name="lastname"
+                [(ngModel)]="admin.lastname"
+                required
+                #lastname="ngModel"
             />
             <mat-error
               class="alert alert-danger"
               role="alert"
-              *ngIf="f.submitted && firstname.invalid"
+              *ngIf="f.submitted && lastname.invalid && !changePW"
               >
-                  Un prénom est requis
+                  Un nom est requis
               </mat-error>
-        </mat-form-field>
-      </p>
-  
-      <p>
-        <mat-form-field class="form-group">
-          <mat-label for="email">Adresse mail</mat-label>
-          <input
-            matInput 
-            disabled
-            type="email"
-            class="form-control"
-            name="email"
-            [(ngModel)]="admin.mailAddress"
-            required
-            #email="ngModel"
-            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-          />
-          <mat-icon matSuffix>mail</mat-icon>
-        </mat-form-field>
-      </p>
-  
-      <p>
-        <mat-form-field class="form-group">
-          <mat-label for="phone">Numéro de téléphone</mat-label>
-          <input
-            matInput 
-            type="text"
-            class="form-control"
-            name="phone"
-            [(ngModel)]="admin.phoneNumber"
-            maxlength="10"
-            #phone="ngModel"
-          />
-          <mat-icon matSuffix>phone</mat-icon>
-        </mat-form-field>
-      </p>
+          </mat-form-field>
+        </p>
+    
+        <p *ngIf="!changePW">
+          <mat-form-field class="form-group">
+              <mat-label for="firstname">Prénom</mat-label>
+              <input
+              matInput 
+              type="text"
+              class="form-control"
+              name="firstname"
+              [(ngModel)]="admin.firstname"
+              required
+              #firstname="ngModel"
+              />
+              <mat-error
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && firstname.invalid && !changePW"
+                >
+                    Un prénom est requis
+                </mat-error>
+          </mat-form-field>
+        </p>
+    
+        <p *ngIf="!changePW">
+          <mat-form-field class="form-group">
+            <mat-label for="email">Adresse mail</mat-label>
+            <input
+              matInput 
+              disabled
+              type="email"
+              class="form-control"
+              name="email"
+              [(ngModel)]="admin.mailAddress"
+              required
+              #email="ngModel"
+              pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            />
+            <mat-icon matSuffix>mail</mat-icon>
+          </mat-form-field>
+        </p>
+    
+        <p *ngIf="!changePW">
+          <mat-form-field class="form-group">
+            <mat-label for="phone">Numéro de téléphone</mat-label>
+            <input
+              matInput 
+              type="text"
+              class="form-control"
+              name="phone"
+              [(ngModel)]="admin.phoneNumber"
+              maxlength="10"
+              #phone="ngModel"
+            />
+            <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field>
+        </p>
+        
+        <div class="form-group">
+          <button mat-raised-button class="btn btn-primary btn-block">
+            Modifier
+          </button>
+        </div>
+      </mat-expansion-panel>
       
-      <div class="form-group">
-        <button mat-raised-button class="btn btn-primary btn-block">
-          Modifier
-        </button>
-      </div>
+      <mat-expansion-panel (opened)="changePW = true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Modification mot de passe
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p *ngIf="changePW">
+          <mat-form-field class="form-group">
+            <mat-label for="password">Nouveau mot de passe</mat-label>
+            <input matInput
+              [type]="hide ? 'password' : 'text'"
+              class="form-control"
+              name="password"
+              [(ngModel)]="form.password"
+              required
+              minlength="6"
+              #password="ngModel"
+            />
+            <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && password.invalid"
+            >
+              <mat-label *ngIf="password.errors.required">Un mot de passe est requis</mat-label>
+              <mat-label *ngIf="password.errors.minlength">Le mot de passe doit avoir au moins 6 caractères</mat-label>
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p *ngIf="changePW">
+          <mat-form-field class="form-group">
+            <mat-label for="password">Confirmation nouveau mot de passe</mat-label>
+            <input matInput
+              [type]="hide ? 'password' : 'text'"
+              class="form-control"
+              name="confirmpassword"
+              [(ngModel)]="form.confirmpassword"
+              required
+              minlength="6"
+              #confirmpassword="ngModel"
+            />
+            <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && confirmpassword.invalid"
+            >
+              <mat-label *ngIf="confirmpassword.errors.required">Un mot de passe est requis</mat-label>
+              <mat-label *ngIf="confirmpassword.errors.minlength">Le mot de passe doit avoir au moins 6 caractères</mat-label>
+            </mat-error>
+          </mat-form-field>
+        </p>
+
+        <div class="form-group">
+          <button mat-raised-button class="btn btn-primary btn-block">
+            Modifier mot de passe
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
     </form>
   </mat-card>
   

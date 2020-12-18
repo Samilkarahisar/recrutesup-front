@@ -1,5 +1,6 @@
 <mat-card class="card card-container">
-  <h3>Connexion</h3>
+  <h3 *ngIf="!forgotPW">Connexion</h3>
+  <h3 *ngIf="forgotPW">Récupération du mot de passe</h3>
   <form
     name="form"
     (ngSubmit)="f.form.valid && onSubmit()"
@@ -23,7 +24,7 @@
       </mat-form-field>
     </p>
 
-    <p>
+    <p *ngIf="!forgotPW">
       <mat-form-field class="form-group">
         <mat-label for="password">Mot de passe</mat-label>
         <input matInput
@@ -35,7 +36,7 @@
           minlength="6"
           #password="ngModel"
         />
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         <mat-error
           class="alert alert-danger"
           role="alert"
@@ -48,9 +49,17 @@
     </p>
 
     <div class="form-group">
-      <button mat-raised-button class="btn btn-primary btn-block">
+      <button *ngIf="!forgotPW" mat-raised-button class="btn btn-primary btn-block">
         Connexion
       </button>
+      <button *ngIf="forgotPW" mat-raised-button class="btn btn-primary btn-block">
+        Récupérer
+      </button>
+    </div>
+
+    <br>
+    <div class="form-group">
+      <a (click)="forgotPW = !forgotPW" style="cursor: pointer">Mot de passe oublié ?</a>
     </div>
   </form>
 </mat-card>

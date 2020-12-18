@@ -102,4 +102,19 @@ export class StudentService {
     const body = {firstname, lastname, mailAddress, schoolYear, phoneNumber, label, description};
     return this.http.patch<Student>(API + '/' + idUser, body, httpOptions);
   }
+
+  /**
+   * Changement de mot de passe
+   * @param idUser 
+   * @param mailAddress 
+   * @param password 
+   */
+  changePassword(
+    idUser: number,
+    mailAddress: string,
+    password: string
+  ): Observable<Student> {
+    const body = {mailAddress, password};
+    return this.http.patch<Student>(API + '/changePW/' + idUser, body, httpOptions);
+  }
 }

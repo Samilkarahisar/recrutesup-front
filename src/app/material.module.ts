@@ -12,6 +12,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import {TextFieldModule} from '@angular/cdk/text-field';
     MatBadgeModule,
     MatGridListModule,
     TextFieldModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatToolbarModule,
@@ -41,6 +43,7 @@ import {TextFieldModule} from '@angular/cdk/text-field';
     MatBadgeModule,
     MatGridListModule,
     TextFieldModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class MaterialModule {}

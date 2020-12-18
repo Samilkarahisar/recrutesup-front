@@ -50,8 +50,8 @@ export class CompanyProfilComponent implements OnInit {
       this.company.websiteUrl,
       this.company.description
       ).subscribe(
-      data => {
-        this.notifService.success('Profil à jour', '');
+      response => {
+        this.notifService.success('Profil à jour', 'Votre profil a été mis à jour');
       },
       err => {
         this.notifService.error('Erreur Mise à jour', err.error.message);
