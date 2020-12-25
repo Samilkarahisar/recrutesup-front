@@ -1,0 +1,28 @@
+<mat-card class="card card-container">
+    <div class="wrapper">
+        <div class="image">
+            Image
+        </div>
+        <div class="resume">
+            <span>
+                <h2>{{ student.firstname }} {{ student.lastname }}</h2>
+            </span>
+            <h4>{{ student.schoolYear }} - {{ student.label }}</h4>
+            <p>
+                {{ student.description }}
+            </p>
+            Adresse mail : {{ student.mailAddress }} <br>
+            Téléphone : {{ student.phoneNumber }}
+         </div>
+        <div class="join">
+            <h4>Pièces jointes</h4>
+            <span *ngFor="let attachment of student.attachmentList">
+                <span class="attachment">
+                    {{ attachment.label }}
+                </span>
+            </span>
+        </div>
+    </div>
+    <span>
+    </span>
+</mat-card>
