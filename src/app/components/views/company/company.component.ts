@@ -7,6 +7,7 @@ import { CompanyService } from 'src/app/services/company.service';
 import { ImageService } from 'src/app/services/image.service';
 import { NotifService } from 'src/app/services/notif.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { WishService } from 'src/app/services/wish.service';
 
 @Component({
   selector: 'app-company',
@@ -22,8 +23,8 @@ export class CompanyComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private companyService: CompanyService,
+    private wishService: WishService,
     private imageService: ImageService,
-    private notifService: NotifService,
     private tokenStorage: TokenStorageService
   ) { }
 
@@ -45,5 +46,4 @@ export class CompanyComponent implements OnInit {
       }
     });
   }
-
 }

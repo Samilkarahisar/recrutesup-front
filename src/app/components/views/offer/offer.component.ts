@@ -7,6 +7,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { NotifService } from 'src/app/services/notif.service';
 import { OfferService } from 'src/app/services/offer.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { WishService } from 'src/app/services/wish.service';
 
 @Component({
   selector: 'app-offer',
@@ -22,6 +23,7 @@ export class OfferComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private offerService: OfferService,
+    private wishService: WishService,
     private imageService: ImageService,
     private notifService: NotifService,
     private tokenStorage: TokenStorageService
@@ -46,4 +48,16 @@ export class OfferComponent implements OnInit {
     });
   }
 
+  sendStudenWish(): void {
+    this.wishService.createStudentWish(
+      this.tokenStorage.getUser().id,
+      this.offer.id
+    ).subscribe(
+      response => {
+        this.notifService.success('Voeu adressé', 'un voeu a été envoyé à ' + this.offer.companyName);
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    )
+  }
 }

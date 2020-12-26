@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { NotifService } from 'src/app/services/notif.service';
 import { Student } from 'src/app/models/student';
 import { Role } from 'src/app/constants/role';
+import { WishService } from 'src/app/services/wish.service';
 
 @Component({
   selector: 'app-student',
@@ -22,6 +23,7 @@ export class StudentComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private studentService: StudentService,
+    private wishService: WishService,
     private imageService: ImageService,
     private notifService: NotifService,
     private tokenStorage: TokenStorageService
@@ -44,6 +46,19 @@ export class StudentComponent implements OnInit {
         this.location.back();
       }
     });
+  }
+
+  sendCompanyWish(): void {
+    this.wishService.createCompanyWish(
+      this.tokenStorage.getUser().idCompany,
+      this.student.id
+    ).subscribe(
+      response => {
+        this.notifService.success('Voeu adressé', 'un voeu a été envoyé à ' + this.student.firstname + " " + this.student.lastname);
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    )
   }
 
 }
