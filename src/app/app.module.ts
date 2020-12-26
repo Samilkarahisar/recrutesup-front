@@ -25,6 +25,8 @@ import { SpinnerOverlayComponent } from './components/spinner-overlay/spinner-ov
 import { errorInterceptorProviders } from './helpers/interceptors/error.interceptor';
 import { authInterceptorProviders } from './helpers/interceptors/auth.interceptor';
 import { spinnerInterceptorProviders } from './helpers/interceptors/spinner.interceptor';
+import { CompanyComponent } from './components/views/company/company.component';
+import { OfferComponent } from './components/views/offer/offer.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { spinnerInterceptorProviders } from './helpers/interceptors/spinner.inte
     EmployeeProfilComponent,
     StudentComponent,
     SpinnerOverlayComponent,
+    CompanyComponent,
+    OfferComponent,
   ],
   imports: [
     BrowserModule,

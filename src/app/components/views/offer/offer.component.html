@@ -1,0 +1,39 @@
+<mat-card *ngIf="offer != null" class="card card-container">
+    <div class="wrapper">
+        <div class="image">
+            Image
+        </div>
+        <div class="resume">
+            <span>
+                <h2 style="display: inline">{{ offer.label }} - {{ offer.city }}</h2> <h3 *ngIf="role != 'ROLE_STUDENT'" style="display: inline"> - {{ offer.state }}</h3>
+            </span>
+            <h4>{{ offer.address }}</h4>
+            <p>
+                {{ offer.description }}
+            </p>
+            Créée par {{ offer.userFirstname }} {{ offer.userLastname }} ({{ offer.creationDate | date: 'dd/MM/yyyy' }})<br><br>
+            <b>{{ offer.companyName }}</b> - Adresse mail de contact : {{ offer.mailAddress }}
+        </div>
+        <div class="items">
+            <div class="join">
+                <h4>Pièces jointes</h4>
+                <span *ngFor="let attachment of offer.attachmentList">
+                    <span class="attachment">
+                        {{ attachment.label }}
+                    </span>
+                </span>
+            </div>
+
+            <div *ngIf="role != 'ROLE_STUDENT'" class="receivedWishes">
+                <h4>Voeux reçus</h4>
+                <div *ngFor="let wish of offer.wishReceivedList">
+                    <mat-card class="item">
+                        <div style="float:left;"> {{wish.priority}} </div>
+                        <div style="float:left; padding-left: 15%;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
+                        <div style="float:right;"> {{wish.state}} </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>

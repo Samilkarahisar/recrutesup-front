@@ -1,11 +1,11 @@
-<mat-card class="card card-container">
+<mat-card *ngIf="student != null" class="card card-container">
     <div class="wrapper">
         <div class="image">
             Image
         </div>
         <div class="resume">
             <span>
-                <h2>{{ student.firstname }} {{ student.lastname }}</h2>
+                <h2 style="display: inline">{{ student.firstname }} {{ student.lastname }}</h2>  <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ student.state }}</h3>
             </span>
             <h4>{{ student.schoolYear }} - {{ student.label }}</h4>
             <p>
@@ -13,16 +13,38 @@
             </p>
             Adresse mail : {{ student.mailAddress }} <br>
             Téléphone : {{ student.phoneNumber }}
-         </div>
-        <div class="join">
-            <h4>Pièces jointes</h4>
-            <span *ngFor="let attachment of student.attachmentList">
-                <span class="attachment">
-                    {{ attachment.label }}
+        </div>
+        <div class="items">
+            <div class="join">
+                <h4>Pièces jointes</h4>
+                <span *ngFor="let attachment of student.attachmentList">
+                    <span class="attachment">
+                        {{ attachment.label }}
+                    </span>
                 </span>
-            </span>
+            </div>
+
+            <div *ngIf="role == 'ROLE_ADMIN'" class="sendedWishes">
+                <h4>Voeux envoyés</h4>
+                <div *ngFor="let wish of student.wishSendList">
+                    <mat-card class="item">
+                        <div style="float:left;"> {{wish.priority}} </div>
+                        <div style="float:left; padding-left: 15%;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
+                        <div style="float:right;"> {{wish.state}} </div>
+                    </mat-card>
+                </div>
+            </div>
+    
+            <div *ngIf="role == 'ROLE_ADMIN'" class="receivedWishes">
+                <h4>Voeux reçus</h4>
+                <div *ngFor="let wish of student.wishReceivedList">
+                    <mat-card class="item">
+                        <div style="float:left;"> {{wish.priority}} </div>
+                        <div style="float:left; padding-left: 15%;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
+                        <div style="float:right;"> {{wish.state}} </div>
+                    </mat-card>
+                </div>
+            </div>
         </div>
     </div>
-    <span>
-    </span>
 </mat-card>

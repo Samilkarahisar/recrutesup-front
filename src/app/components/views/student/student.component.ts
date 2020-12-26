@@ -6,6 +6,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { Location } from '@angular/common';
 import { NotifService } from 'src/app/services/notif.service';
 import { Student } from 'src/app/models/student';
+import { Role } from 'src/app/constants/role';
 
 @Component({
   selector: 'app-student',
@@ -15,7 +16,7 @@ import { Student } from 'src/app/models/student';
 export class StudentComponent implements OnInit {
 
   student: Student = null;
-  role: string = null;
+  role: Role = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,10 +35,9 @@ export class StudentComponent implements OnInit {
         this.studentService.getStudent(idUser).subscribe(
           student => {
             this.student = student;
-            console.log(student);
           },
           err => {
-            this.notifService.error('Erreur', err.error.message);
+            this.location.back();
           }
         )
       } else {
