@@ -1,5 +1,6 @@
-<mat-card class="card card-container">
-  <h3>Profil Utilisateur</h3>
+<mat-card *ngIf="student != null" class="card card-container">
+  <h3 style="display: inline">Profil Utilisateur</h3>
+  <button mat-raised-button color="primary" class="btn btn-primary btn-block" style="margin-left: 20px; margin-bottom: 20px;" [routerLink]="['/student/', student.id]">Aperçu du profil</button>
   <form
     name="form"
     *ngIf="student != null"
@@ -12,7 +13,7 @@
     <mat-expansion-panel (opened)="changePW = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Données Utilisateur
+          Modifier les données Utilisateur
         </mat-panel-title>
       </mat-expansion-panel-header>
       <p *ngIf="!changePW">
@@ -146,10 +147,17 @@
           </button>
         </div>
     </mat-expansion-panel>
-    <mat-expansion-panel (opened)="changePW = true">
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Modification mot de passe
+          Ajouter des pièces jointes au profil
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="changePW = true">
+      <mat-expansion-panel-header>
+        <mat-panel-title style="color: red;">
+          Modifier mot de passe
         </mat-panel-title>
       </mat-expansion-panel-header>
       <p *ngIf="changePW">

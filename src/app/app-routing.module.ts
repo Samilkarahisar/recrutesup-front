@@ -9,6 +9,9 @@ import { AdminProfilComponent } from './components/profils/admin-profil/admin-pr
 import { CompanyProfilComponent } from './components/profils/company-profil/company-profil.component';
 import { EmployeeProfilComponent } from './components/profils/employee-profil/employee-profil.component';
 import { StudentProfilComponent } from './components/profils/student-profil/student-profil.component';
+import { CompanyComponent } from './components/views/company/company.component';
+import { OfferComponent } from './components/views/offer/offer.component';
+import { StudentComponent } from './components/views/student/student.component';
 import { Role } from './constants/role';
 import { AuthGuard } from './helpers/auth.guard';
 
@@ -22,6 +25,9 @@ const routes: Routes = [
   { path: 'adminprofil', component: AdminProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}  },
   { path: 'employeeprofil', component: EmployeeProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Company]}  },
   { path: 'companyprofil', component: CompanyProfilComponent, canActivate: [AuthGuard], data: { roles: [Role.Company]}  },
+  { path: 'student/:idUser', component: StudentComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
+  { path: 'company/:idCompany', component: CompanyComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
+  { path: 'offer/:idOffer', component: OfferComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 

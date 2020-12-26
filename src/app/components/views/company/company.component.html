@@ -1,0 +1,53 @@
+<mat-card *ngIf="company != null" class="card card-container">
+    <div class="wrapper">
+        <div class="image">
+            Image
+        </div>
+        <div class="resume">
+            <span>
+                <h2 style="display: inline">{{ company.name }}</h2> <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ company.state }}</h3>
+            </span>
+            <p>
+                {{ company.description }}
+            </p>
+            <mat-icon style="vertical-align: middle; margin: 5px;">mail_outline</mat-icon> {{ company.mailAddress }} <br>
+            <mat-icon *ngIf="company.websiteUrl" style="vertical-align: middle; margin: 5px;">language</mat-icon> <a href="{{ company.websiteUrl }}">{{ company.websiteUrl }}</a>
+        </div>
+        <div class="items">
+            <div class="offers">
+                <h4>Offres</h4>
+                <div *ngIf="company.offers.length == 0">Aucune offre</div>
+                <div *ngFor="let offer of company.offers">
+                    <mat-card *ngIf="offer.state != 'BROUILLON'" [routerLink]="['/offer/', offer.id]" class="item" style="cursor: pointer">
+                        <div style="float:left;">{{ offer.label }}  ({{ offer.city }})</div>
+                        <div style="float:right">{{ offer.state }} ({{ offer.creationDate | date: 'dd/MM/yyyy' }})</div>
+                    </mat-card>
+                </div>
+            </div>
+    
+            <div *ngIf="role == 'ROLE_ADMIN'" class="sendedWishes">
+                <h4>Voeux envoyés</h4>
+                <div *ngIf="company.wishSendList.length == 0">Aucun voeu envoyé</div>
+                <div *ngFor="let wish of company.wishSendList">
+                    <mat-card class="item">
+                        <div style="float:left;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
+                        <div style="float:right;"> {{wish.state}} </div>
+                    </mat-card>
+                </div>
+            </div>
+    
+            <div *ngIf="role == 'ROLE_ADMIN'" class="receivedWishes">
+                <h4>Voeux reçus</h4>
+                <div *ngIf="company.offers.length == 0">Aucun voeu reçu</div>
+                <div *ngFor="let offer of company.offers">
+                    <div *ngFor="let wish of offer.wishReceivedList">
+                        <mat-card class="item">
+                            <div style="float:left;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
+                            <div style="float:right;"> {{wish.state}} </div>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>

@@ -1,0 +1,46 @@
+.card-container {
+  margin : 2%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 300px 1fr 1fr;
+}
+
+.image {
+  padding: 10px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.resume {
+  text-align: justify;
+  text-justify: inter-word;
+  padding: 10px;
+  grid-column: 2 / 7;
+  grid-row: 1 / 2;
+}
+
+.items {
+  padding: 10px;
+  grid-column: 1 / 7;
+  grid-row: 2 / 4;
+}
+
+.item {
+  height: 20px;
+  margin-bottom: 10px;
+  background-color: rgb(235, 235, 235);
+}
+
+.attachment {
+  display:inline-block;
+  text-align: center;
+  padding-top: 25px;
+  background-color:  rgb(235, 235, 235);
+  margin-right: 10px;
+  height: 50px;
+  width: 200px;
+}
+
