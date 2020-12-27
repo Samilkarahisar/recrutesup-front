@@ -9,9 +9,7 @@
                 <button mat-raised-button color="primary" *ngIf="role == 'ROLE_STUDENT'" (click)="sendStudenWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Adresser un voeu</button><br>
                 <h4 style="display: inline">({{ offer.companyName }})</h4> <h4 style="display: inline"> {{ offer.city }}</h4> <h4 *ngIf="offer.address" style="display: inline"> - {{ offer.address }}</h4>
             </span>
-            <p>
-                {{ offer.description }}
-            </p>
+            <p>{{ offer.description }}</p>
             Créée par {{ offer.userFirstname }} {{ offer.userLastname }} ({{ offer.creationDate | date: 'dd/MM/yyyy' }})<br><br>
             <mat-icon *ngIf="offer.mailAddress" style="vertical-align: middle; margin: 5px;">mail_outline</mat-icon> {{ offer.mailAddress }}
         </div>

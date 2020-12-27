@@ -9,9 +9,7 @@
                 <button mat-raised-button color="primary" *ngIf="role == 'ROLE_COMPANY'" (click)="sendCompanyWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Adresser un voeu</button>
             </span>
             <h4>{{ student.schoolYear }} - {{ student.label }}</h4>
-            <p>
-                {{ student.description }}
-            </p>
+            <p>{{ student.description }}</p>
             <mat-icon *ngIf="student.mailAddress" style="vertical-align: middle; margin: 5px;">mail_outline</mat-icon> {{ student.mailAddress }} <br>
             <mat-icon *ngIf="student.phoneNumber" style="vertical-align: middle; margin: 5px;">call</mat-icon> {{ student.phoneNumber }}
         </div>

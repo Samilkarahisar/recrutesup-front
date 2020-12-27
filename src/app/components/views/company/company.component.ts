@@ -36,6 +36,7 @@ export class CompanyComponent implements OnInit {
         this.companyService.getCompany(idCompany).subscribe(
           company => {
             this.company = company;
+            console.log(company.description);
           },
           err => {
             this.location.back();            
