@@ -24,6 +24,22 @@ export class WishService {
   }
 
   /**
+   * Récupérer un voeu étudiant
+   * @param idWish 
+   */
+  getStudentWish(idWish: number): Observable<Wish> {
+    return this.http.get<Wish>(API + '/student/' + idWish, httpOptions);
+  }
+
+  /**
+   * Récupérer un voeu entreprise
+   * @param idWish 
+   */
+  getCompanyWish(idWish: number): Observable<Wish> {
+    return this.http.get<Wish>(API + '/company/' + idWish, httpOptions);
+  }
+
+  /**
    * Créer un voeu étudiant, liant un étudiant à une offre
    * @param idUser 
    * @param idOffer 
@@ -45,6 +61,27 @@ export class WishService {
     idUser: number
   ): Observable<Wish> {
     return this.http.post<Wish>(API + '/company/' + idCompany + "/" + idUser, httpOptions);
+  }
+
+  /**
+   * Envoyer une demande de création de meeting entre 2 interlocuteurs
+   * @param dateMeeting 
+   * @param message 
+   * @param idEmetter 
+   * @param idInterlocutor
+   * @param idReceiver 
+   */
+  sendMeetingRequest(
+    idWish: number,
+    type: string,
+    dateMeeting: string,
+    message: string,
+    idSender: number,
+    idInterlocutor: number,
+    idReceiver: number
+  ): Observable<Wish> {
+    const body = {idWish, type, dateMeeting, message, idSender, idInterlocutor, idReceiver};
+    return this.http.post<Wish>(API + "/meeting", body, httpOptions);
   }
 
 }

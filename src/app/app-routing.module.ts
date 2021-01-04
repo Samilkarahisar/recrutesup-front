@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddCompanyComponent } from './components/add-company/add-company.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { AddMeetingComponent } from './components/add-meeting/add-meeting/add-meeting.component';
 import { AddStudentComponent } from './components/add-student/add-student.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'student/:idUser', component: StudentComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
   { path: 'company/:idCompany', component: CompanyComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
   { path: 'offer/:idOffer', component: OfferComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
+  { path: 'wish/:idWish', component: AddMeetingComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Company] }  },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 

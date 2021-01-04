@@ -27,6 +27,8 @@ import { authInterceptorProviders } from './helpers/interceptors/auth.intercepto
 import { spinnerInterceptorProviders } from './helpers/interceptors/spinner.interceptor';
 import { CompanyComponent } from './components/views/company/company.component';
 import { OfferComponent } from './components/views/offer/offer.component';
+import { AddMeetingComponent } from './components/add-meeting/add-meeting/add-meeting.component';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { OfferComponent } from './components/views/offer/offer.component';
     SpinnerOverlayComponent,
     CompanyComponent,
     OfferComponent,
+    AddMeetingComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,12 @@ import { OfferComponent } from './components/views/offer/offer.component';
     MaterialModule,
     SimpleNotificationsModule.forRoot()
   ],
-  providers: [authInterceptorProviders, errorInterceptorProviders, spinnerInterceptorProviders],
+  providers: [
+    authInterceptorProviders,
+    errorInterceptorProviders,
+    spinnerInterceptorProviders,
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

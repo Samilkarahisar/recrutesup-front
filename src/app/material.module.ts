@@ -13,6 +13,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatGridListModule,
     TextFieldModule,
     MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
     MatToolbarModule,
@@ -44,6 +48,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatGridListModule,
     TextFieldModule,
     MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ]
 })
 export class MaterialModule {}
