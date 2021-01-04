@@ -9,6 +9,7 @@ export class Offer {
     city: string;
     mailAddress: string;
     creationDate: Date;
+    userId: number;
     userFirstname: string;
     userLastname: string;
     state: string;
