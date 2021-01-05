@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddCompanyComponent } from './components/add-company/add-company.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { AddMeetingComponent } from './components/add-meeting/add-meeting/add-meeting.component';
-import { AddOfferComponent } from './add-offer/add-offer/add-offer.component';
+import { AddOfferComponent } from './components/add-offer/add-offer/add-offer.component';
 import { AddStudentComponent } from './components/add-student/add-student.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';

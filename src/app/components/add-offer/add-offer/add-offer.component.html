@@ -2,12 +2,12 @@
     <h3>Ajouter Offre</h3>
     <form
       name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
+      (ngSubmit)="f.form.valid && onSubmit(f)"
       #f="ngForm"
       novalidate
     >
         <p>
-            <mat-form-field class="form-group">
+            <mat-form-field style="width: 500px" class="form-group">
             <mat-label for="label">Titre</mat-label>
             <input
                 matInput 
@@ -29,7 +29,7 @@
         </p>
   
         <p>
-            <mat-form-field class="form-group">
+            <mat-form-field style="width: 500px" class="form-group">
                 <mat-label for="address">Adresse</mat-label>
                 <input
                 matInput 
@@ -73,7 +73,7 @@
         </p>
   
       <p>
-        <mat-form-field class="form-group">
+        <mat-form-field style="width: 300px" class="form-group">
           <mat-label for="email">Adresse mail de contact</mat-label>
           <input
             matInput 
@@ -95,38 +95,29 @@
         </mat-form-field>
       </p>
 
-      <p class="form-group">
-        <mat-label for="description">Description</mat-label> <br>
-        <textarea id="clipboard-example-textarea"
-            cols="100"
-            rows="5"
+      <p>
+        <mat-form-field class="form-group" style="width: 800px;" appearance="outline">
+          <mat-label for="description">Description</mat-label> <br>
+          <textarea
+            matInput
+            cols="300"
+            rows="8"
             class="form-control"
             name="description"
             [(ngModel)]="form.description"
             #description="ngModel"
             maxlength="500"
             style="resize: 'none'"
-            value=""
-        >
-        </textarea>
-        <br> {{description.value? description.value.length: 0}} / 500<br>
+          >
+          </textarea>
+          <mat-hint *ngIf="description.value">{{description.value.length}} / 500</mat-hint>
+        </mat-form-field>
       </p>
 
-  
       <div class="form-group">
         <button mat-raised-button class="btn btn-primary btn-block">
           Valider
         </button>
       </div>
-  
-      <p>
-        <mat-label
-          class="alert alert-danger"
-          role="alert"
-          *ngIf="f.submitted && isCreationFailed"
-        >
-        Echec de l'ajout : {{ errorMessage }}
-        </mat-label>
-      </p>
     </form>
   </mat-card>
