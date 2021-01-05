@@ -29,6 +29,7 @@ import { CompanyComponent } from './components/views/company/company.component';
 import { OfferComponent } from './components/views/offer/offer.component';
 import { AddMeetingComponent } from './components/add-meeting/add-meeting/add-meeting.component';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { AddOfferComponent } from './components/add-offer/add-offer/add-offer.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
     CompanyComponent,
     OfferComponent,
     AddMeetingComponent,
+    AddOfferComponent
   ],
   imports: [
     BrowserModule,
