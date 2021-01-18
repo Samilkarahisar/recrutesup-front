@@ -96,14 +96,14 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Liste des salariés enregistrés
+          Liste des interlocuteurs enregistrés
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngFor="let employee of company.employees">
         <mat-card class="employee">
           <div style="float:left;">{{ employee.firstname }} {{ employee.lastname }}</div>
           <div style="float:right;"> {{ employee.mailAddress }} {{ employee.phoneNumber }} </div>
-      </mat-card>
+        </mat-card>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
