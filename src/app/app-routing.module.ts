@@ -6,6 +6,7 @@ import { AddMeetingComponent } from './components/add-meeting/add-meeting.compon
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { AddStudentComponent } from './components/add-student/add-student.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component';
 import { LoginComponent } from './components/login/login.component';
 import { ModifyOfferComponent } from './components/modify-offer/modify-offer.component';
 import { AdminProfilComponent } from './components/profils/admin-profil/admin-profil.component';
@@ -21,6 +22,7 @@ import { AuthGuard } from './helpers/auth.guard';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'wishes', component: ListVoeuxComponent, canActivate: [AuthGuard]},
   { path: 'add-student', component: AddStudentComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
   { path: 'add-company', component: AddCompanyComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },
   { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]} },

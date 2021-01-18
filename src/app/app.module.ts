@@ -31,6 +31,8 @@ import { AddMeetingComponent } from './components/add-meeting/add-meeting.compon
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { ModifyOfferComponent } from './components/modify-offer/modify-offer.component';
+import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { ModifyOfferComponent } from './components/modify-offer/modify-offer.com
     AddMeetingComponent,
     AddOfferComponent,
     ModifyOfferComponent
+    ListVoeuxComponent,
   ],
   imports: [
     BrowserModule,
