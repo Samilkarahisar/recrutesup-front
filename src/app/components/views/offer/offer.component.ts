@@ -8,6 +8,8 @@ import { NotifService } from 'src/app/services/notif.service';
 import { OfferService } from 'src/app/services/offer.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { WishService } from 'src/app/services/wish.service';
+import { Employee } from 'src/app/models/employee';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-offer',
@@ -18,19 +20,20 @@ export class OfferComponent implements OnInit {
 
   offer: Offer = null;
   role: Role = null;
+  user: User = null;
   
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private offerService: OfferService,
     private wishService: WishService,
-    private imageService: ImageService,
     private notifService: NotifService,
     private tokenStorage: TokenStorageService
   ) { }
 
   ngOnInit(): void {
-    this.role = this.tokenStorage.getUser().role;
+    this.user = this.tokenStorage.getUser(); 
+    this.role = this.user.role;
     this.route.params.subscribe(params => {
       if(!isNaN(Number.parseInt(params['idOffer']))) {
         const idOffer = Number.parseInt(params['idOffer']);
@@ -59,5 +62,9 @@ export class OfferComponent implements OnInit {
         this.notifService.error('Erreur', err.error.message);
       }
     )
+  }
+
+  canModify(): boolean {
+    return this.role == 'ROLE_COMPANY' && this.offer != null && this.offer.companyId == this.user.idCompany;
   }
 }

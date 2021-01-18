@@ -7,6 +7,7 @@ import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { AddStudentComponent } from './components/add-student/add-student.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
+import { ModifyOfferComponent } from './components/modify-offer/modify-offer.component';
 import { AdminProfilComponent } from './components/profils/admin-profil/admin-profil.component';
 import { CompanyProfilComponent } from './components/profils/company-profil/company-profil.component';
 import { EmployeeProfilComponent } from './components/profils/employee-profil/employee-profil.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'student/:idUser', component: StudentComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
   { path: 'company/:idCompany', component: CompanyComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
   { path: 'offer/:idOffer', component: OfferComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
+  { path: 'offer/edit/:idOffer', component: ModifyOfferComponent, canActivate: [AuthGuard], data: { roles: [Role.Company] }  },
   { path: 'wish/:idWish', component: AddMeetingComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Company] }  },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
