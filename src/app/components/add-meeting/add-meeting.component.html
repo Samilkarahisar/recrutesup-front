@@ -100,17 +100,17 @@
           </p>
       <span>
         <span class="form-group">
-          <button (click)= "destinataire = 'ADMIN'" mat-raised-button class="btn btn-primary btn-block">
+          <button mat-raised-button color="primary" class="btn btn-primary btn-block" (click)= "destinataire = 'ADMIN'">
             Envoyer la demande à un administrateur
           </button>
         </span>
-        <span (click)= "destinataire = 'STUDENT'" *ngIf="role == 'ROLE_COMPANY'" style="margin-left: 10px" class="form-group">
-          <button mat-raised-button class="btn btn-primary btn-block">
+        <span *ngIf="role == 'ROLE_COMPANY'" style="margin-left: 10px" class="form-group">
+          <button mat-raised-button color="primary" class="btn btn-primary btn-block" (click)= "destinataire = 'STUDENT'">
             Envoyer la demande à l'étudiant concerné
           </button>
         </span>
-        <span (click)= "destinataire = 'COMPANY'" *ngIf="role == 'ROLE_STUDENT'" style="margin-left: 10px" class="form-group">
-          <button mat-raised-button class="btn btn-primary btn-block">
+        <span *ngIf="role == 'ROLE_STUDENT'" style="margin-left: 10px" class="form-group">
+          <button mat-raised-button color="primary" class="btn btn-primary btn-block" (click)= "destinataire = 'COMPANY'">
             Envoyer la demande à l'entreprise concernée
           </button>
         </span>
