@@ -31,6 +31,7 @@ import { AddMeetingComponent } from './components/add-meeting/add-meeting.compon
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component';
+import { ListOffresComponent } from './components/list-offres/list-offres.component';
 
 
 @NgModule({
@@ -47,6 +48,8 @@ import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component
     AdminProfilComponent,
     CompanyProfilComponent,
     EmployeeProfilComponent,
+    ListVoeuxComponent,
+    ListOffresComponent,
   ],
   imports: [
     BrowserModule,
