@@ -1,5 +1,5 @@
 <mat-card class="card card-container">
-    <h3>Ajouter Offre</h3>
+    <h3>Modifier Offre</h3>
     <form
       name="form"
       (ngSubmit)="f.form.valid && onSubmit(f)"
@@ -14,7 +14,7 @@
                 type="text"
                 class="form-control"
                 name="label"
-                [(ngModel)]="form.label"
+                [(ngModel)]="offer.label"
                 required
                 #label="ngModel"
             />
@@ -36,7 +36,7 @@
                 type="text"
                 class="form-control"
                 name="address"
-                [(ngModel)]="form.address"
+                [(ngModel)]="offer.address"
                 required
                 #address="ngModel"
                 />
@@ -58,7 +58,7 @@
                 type="text"
                 class="form-control"
                 name="city"
-                [(ngModel)]="form.city"
+                [(ngModel)]="offer.city"
                 required
                 #city="ngModel"
                 />
@@ -74,22 +74,22 @@
   
       <p>
         <mat-form-field style="width: 300px" class="form-group">
-          <mat-label for="email">Adresse mail de contact</mat-label>
+          <mat-label for="mailAddress">Adresse mail de contact</mat-label>
           <input
             matInput 
             type="email"
             class="form-control"
-            name="email"
-            [(ngModel)]="form.email"
+            name="mailAddress"
+            [(ngModel)]="offer.mailAddress"
             required
-            #email="ngModel"
+            #mailAddress="ngModel"
             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           />
           <mat-icon matSuffix>mail</mat-icon>
           <mat-error
             class="alert alert-danger"
             role="alert"
-            *ngIf="f.submitted && email.invalid"
+            *ngIf="f.submitted && mailAddress.invalid"
           >
               Une adresse mail est requise
           </mat-error>
@@ -105,7 +105,7 @@
             rows="8"
             class="form-control"
             name="description"
-            [(ngModel)]="form.description"
+            [(ngModel)]="offer.description"
             #description="ngModel"
             maxlength="500"
             style="resize: 'none'"
