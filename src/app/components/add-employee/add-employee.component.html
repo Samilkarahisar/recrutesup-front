@@ -69,7 +69,7 @@
             role="alert"
             *ngIf="f.submitted && email.invalid"
           >
-              Une adresse mail est requise
+              L'adresse mail est invalide
           </mat-error>
         </mat-form-field>
       </p>
@@ -83,6 +83,7 @@
             class="form-control"
             name="phone"
             [(ngModel)]="form.phone"
+            maxlength="10"
             #phone="ngModel"
           />
           <mat-icon matSuffix>phone</mat-icon>

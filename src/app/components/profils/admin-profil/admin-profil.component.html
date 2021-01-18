@@ -1,4 +1,4 @@
-<mat-card class="card card-container">
+<mat-card *ngIf="admin != null" class="card card-container">
     <h3>Profil Utilisateur</h3>
     <form
       name="form"
@@ -11,7 +11,7 @@
       <mat-expansion-panel (opened)="changePW = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Données Utilisateur
+            Modifier les données Utilisateur
           </mat-panel-title>
         </mat-expansion-panel-header>
         <p *ngIf="!changePW">
@@ -98,11 +98,10 @@
           </button>
         </div>
       </mat-expansion-panel>
-      
       <mat-expansion-panel (opened)="changePW = true">
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            Modification mot de passe
+          <mat-panel-title style="color: red;">
+            Modifier mot de passe
           </mat-panel-title>
         </mat-expansion-panel-header>
         <p *ngIf="changePW">

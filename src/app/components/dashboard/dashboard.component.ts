@@ -63,7 +63,6 @@ export class DashboardComponent implements OnInit {
     } else if(this.user.role === "ROLE_COMPANY") {
       this.companyService.getCompany(this.user.idCompany).subscribe(
         company => {
-          console.log(company);
           if(company.offers) {
             for(let offer of company.offers)  {
               this.offer_states.find(x => x.libelle === offer.state).number++;

@@ -1,0 +1,119 @@
+<mat-card class="card card-container">
+    <h3>Demande de création d'un Meeting</h3>
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit(f)"
+      #f="ngForm"
+      novalidate
+    >
+        <p>
+          <mat-form-field class="form-group">
+            <mat-label for="date">Choisissez une date -></mat-label>
+            <input
+              matInput
+              required
+              disabled
+              [matDatepicker]="picker"
+              [min]="minDate" [max]="maxDate"
+              class="form-control"
+              name="date"
+              [(ngModel)]="form.date"
+              #date="ngModel">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </p>
+  
+        <p>
+            <mat-form-field class="form-group" style="width: 800px;" appearance="outline">
+              <mat-label for="message">Message</mat-label> <br>
+              <textarea
+                matInput
+                required
+                cols="300"
+                rows="20"
+                class="form-control"
+                name="message"
+                [(ngModel)]="form.message"
+                #message="ngModel"
+                style="resize: 'none'"
+              >
+              </textarea>
+            </mat-form-field>
+          </p>
+  
+          <p>
+            <mat-form-field style="width: 300px" class="form-group">
+              <mat-label for="student">Etudiant concerné</mat-label>
+              <input
+                matInput 
+                disabled
+                type="text"
+                class="form-control"
+                name="student"
+                [(ngModel)]="form.student"
+                required
+                #student="ngModel"
+              />
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field style="width: 800px;" *ngIf="role == 'ROLE_STUDENT'" class="form-group">
+              <mat-label for="offer">Offre concernée</mat-label>
+              <input
+                matInput 
+                disabled
+                type="text"
+                class="form-control"
+                name="offer"
+                [(ngModel)]="form.offer"
+                required
+                #offer="ngModel" 
+              />
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field style="width: 300px" *ngIf="role == 'ROLE_COMPANY'" class="form-group">
+              <mat-label for="employee">Interlocuteur concerné</mat-label>
+              <mat-select
+                matInput 
+                type="text"
+                class="form-control"
+                name="employee"
+                [(ngModel)]="form.employee"
+                required
+                #employee="ngModel">
+                <mat-option *ngFor="let employee of employees" [value]="employee.id">
+                  {{ employee.firstname }} {{ employee.lastname }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="f.submitted && employee.invalid"
+              >
+                  Un interlocuteur valide est requis
+              </mat-error>
+            </mat-form-field>
+          </p>
+      <span>
+        <span class="form-group">
+          <button mat-raised-button color="primary" class="btn btn-primary btn-block" (click)= "destinataire = 'ADMIN'">
+            Envoyer la demande à un administrateur
+          </button>
+        </span>
+        <span *ngIf="role == 'ROLE_COMPANY'" style="margin-left: 10px" class="form-group">
+          <button mat-raised-button color="primary" class="btn btn-primary btn-block" (click)= "destinataire = 'STUDENT'">
+            Envoyer la demande à l'étudiant concerné
+          </button>
+        </span>
+        <span *ngIf="role == 'ROLE_STUDENT'" style="margin-left: 10px" class="form-group">
+          <button mat-raised-button color="primary" class="btn btn-primary btn-block" (click)= "destinataire = 'COMPANY'">
+            Envoyer la demande à l'entreprise concernée
+          </button>
+        </span>
+      </span>
+    </form>
+  </mat-card>
