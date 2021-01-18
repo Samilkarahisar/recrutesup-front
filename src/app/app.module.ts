@@ -54,7 +54,7 @@ import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component
     OfferComponent,
     AddMeetingComponent,
     AddOfferComponent,
-    ModifyOfferComponent
+    ModifyOfferComponent,
     ListVoeuxComponent,
   ],
   imports: [
