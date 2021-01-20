@@ -24,6 +24,7 @@ import { CompanyProfilComponent } from './components/profils/company-profil/comp
 import { EmployeeProfilComponent } from './components/profils/employee-profil/employee-profil.component';
 import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component';
 import { ListOffresComponent } from './components/list-offres/list-offres.component';
+import { ListEntreprisesComponent } from './components/list-entreprises/list-entreprises.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ListOffresComponent } from './components/list-offres/list-offres.compon
     CompanyProfilComponent,
     EmployeeProfilComponent,
     ListVoeuxComponent,
-    ListOffresComponent
+    ListOffresComponent,
+    ListEntreprisesComponent
   ],
   imports: [
     BrowserModule,
