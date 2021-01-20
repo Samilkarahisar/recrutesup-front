@@ -32,6 +32,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { ModifyOfferComponent } from './components/modify-offer/modify-offer.component';
 import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component';
+import { ListOffresComponent } from './components/list-offres/list-offres.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component
     AddOfferComponent,
     ModifyOfferComponent,
     ListVoeuxComponent,
+    ListOffresComponent
   ],
   imports: [
     BrowserModule,
