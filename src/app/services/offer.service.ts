@@ -103,6 +103,20 @@ export class OfferService {
   }
 
   /**
+   * Mettre à jour le statut d'une offre
+   * @param idOffer 
+   * @param currentState 
+   * @param nextState 
+   */
+  updateStateOffer(
+    idOffer: number,
+    currentState: string,
+    nextState: string
+  ): Observable<Offer> {
+    return this.http.patch<Offer>(API + '/' + idOffer + '/' + currentState + '/' + nextState, httpOptions);
+  }
+
+  /**
    * Supprimer une offre (mise à jour de son statut à SUPPRIME)
    * @param idOffer 
    */

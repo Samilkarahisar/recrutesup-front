@@ -61,6 +61,20 @@ export class CompanyService {
   }
 
   /**
+   * Mettre à jour le statut d'une entreprise
+   * @param idCompany 
+   * @param currentState 
+   * @param nextState 
+   */
+  updateStateCompany(
+    idCompany: number,
+    currentState: string,
+    nextState: string
+  ): Observable<Company> {
+    return this.http.patch<Company>(API + '/' + idCompany + '/' + currentState + '/' + nextState, httpOptions);
+  }
+
+  /**
    * Créer une entreprise
    * @param name 
    * @param mailAddress 
