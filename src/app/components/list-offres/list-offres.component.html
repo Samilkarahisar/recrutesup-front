@@ -1,1 +1,29 @@
-<p>list-offres works!</p>
+<mat-card class="card card-container">
+    <div>
+        <h3> Offres</h3>
+        <button mat-icon-button *ngIf="user.role == 'ROLE_COMPANY'" routerLink="/add-offer">
+        <mat-icon style="vertical-align: middle;">add_box</mat-icon>
+        </button></div>
+        <mat-accordion multi  *ngIf="role == 'ROLE_STUDENT' ">
+        <mat-card  style="min-height:25px;margin-bottom:10px;" *ngFor="let offre of allOffers; let j = index" class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
+            <div style="float:left;"> {{offre.companyName}} </div><div style="float:left; padding-left: 15%;">{{offre.city}} -  {{offre.label}}</div> <div style="float:right"><div> {{offre.creationDate}}</div></div>
+        </mat-card>
+        </mat-accordion>
+        <mat-accordion multi  *ngIf="role == 'ROLE_ADMIN' ">
+            <mat-card  style="min-height:25px;margin-bottom:10px;" *ngFor="let offre of allOffers; let j = index" class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
+                <div style="float:left;"> {{offre.companyName}} </div><div style="float:left;  min-width: 20%; padding-left:2%;">{{offre.city}} -  {{offre.label}}</div> <div style="float:left; padding-left: 2%;"><div> {{offre.creationDate}}</div> </div><div style="float:left; padding-left: 2%;"><div> {{offre.state}}</div> </div>
+                <div *ngIf="offre.state == 'EN VALIDATION'"   style="float:left; padding-left: 2%;"><button (click)="validateOffer(j)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Valider</button> </div>
+                <div *ngIf="offre.state == 'EN VALIDATION'"  style="float:left; padding-left: 2%;"><button   (click)="invalidateOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; ">Invalider</button> </div>
+                <div *ngIf="offre.state == 'DISPONIBLE'"  style="float:left; padding-left: 2%;"><button   (click)="makeIndisponibleOffer(j)" mat-flat-button  style="height: 25px;background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button> </div>
+          
+            </mat-card>
+        </mat-accordion>
+        <mat-accordion multi  *ngIf="role == 'ROLE_COMPANY' ">
+            <mat-card  style="min-height:25px;margin-bottom:10px;" *ngFor="let offre of allOffers; let j = index" class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
+                <div style="float:left;"> {{offre.companyName}} </div><div style="float:left;  min-width: 20%; padding-left:2%;">{{offre.city}} -  {{offre.label}}</div> <div style="float:left; padding-left: 2%;"><div> {{offre.creationDate}}</div> </div><div style="float:left; padding-left: 2%;"><div> {{offre.state}}</div> </div>
+                <div *ngIf="offre.state == 'DISPONIBLE'"  style="float:left; padding-left: 2%;"><button   (click)="makeIndisponibleOffer(j)" mat-flat-button  style="height: 25px;background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button> </div>
+                <div *ngIf="offre.state == 'BROUILLON'"  style="float:left; padding-left: 2%;"><button (click)="publishOffer(offre)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Publier</button> </div>
+                <div *ngIf="offre.state !== 'SUPPRIME' || offre.state !== 'EN VALIDATION'"  style="float:left; padding-left: 2%;"><button   (click)="deleteOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; "> <mat-icon style="vertical-align: middle;">clear</mat-icon></button> </div>
+            </mat-card>
+        </mat-accordion>
+</mat-card>

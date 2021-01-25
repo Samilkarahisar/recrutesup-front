@@ -104,6 +104,20 @@ export class StudentService {
   }
 
   /**
+   * Mettre à jour le statut d'un étudiant
+   * @param idUser 
+   * @param currentState 
+   * @param nextState 
+   */
+  updateStateStudent(
+    idUser: number,
+    currentState: string,
+    nextState: string
+  ): Observable<Student> {
+    return this.http.patch<Student>(API + '/' + idUser + '/' + currentState + '/' + nextState, httpOptions);
+  }
+
+  /**
    * Changement de mot de passe
    * @param idUser 
    * @param mailAddress 

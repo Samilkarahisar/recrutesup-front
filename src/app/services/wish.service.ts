@@ -84,4 +84,31 @@ export class WishService {
     return this.http.post<Wish>(API + "/meeting", body, httpOptions);
   }
 
+  /**
+   * Mettre à jour le voeu entreprise
+   * @param idWish 
+   * @param currentState 
+   * @param nextState 
+   */
+  updateStateCompanyWish(
+    idWish: number,
+    currentState: string,
+    nextState: string
+  ): Observable<Wish> {
+    return this.http.patch<Wish>(API + '/company/' + idWish + '/' + currentState + '/' + nextState, httpOptions);
+  }
+
+  /**
+   * Mettre à jour le voeu étudiant
+   * @param idWish 
+   * @param currentState 
+   * @param nextState 
+   */
+  updateStateStudentWish(
+    idWish: number,
+    currentState: string,
+    nextState: string
+  ): Observable<Wish> {
+    return this.http.patch<Wish>(API + '/student/' + idWish + '/' + currentState + '/' + nextState, httpOptions);
+  }
 }
