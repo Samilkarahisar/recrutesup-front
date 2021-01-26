@@ -1,13 +1,13 @@
 <mat-card class="card card-container">
 <h3>Mes Voeux</h3>
     <mat-accordion multi>
-    <mat-card  style="min-height:25px;margin-bottom:10px;" *ngFor="let voeu of wishSendList; let j = index" class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
+    <mat-card  style="min-height:25px;margin-bottom:10px;" *ngFor="let voeu of wishSendList; let j = index" routerLink = "/wish/{{voeu.id}}"  class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
         <div style="float:left;"> {{voeu.priority}} </div><div style="float:left; padding-left: 15%;">{{voeu.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{voeu.receiver}}</div> <div style="float:right"><div><mat-icon *ngIf="voeu.state == 'VALIDE'" style="vertical-align: middle;">add_box</mat-icon> {{voeu.state}}</div></div>
     </mat-card>
     </mat-accordion>
 <h3>Voeux reçus</h3> 
     <mat-accordion multi>
-        <mat-card style="min-height:25px;margin-bottom:10px;" *ngFor="let voeu of wishReceivedList; let j = index" class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
+        <mat-card style="min-height:25px;margin-bottom:10px;" *ngFor="let voeu of wishReceivedList; let j = index" routerLink = "/wish/{{voeu.id}}" class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
             <div style="float:left;"> {{voeu.priority}} </div><div style="float:left; padding-left: 15%;">{{voeu.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{voeu.receiver}}</div> <div style="float:right"><div><mat-icon *ngIf="voeu.state == 'VALIDE'" style="vertical-align: middle;">add_box</mat-icon> {{voeu.state}}</div></div>
          </mat-card>
     </mat-accordion>
