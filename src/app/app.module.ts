@@ -34,6 +34,7 @@ import { ModifyOfferComponent } from './components/modify-offer/modify-offer.com
 import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component';
 import { ListOffresComponent } from './components/list-offres/list-offres.component';
 import { ListEntreprisesComponent } from './components/list-entreprises/list-entreprises.component';
+import { ListStudentsComponent } from './components/list-students/list-students.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { ListEntreprisesComponent } from './components/list-entreprises/list-ent
     ModifyOfferComponent,
     ListVoeuxComponent,
     ListOffresComponent,
-    ListEntreprisesComponent
+    ListEntreprisesComponent,
+    ListStudentsComponent
   ],
   imports: [
     BrowserModule,
