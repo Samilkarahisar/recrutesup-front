@@ -6,7 +6,8 @@
         <div class="resume">
             <span>
                 <h2 style="display: inline">{{ student.firstname }} {{ student.lastname }}</h2>  <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ student.state }}</h3>
-                <button mat-raised-button color="primary" *ngIf="role == 'ROLE_COMPANY'" (click)="sendCompanyWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Adresser un voeu</button>
+                <button mat-raised-button color="primary" *ngIf="role == 'ROLE_COMPANY' && !wishAlreadySent()" (click)="sendCompanyWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Adresser un voeu</button>
+                <button mat-raised-button disabled *ngIf="role == 'ROLE_COMPANY' && wishAlreadySent()" (click)="sendCompanyWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Voeu adressé</button>
             </span>
             <h4>{{ student.schoolYear }} - {{ student.label }}</h4>
             <p>{{ student.description }}</p>

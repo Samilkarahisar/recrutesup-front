@@ -8,6 +8,7 @@ import { NotifService } from 'src/app/services/notif.service';
 import { Student } from 'src/app/models/student';
 import { Role } from 'src/app/constants/role';
 import { WishService } from 'src/app/services/wish.service';
+import { Wish } from 'src/app/models/wish';
 
 @Component({
   selector: 'app-student',
@@ -58,6 +59,16 @@ export class StudentComponent implements OnInit {
         this.notifService.error('Erreur', err.error.message);
       }
     )
+  }
+
+  wishAlreadySent(): boolean {
+    for(let wish of this.student.wishReceivedList) {
+      if(wish.idSender === this.tokenStorage.getUser().idCompany) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 }

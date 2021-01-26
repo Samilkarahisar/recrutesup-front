@@ -63,6 +63,16 @@ export class OfferComponent implements OnInit {
     )
   }
 
+  wishAlreadySent(): boolean {
+    for(let wish of this.offer.wishReceivedList) {
+      if(wish.idSender === this.tokenStorage.getUser().id) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   canModify(): boolean {
     return this.role == 'ROLE_COMPANY' && this.offer != null && this.offer.companyId == this.user.idCompany;
   }
