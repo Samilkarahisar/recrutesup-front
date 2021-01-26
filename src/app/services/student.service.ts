@@ -90,7 +90,6 @@ export class StudentService {
    * @param description 
    */
   updateStudent(
-    idUser: number,
     firstname: string,
     lastname: string,
     mailAddress: string,
@@ -100,7 +99,7 @@ export class StudentService {
     description: string
   ): Observable<Student> {
     const body = {firstname, lastname, mailAddress, schoolYear, phoneNumber, label, description};
-    return this.http.patch<Student>(API + '/' + idUser, body, httpOptions);
+    return this.http.patch<Student>(API, body, httpOptions);
   }
 
   /**
@@ -124,11 +123,10 @@ export class StudentService {
    * @param password 
    */
   changePassword(
-    idUser: number,
     mailAddress: string,
     password: string
   ): Observable<Student> {
     const body = {mailAddress, password};
-    return this.http.patch<Student>(API + '/changePW/' + idUser, body, httpOptions);
+    return this.http.patch<Student>(API + '/changePW', body, httpOptions);
   }
 }

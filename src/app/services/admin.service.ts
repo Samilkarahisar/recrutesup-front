@@ -40,14 +40,13 @@ export class AdminService {
    * @param phoneNumber 
    */
   updateAdmin(
-    idUser: number,
     firstname: string,
     lastname: string,
     mailAddress: string,
     phoneNumber: string
   ): Observable<Admin> {
     const body = {firstname, lastname, mailAddress, phoneNumber};
-    return this.http.patch<Admin>(API + '/' + idUser, body, httpOptions);
+    return this.http.patch<Admin>(API, body, httpOptions);
   }
 
   /**
@@ -57,11 +56,10 @@ export class AdminService {
    * @param password 
    */
   changePassword(
-    idUser: number,
     mailAddress: string,
     password: string
   ): Observable<Admin> {
     const body = {mailAddress, password};
-    return this.http.patch<Admin>(API + '/changePW/' + idUser, body, httpOptions);
+    return this.http.patch<Admin>(API + '/changePW', body, httpOptions);
   }
 }

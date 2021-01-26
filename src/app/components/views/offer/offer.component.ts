@@ -53,7 +53,6 @@ export class OfferComponent implements OnInit {
 
   sendStudenWish(): void {
     this.wishService.createStudentWish(
-      this.tokenStorage.getUser().id,
       this.offer.id
     ).subscribe(
       response => {

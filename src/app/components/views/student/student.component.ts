@@ -50,7 +50,6 @@ export class StudentComponent implements OnInit {
 
   sendCompanyWish(): void {
     this.wishService.createCompanyWish(
-      this.tokenStorage.getUser().idCompany,
       this.student.id
     ).subscribe(
       response => {

@@ -45,10 +45,9 @@ export class WishService {
    * @param idOffer 
    */
   createStudentWish(
-    idUser: number,
     idOffer: number
   ): Observable<Wish> {
-    return this.http.post<Wish>(API + '/student/' + idUser + "/" + idOffer, httpOptions);
+    return this.http.post<Wish>(API + '/student/' + idOffer, httpOptions);
   }
 
   /**
@@ -57,10 +56,9 @@ export class WishService {
    * @param idUser 
    */
   createCompanyWish(
-    idCompany: number,
     idUser: number
   ): Observable<Wish> {
-    return this.http.post<Wish>(API + '/company/' + idCompany + "/" + idUser, httpOptions);
+    return this.http.post<Wish>(API + '/company/' + idUser, httpOptions);
   }
 
   /**
