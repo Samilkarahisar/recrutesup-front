@@ -5,15 +5,15 @@
         <mat-icon style="vertical-align: middle;">add_box</mat-icon>
         </button></div>
         <mat-accordion multi  *ngIf="role == 'ROLE_STUDENT' ">
-        <div *ngIf="offre.state !== 'BROUILLON'">
-            <mat-card  style="min-height:25px;margin-bottom:10px;" *ngFor="let offre of allOffers; let j = index" routerLink = "/offer/{{offre.id}}"  class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
+        <div *ngFor="let offre of allOffers">
+            <mat-card  style="min-height:25px;margin-bottom:10px;" *ngIf="offre.state != 'BROUILLON'"  routerLink = "/offer/{{offre.id}}"  class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
                 <div style="float:left;"> {{offre.companyName}} </div><div style="float:left; padding-left: 15%;">{{offre.city}} -  {{offre.label}}</div> <div style="float:right"><div> {{offre.creationDate}}</div></div>
             </mat-card>
         </div>
         </mat-accordion>
         <mat-accordion multi  *ngIf="role == 'ROLE_ADMIN' ">
-            <div *ngIf="offre.state !== 'BROUILLON'" >
-                <mat-card  style="min-height:25px;margin-bottom:10px;" *ngFor="let offre of allOffers; let j = index" routerLink = "/offer/{{offre.id}}"  class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
+            <div *ngFor="let offre of allOffers">
+                <mat-card  style="min-height:25px;margin-bottom:10px;" *ngIf="offre.state != 'BROUILLON'" routerLink = "/offer/{{offre.id}}"  class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
                     <div style="float:left;"> {{offre.companyName}} </div><div style="float:left;  min-width: 20%; padding-left:2%;">{{offre.city}} -  {{offre.label}}</div> <div style="float:left; padding-left: 2%;"><div> {{offre.creationDate}}</div> </div><div style="float:left; padding-left: 2%;"><div> {{offre.state}}</div> </div>
                     <div *ngIf="offre.state == 'EN VALIDATION'"   style="float:left; padding-left: 2%;"><button (click)="validateOffer(j)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Valider</button> </div>
                     <div *ngIf="offre.state == 'EN VALIDATION'"  style="float:left; padding-left: 2%;"><button   (click)="invalidateOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; ">Invalider</button> </div>
