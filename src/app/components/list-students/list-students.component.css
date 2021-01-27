@@ -1,0 +1,9 @@
+.card-container {
+    margin : 2%;
+  }
+
+.card-expansion-panel {
+    height: 20px;
+    margin-bottom: 10px;
+    background-color: rgb(235, 235, 235);
+}
