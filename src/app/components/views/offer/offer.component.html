@@ -6,7 +6,8 @@
         <div class="resume">
             <span>
                 <h2 style="display: inline">{{ offer.label }}</h2> <h3 *ngIf="role != 'ROLE_STUDENT'" style="display: inline"> - {{ offer.state }}</h3>
-                <button mat-raised-button color="primary" *ngIf="role == 'ROLE_STUDENT'" (click)="sendStudenWish()" style="margin-left: 20px; margin-bottom: 5px;" class="btn btn-primary btn-block">Adresser un voeu</button>
+                <button mat-raised-button color="primary" *ngIf="role == 'ROLE_STUDENT' && !wishAlreadySent()" (click)="sendStudenWish()" style="margin-left: 20px; margin-bottom: 5px;" class="btn btn-primary btn-block">Adresser un voeu</button>
+                <button mat-raised-button disabled *ngIf="role == 'ROLE_STUDENT' && wishAlreadySent()" (click)="sendStudenWish()" style="margin-left: 20px; margin-bottom: 5px;" class="btn btn-primary btn-block">Voeu adressé</button>
                 <button mat-raised-button color="primary" *ngIf="canModify()" [routerLink]="['/offer/edit/', offer.id]" style="margin-left: 20px; margin-bottom: 5px;" class="btn btn-primary btn-block">Modifier</button>
                 <br><h4 style="display: inline">({{ offer.companyName }})</h4> <h4 style="display: inline"> {{ offer.city }}</h4> <h4 *ngIf="offer.address" style="display: inline"> - {{ offer.address }}</h4>
             </span>

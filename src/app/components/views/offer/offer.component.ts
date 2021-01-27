@@ -53,7 +53,6 @@ export class OfferComponent implements OnInit {
 
   sendStudenWish(): void {
     this.wishService.createStudentWish(
-      this.tokenStorage.getUser().id,
       this.offer.id
     ).subscribe(
       response => {
@@ -62,6 +61,16 @@ export class OfferComponent implements OnInit {
         this.notifService.error('Erreur', err.error.message);
       }
     )
+  }
+
+  wishAlreadySent(): boolean {
+    for(let wish of this.offer.wishReceivedList) {
+      if(wish.idSender === this.tokenStorage.getUser().id) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   canModify(): boolean {

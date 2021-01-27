@@ -50,14 +50,13 @@ export class CompanyService {
    * @param description 
    */
   updateCompany(
-    idCompany: number,
     name: string,
     mailAddress: string,
     websiteUrl: string,
     description: string
   ): Observable<Company> {
     const body = {name, mailAddress, websiteUrl, description};
-    return this.http.patch<Company>(API + '/' + idCompany, body, httpOptions);
+    return this.http.patch<Company>(API, body, httpOptions);
   }
 
   /**
@@ -145,7 +144,6 @@ export class CompanyService {
    * @param idCompany 
    */
   updateEmployee(
-    idUser: number,
     firstname: string,
     lastname: string,
     mailAddress: string,
@@ -153,7 +151,7 @@ export class CompanyService {
     idCompany: number
   ): Observable<Employee> {
     const body = {firstname, lastname, mailAddress, phoneNumber, idCompany};
-    return this.http.patch<Employee>(API + '/employee/' + idUser, body, httpOptions);
+    return this.http.patch<Employee>(API + '/employee', body, httpOptions);
   }
 
   /**
@@ -163,12 +161,11 @@ export class CompanyService {
    * @param password 
    */
   changePassword(
-    idUser: number,
     mailAddress: string,
     password: string
   ): Observable<Employee> {
     const body = {mailAddress, password};
-    return this.http.patch<Employee>(API + '/changePW/' + idUser, body, httpOptions);
+    return this.http.patch<Employee>(API + '/changePW', body, httpOptions);
   }
 
 }

@@ -42,7 +42,6 @@ export class AdminProfilComponent implements OnInit {
   onSubmit(): void {
     if(!this.changePW) {
       this.adminService.updateAdmin(
-        this.admin.id,
         this.admin.firstname,
         this.admin.lastname,
         this.admin.mailAddress,
@@ -58,7 +57,6 @@ export class AdminProfilComponent implements OnInit {
     } else {
       if(this.form.password === this.form.confirmpassword) {
         this.adminService.changePassword(
-          this.idUser,
           this.admin.mailAddress,
           this.form.password
         ).subscribe(

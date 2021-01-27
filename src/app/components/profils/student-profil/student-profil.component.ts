@@ -60,7 +60,6 @@ export class StudentProfilComponent implements OnInit {
   onSubmit(): void {
     if(!this.changePW) {
       this.studentService.updateStudent(
-        this.student.id,
         this.student.firstname,
         this.student.lastname,
         this.student.mailAddress,
@@ -79,7 +78,6 @@ export class StudentProfilComponent implements OnInit {
     } else {
       if(this.form.password === this.form.confirmpassword) {
         this.studentService.changePassword(
-          this.idUser,
           this.student.mailAddress,
           this.form.password
         ).subscribe(
