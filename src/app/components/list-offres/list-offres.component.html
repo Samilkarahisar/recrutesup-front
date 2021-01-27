@@ -21,7 +21,7 @@
         </div>
     </mat-accordion>
     <mat-accordion multi  *ngIf="role == 'ROLE_COMPANY' ">
-        <mat-card *ngFor="let offre of allOffers; let j = index" routerLink = "/offer/{{offre.id}}"  class="card card-expansion-panel">
+        <mat-card *ngFor="let offre of allOffers" routerLink = "/offer/{{offre.id}}"  class="card card-expansion-panel">
             <div *ngIf="offre.state == 'DISPONIBLE'"  style="float:right; padding-left: 2%;"><button   (click)="makeIndisponibleOffer(j)" mat-flat-button  style="height: 25px;background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button> </div>
             <div *ngIf="offre.state == 'BROUILLON'"  style="float:right; padding-left: 2%;"><button (click)="publishOffer(offre)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Publier</button> </div>
             <div *ngIf="offre.state !== 'SUPPRIME' || offre.state !== 'EN VALIDATION'"  style="float:right; padding-left: 2%;"><button   (click)="deleteOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; "> <mat-icon style="vertical-align: middle;">clear</mat-icon></button> </div>
