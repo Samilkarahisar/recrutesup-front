@@ -1,5 +1,13 @@
 <mat-card class="card card-container">
-    <h3>Entreprises participant au forum</h3> 
+    <div>
+    <h3>Entreprises participant au forum</h3>  
+            <button style="width:150px; height: 25px;background-color:lightpink; line-height: 1rem; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-employee">
+            Ajout salarié
+            </button>
+            <button style="width:150px; height: 25px;background-color:lightpink; line-height: 1rem; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-company">
+            Ajout entreprise
+            </button>
+            </div>
         <mat-accordion multi *ngIf="role == 'ROLE_STUDENT'">
             <mat-card style="min-height:25px;margin-bottom:10px;" *ngFor="let company of allCompanies; let j = index" routerLink = "/company/{{company.id}}" class="card card-expansion-panel" [style.backgroundColor]="'lightgrey'">
                 <div style="float:left;"> {{company.name}} </div>
