@@ -42,7 +42,6 @@ export class EmployeeProfilComponent implements OnInit {
   onSubmit(): void {
     if(!this.changePW) {
       this.companyService.updateEmployee(
-        this.employee.id,
         this.employee.firstname,
         this.employee.lastname,
         this.employee.mailAddress,
@@ -59,7 +58,6 @@ export class EmployeeProfilComponent implements OnInit {
     } else {
       if(this.form.password === this.form.confirmpassword) {
         this.companyService.changePassword(
-          this.idUser,
           this.employee.mailAddress,
           this.form.password
         ).subscribe(

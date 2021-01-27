@@ -16,7 +16,7 @@
                 <h4>Offres</h4>
                 <div *ngIf="company.offers.length == 0">Aucune offre</div>
                 <div *ngFor="let offer of company.offers">
-                    <mat-card *ngIf="offer.state != 'BROUILLON'" [routerLink]="['/offer/', offer.id]" class="item" style="cursor: pointer">
+                    <mat-card *ngIf="(role == 'ROLE_ADMIN' && offer.state != 'BROUILLON') || (role != 'ROLE_ADMIN' && offer.state == 'DISPONIBLE')" [routerLink]="['/offer/', offer.id]" class="item" style="cursor: pointer">
                         <div style="float:left;">{{ offer.label }}  ({{ offer.city }})</div>
                         <div style="float:right">{{ offer.state }} ({{ offer.creationDate | date: 'dd/MM/yyyy' }})</div>
                     </mat-card>
@@ -44,6 +44,17 @@
                             <div style="float:right;"> {{wish.state}} </div>
                         </mat-card>
                     </div>
+                </div>
+            </div>
+
+            <div *ngIf="role == 'ROLE_ADMIN'" class="employees">
+                <h4>Salariés enregistrés</h4>
+                <div *ngIf="company.employees.length == 0">Aucun salarié enregistré</div>
+                <div *ngFor="let employee of company.employees">
+                    <mat-card class="item">
+                      <div style="float:left;">{{ employee.firstname }} {{ employee.lastname }}</div>
+                      <div style="float:right;"> {{ employee.mailAddress }} {{ employee.phoneNumber }} </div>
+                    </mat-card>
                 </div>
             </div>
         </div>

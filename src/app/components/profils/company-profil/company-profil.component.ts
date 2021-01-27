@@ -44,7 +44,6 @@ export class CompanyProfilComponent implements OnInit {
 
   onSubmit(): void {
     this.companyService.updateCompany(
-      this.company.id,
       this.company.name,
       this.company.mailAddress,
       this.company.websiteUrl,
