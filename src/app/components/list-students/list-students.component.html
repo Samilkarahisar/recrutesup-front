@@ -5,7 +5,7 @@
     </button>
     <mat-accordion multi *ngIf="role == 'ROLE_COMPANY'">
         <div *ngFor="let student of allStudents">
-            <mat-card style="min-height:25px;margin-bottom:10px;" *ngIf="student.state == 'VALIDE'" routerLink = "/student/{{student.id}}" class="card card-expansion-panel">
+            <mat-card *ngIf="student.state == 'VALIDE'" routerLink = "/student/{{student.id}}" class="card card-expansion-panel">
                 <div style="float:left;"> {{student.firstname}} {{student.lastname}} </div>
                 <div style="padding-left:2%;float:right;"> {{student.schoolYear}}  - </div>
                 <div style="padding-left:2%;float:right;"> {{student.label}} </div>
@@ -13,7 +13,7 @@
         </div>
     </mat-accordion>
     <mat-accordion multi *ngIf="role == 'ROLE_ADMIN'">
-        <mat-card style="min-height:25px;margin-bottom:10px;" *ngFor="let student of allStudents; let j = index" routerLink = "/student/{{student.id}}" class="card card-expansion-panel">
+        <mat-card *ngFor="let student of allStudents" routerLink = "/student/{{student.id}}" class="card card-expansion-panel">
             <div style="float:left;"> {{student.firstname}} {{student.lastname}} </div>
             <div *ngIf="student.state == 'ENREGISTRE' || student.state == 'VALIDE' "  style="float:right; padding-left: 2%;"><button   (click)="invalidateOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; ">Invalider</button> </div>
             <div *ngIf="student.state == 'ENREGISTRE' || student.state == 'INVALIDE'  "   style="float:right; padding-left: 2%;"><button (click)="validateOffer(j)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Valider</button> </div>

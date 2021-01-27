@@ -1,5 +1,6 @@
 <mat-card class="card card-container">
-  <h3 *ngIf="!forgotPW">Connexion</h3>
+  <h2>RecruteSUP - Forum d'alternance de Polytech Lyon</h2>
+  <h2 *ngIf="!forgotPW">Connexion</h2>
   <h3 *ngIf="forgotPW">Récupération du mot de passe</h3>
   <form
     name="form"
@@ -7,52 +8,50 @@
     #f="ngForm"
     novalidate
   >
-    <p>
-      <mat-form-field class="form-group">
-        <mat-label for="email">Adresse Mail</mat-label>
-        <input matInput 
-          type="email"
-          class="form-control"
-          name="email"
-          [(ngModel)]="form.email"
-          required
-          #email="ngModel"
-          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        />
-        <mat-icon matSuffix>person</mat-icon>
-        <mat-error *ngIf="f.submitted && email.invalid"> L'adresse mail est invalide </mat-error>
-      </mat-form-field>
-    </p>
+    <mat-form-field class="form-group" appearance="outline" style="width: 400px;">
+      <mat-label for="email">Adresse Mail</mat-label>
+      <input matInput 
+        type="email"
+        class="form-control"
+        name="email"
+        [(ngModel)]="form.email"
+        required
+        #email="ngModel"
+        pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      />
+      <mat-icon matPrefix style="margin-right: 10px">mail_outline</mat-icon>
+      <mat-error *ngIf="f.submitted && email.invalid"> L'adresse mail est invalide </mat-error>
+    </mat-form-field>
 
-    <p *ngIf="!forgotPW">
-      <mat-form-field class="form-group">
-        <mat-label for="password">Mot de passe</mat-label>
-        <input matInput
-          [type]="hide ? 'password' : 'text'"
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="6"
-          #password="ngModel"
-        />
-        <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        <mat-error
-          class="alert alert-danger"
-          role="alert"
-          *ngIf="f.submitted && password.invalid"
-        >
-          <mat-label *ngIf="password.errors.required">Un mot de passe est requis</mat-label>
-          <mat-label *ngIf="password.errors.minlength">Le mot de passe doit avoir au moins 6 caractères</mat-label>
-        </mat-error>
-      </mat-form-field>
-    </p>
+    <br>
+    <mat-form-field *ngIf="!forgotPW" class="form-group" appearance="outline" style="width: 400px;">
+      <mat-label for="password">Mot de passe</mat-label>
+      <input matInput
+        [type]="hide ? 'password' : 'text'"
+        class="form-control"
+        name="password"
+        [(ngModel)]="form.password"
+        required
+        minlength="6"
+        #password="ngModel"
+      />
+      <mat-icon matPrefix style="margin-right: 10px">vpn_key</mat-icon>
+      <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="f.submitted && password.invalid"
+      >
+        <mat-label *ngIf="password.errors.required">Un mot de passe est requis</mat-label>
+        <mat-label *ngIf="password.errors.minlength">Le mot de passe doit avoir au moins 6 caractères</mat-label>
+      </mat-error>
+    </mat-form-field>
 
     <div class="form-group">
-      <button *ngIf="!forgotPW" mat-raised-button class="btn btn-primary btn-block">
+      <button *ngIf="!forgotPW" mat-raised-button color="primary" class="btn btn-primary btn-block">
         Connexion
       </button>
-      <button *ngIf="forgotPW" mat-raised-button class="btn btn-primary btn-block">
+      <button *ngIf="forgotPW" mat-raised-button color="primary" class="btn btn-primary btn-block">
         Récupérer
       </button>
     </div>
