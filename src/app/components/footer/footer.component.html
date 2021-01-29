@@ -1,7 +1,6 @@
 <mat-toolbar color="primary">
-    <div>
-        <a mat-button [routerLink]="'/dashboard'"><h1> Contacts </h1></a>
-        <a mat-button [routerLink]="'/companies'"><h1> Nous connaître </h1></a>
-        Version : {{ version }}
+    <div *ngIf="getUserAndToken()">
+        <a mat-button [routerLink]="'/contacts'"><h1> Contacts </h1></a>
+        <a mat-button [routerLink]="'/about'"><h1> Nous connaître </h1></a>
     </div>
 </mat-toolbar>

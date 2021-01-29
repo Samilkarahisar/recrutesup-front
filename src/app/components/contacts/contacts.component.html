@@ -1,0 +1,11 @@
+<mat-card class="card card-container">
+    <h3>Contacts</h3>
+    <p>Pour d'éventuelles questions concernant l'application, vous trouverez ci-dessous la liste des responsables de formation de Polytech Lyon qui sont habilités à administrer l'application :
+    </p>
+    <div *ngFor="let admin of admins">
+        <mat-card class="admin">
+          <div style="float:left;">{{ admin.firstname }} {{ admin.lastname }}</div>
+          <div style="float:right;"> {{ admin.mailAddress }} {{ admin.phoneNumber }} </div>
+        </mat-card>
+      </div>
+</mat-card>

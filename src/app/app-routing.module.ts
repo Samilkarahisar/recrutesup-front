@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AboutComponent } from './components/about/about.component';
 import { AddCompanyComponent } from './components/add-company/add-company.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { AddMeetingComponent } from './components/add-meeting/add-meeting.component';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { AddStudentComponent } from './components/add-student/add-student.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ListEntreprisesComponent } from './components/list-entreprises/list-entreprises.component';
 import { ListOffresComponent } from './components/list-offres/list-offres.component';
@@ -24,6 +26,8 @@ import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'about', component: AboutComponent, canActivate: [AuthGuard]},
+  { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'wishes', component: ListVoeuxComponent, canActivate: [AuthGuard]},
   { path: 'offers', component: ListOffresComponent, canActivate: [AuthGuard]},
