@@ -35,6 +35,8 @@ import { ListVoeuxComponent } from './components/list-voeux/list-voeux.component
 import { ListOffresComponent } from './components/list-offres/list-offres.component';
 import { ListEntreprisesComponent } from './components/list-entreprises/list-entreprises.component';
 import { ListStudentsComponent } from './components/list-students/list-students.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -61,7 +63,9 @@ import { ListStudentsComponent } from './components/list-students/list-students.
     ListVoeuxComponent,
     ListOffresComponent,
     ListEntreprisesComponent,
-    ListStudentsComponent
+    ListStudentsComponent,
+    ContactsComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
