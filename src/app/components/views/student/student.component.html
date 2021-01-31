@@ -6,8 +6,12 @@
         <div class="resume">
             <span>
                 <h2 style="display: inline">{{ student.firstname }} {{ student.lastname }}</h2>  <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ student.state }}</h3>
-                <button mat-raised-button color="primary" *ngIf="role == 'ROLE_COMPANY' && !wishAlreadySent()" (click)="sendCompanyWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Adresser un voeu</button>
-                <button mat-raised-button disabled *ngIf="role == 'ROLE_COMPANY' && wishAlreadySent()" (click)="sendCompanyWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Voeu adressé</button>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (student.state == 'ENREGISTRE' || student.state == 'INVALIDE')" (click)="validerStudent()" style="margin-left: 20px; height: 25px;background-color:green; line-height: 1rem; " class="btn btn-primary btn-block">Valider</button>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (student.state == 'ENREGISTRE' || student.state == 'VALIDE')" (click)="invaliderStudent()" style="margin-left: 20px; height: 25px;background-color:red; line-height: 1rem; " class="btn btn-primary btn-block">Invalider</button>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && student.state == 'VALIDE'" style="margin-left: 20px; height: 25px;background-color:purple; line-height: 1rem; " (click)="indisponibleStudent()" class="btn btn-primary btn-block">Indisponible</button>
+
+                <button mat-raised-button color="primary" *ngIf="role == 'ROLE_COMPANY' && user.state == 'VALIDE' && !wishAlreadySent()" (click)="sendCompanyWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Adresser un voeu</button>
+                <button mat-raised-button disabled *ngIf="role == 'ROLE_COMPANY' && wishAlreadySent()" style="margin-left: 20px;" class="btn btn-primary btn-block">Voeu adressé</button>
             </span>
             <h4>{{ student.schoolYear }} - {{ student.label }}</h4>
             <p>{{ student.description }}</p>
@@ -24,7 +28,7 @@
                     </span>
                 </span>
             </div>
-
+            <br>
             <div *ngIf="role == 'ROLE_ADMIN'" class="sendedWishes">
                 <h4>Voeux envoyés</h4>
                 <div *ngIf="student.wishSendList.length == 0">Aucun voeu envoyé</div>
@@ -35,7 +39,7 @@
                     </mat-card>
                 </div>
             </div>
-    
+            <br>
             <div *ngIf="role == 'ROLE_ADMIN'" class="receivedWishes">
                 <h4>Voeux reçus</h4>
                 <div *ngIf="student.wishReceivedList.length == 0">Aucun voeu reçu</div>

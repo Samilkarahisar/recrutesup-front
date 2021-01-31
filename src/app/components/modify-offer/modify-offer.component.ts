@@ -7,6 +7,8 @@ import { User } from 'src/app/models/user';
 import { OfferService } from 'src/app/services/offer.service';
 import { NotifService } from 'src/app/services/notif.service';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationModifOfferDialogComponent } from '../dialogs/confirmation-modif-offer-dialog/confirmation-modif-offer-dialog.component';
 
 @Component({
   selector: 'app-modify-offer',
@@ -24,6 +26,7 @@ export class ModifyOfferComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private offerService: OfferService,
     private notifService: NotifService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -49,23 +52,32 @@ export class ModifyOfferComponent implements OnInit {
   }
 
   onSubmit(f: NgForm): void {
-    this.offerService.updateOffer(
-      this.offer.id,
-      this.offer.label,
-      this.offer.description,
-      this.offer.address,
-      this.offer.city,
-      this.offer.mailAddress,
-      null,
-      this.offer.userId
-      ).subscribe(
-      response => {
-        this.notifService.success('Offre mise à jour', 'Votre offre a été mise à jour');
-      },
-      err => {
-        this.notifService.error('Erreur Miodification', err.error.message);
-      }
-    )
+
+    if(this.offer.state == 'DISPONIBLE') {
+      const dialogRef = this.dialog.open(ConfirmationModifOfferDialogComponent);
+      dialogRef.afterClosed().subscribe(
+        result => {
+          if(result == true) {
+            this.offerService.updateOffer(
+            this.offer.id,
+            this.offer.label,
+            this.offer.description,
+            this.offer.address,
+            this.offer.city,
+            this.offer.mailAddress,
+            null,
+            this.offer.userId
+            ).subscribe(
+            response => {
+              this.notifService.success('Offre mise à jour', 'Votre offre a été mise à jour');
+            },
+            err => {
+              this.notifService.error('Erreur Miodification', err.error.message);
+            }
+          )
+          }
+      });
+    }
   }
 
 }

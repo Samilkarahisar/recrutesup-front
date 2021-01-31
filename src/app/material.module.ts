@@ -15,6 +15,10 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -33,6 +37,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatTabsModule,
+    MatDividerModule,
   ],
   exports: [
     MatToolbarModule,
@@ -50,6 +58,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatTabsModule,
+    MatDividerModule,
   ]
 })
 export class MaterialModule {}

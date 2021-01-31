@@ -5,6 +5,9 @@ import { ImageService } from 'src/app/services/image.service';
 import { NotifService } from 'src/app/services/notif.service';
 import { Student } from 'src/app/models/student';
 import { WorkflowState } from 'src/app/constants/workflowState';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationIndisponibleOfferDialogComponent } from '../../dialogs/confirmation-indisponible-offer-dialog/confirmation-indisponible-offer-dialog.component';
+import { ConfirmationIndisponibleStudentDialogComponent } from '../../dialogs/confirmation-indisponible-student-dialog/confirmation-indisponible-student-dialog.component';
 
 interface SchoolYear {
   value: string;
@@ -37,7 +40,9 @@ export class StudentProfilComponent implements OnInit {
     private studentService: StudentService,
     private tokenStorage: TokenStorageService,
     private imageService: ImageService,
-    private notifService: NotifService) { }
+    private notifService: NotifService,
+    private dialog: MatDialog,
+    ) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -93,6 +98,24 @@ export class StudentProfilComponent implements OnInit {
       }
     }
     
+  }
+
+  indisponibleState(): void {
+    const dialogRef = this.dialog.open(ConfirmationIndisponibleStudentDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result == true) {
+          this.studentService.updateStateStudent(this.student.id, this.student.state, 'INDISPONIBLE').subscribe(
+            response => {
+              this.student = response;
+              this.notifService.success('Profil à jour', 'Votre status a été mis à jour');
+            }, err => {
+              this.notifService.error('Erreur', err.error.message);
+            }
+          )
+        }
+      }
+    );
   }
 
   getLabelFromState() : string {

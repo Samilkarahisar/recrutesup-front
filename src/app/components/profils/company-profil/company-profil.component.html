@@ -101,8 +101,9 @@
       </mat-expansion-panel-header>
       <div *ngFor="let employee of company.employees">
         <mat-card class="employee">
-          <div style="float:left;">{{ employee.firstname }} {{ employee.lastname }}</div>
-          <div style="float:right;"> {{ employee.mailAddress }} {{ employee.phoneNumber }} </div>
+          <div style="width: 33%; display: inline-block;">{{ employee.firstname }} {{ employee.lastname }}</div>
+          <div style="width: 33%; display: inline-block;"> {{ employee.mailAddress }} </div>
+          <div style="width: 33%; display: inline-block;"> {{ employee.phoneNumber }} </div>
         </mat-card>
       </div>
     </mat-expansion-panel>

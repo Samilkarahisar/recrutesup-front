@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Admin } from 'src/app/models/admin';
 import { Company } from 'src/app/models/company';
 import { Student } from 'src/app/models/student';
@@ -12,6 +12,10 @@ import { StudentService } from 'src/app/services/student.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 import { Role } from 'src/app/constants/role';
+import { MatDialog } from '@angular/material/dialog';
+import { Offer } from 'src/app/models/offer';
+import { ConfirmationIndisponibleOfferDialogComponent } from '../dialogs/confirmation-indisponible-offer-dialog/confirmation-indisponible-offer-dialog.component';
+import { WorkflowState } from 'src/app/constants/workflowState';
 
 @Component({
   selector: 'app-list-offres',
@@ -20,87 +24,164 @@ import { Role } from 'src/app/constants/role';
 })
 export class ListOffresComponent implements OnInit {
 
-  user: User = null;
-  student: Student = null;
-  company: Company = null;
-  admin: Admin = null;
   role: String;
-  allOffers = null;
+  user: User = null;
+  allOffers: Offer[] = [];
 
-  
+  status: string = null;
+
+  // booléen pour savoir si l'utilisateur clique sur la mat-card ou sur les boutons de mise à jour de status
+  action: boolean = false;
  
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private tokenStorageService: TokenStorageService,
-    private companyService: CompanyService,
-    private studentService: StudentService,
-    private adminService: AdminService,
     private notifService: NotifService,
-    private offerService: OfferService
+    private offerService: OfferService,
+    private dialog: MatDialog,
     ) { }
 
   ngOnInit(): void {
-
     this.user = this.tokenStorageService.getUser();
-
     this.role = this.user.role;
+    
+    
     if(this.user.role === "ROLE_COMPANY") {
-      this.companyService.getCompany(this.user.idCompany).subscribe(
-        data => {
-          this.company = data;
-          this.company.id = this.user.id;
-          this.allOffers= this.company.offers;
+      this.offerService.getAllOffersByCompany(this.user.idCompany).subscribe(
+        offers => {
+          this.allOffers= offers.filter(offer => offer.state != "SUPPRIME");
+          this.route.queryParams.subscribe(
+            params => {
+              if(params['status']) {
+                this.allOffers = this.allOffers.filter(offer => offer.state == params['status']);
+                this.status = params['status']; 
+              }
+            });
         },
         err => {
           this.notifService.error('Erreur', err.error.message);
         }
       );
-    }else if(this.user.role === "ROLE_STUDENT"){
-    
-      this.offerService.getAllOffers().subscribe(data=>{
-        this.allOffers = data.filter(offer => offer.state ==="DISPONIBLE");
-        console.log(this.allOffers);
-      },err=>{
+    } else if (this.user.role === "ROLE_STUDENT"){
+      this.offerService.getAllOffers().subscribe(
+        offers => {
+            this.allOffers = offers.filter(offer => offer.state === "DISPONIBLE" && offer.companyState == 'VALIDE');
+            this.route.queryParams.subscribe(
+              params => {
+                if(params['status']) {
+                  this.allOffers = this.allOffers.filter(offer => offer.state == params['status']);
+                  this.status = params['status']; 
+                }
+              });
+        },err=>{
+          this.notifService.error('Erreur', err.error.message);
       });
-    }else if(this.user.role==="ROLE_ADMIN"){
-      this.offerService.getAllOffers().subscribe(data=>{
-        this.allOffers= data.filter(function(item) {
-          for (var key in data) {
-            if (item[key] === "DISPONIBLE" || item[key] === "INDISPONIBLE" || item[key] === "EN VALIDATION" )
-              return false;
-          }
-          return true;
-        });
-        console.log(this.allOffers);
-      },err=>{
+    } else if (this.user.role === "ROLE_ADMIN"){
+      this.offerService.getAllOffers().subscribe(
+        offers => {
+          this.allOffers = offers.filter(offer => offer.state === "DISPONIBLE" || offer.state === "INDISPONIBLE" || offer.state === "EN_VALIDATION" );
+          this.route.queryParams.subscribe(
+            params => {
+              if(params['status']) {
+                this.allOffers = this.allOffers.filter(offer => offer.state == params['status']);
+                this.status = params['status']; 
+              }
+            });
+        }, err => {
+          this.notifService.error('Erreur', err.error.message);
       });
     }
-
-
-  }
-  invalidateOffer(i): void {
-
   }
 
-  validateOffer(i): void {
-
+  goToOffer(idOffer: number): void {
+    if(!this.action) {
+      this.router.navigate(['/offer/' + idOffer]);
+    }
+    this.action = false;
   }
-  makeIndisponibleOffer(i):void {
 
+  updateOffer(idOffer: number, newState: string): void {
+    for(let offer of this.allOffers) {
+      if(offer.id == idOffer) {
+        offer.state = newState;
+      }
+    }
+
+    this.allOffers = this.allOffers.filter(offer => offer.state == this.status);
   }
 
-  publishOffer(offer): void{
-
-  }
-  deleteOffer(i): void{
-   // this.offerService.deleteOffer
-    console.log("You asked to delete offer no:"+ i);
-    this.offerService.deleteOffer(i).subscribe(
+  validerOffer(offer: Offer): void {
+    this.action = true;
+    this.offerService.updateStateOffer(offer.id, offer.state, 'DISPONIBLE').subscribe(
       response => {
-        this.notifService.success("Suppression","L'offre a bien été supprimé");
+        this.updateOffer(response.id, response.state);
+        this.notifService.success('Offre validée', 'vous avez validé une offre');
       }, err => {
         this.notifService.error('Erreur', err.error.message);
       }
-    )
+    );
+  }
+
+  invaliderOffer(offer: Offer): void {
+    this.action = true;
+    this.offerService.updateStateOffer(offer.id, offer.state, 'BROUILLON').subscribe(
+      response => {
+        this.updateOffer(response.id, response.state);
+        this.notifService.success('Offre invalidée', 'vous avez invalidé une offre');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
+  }
+
+  indisponibleOffer(offer: Offer): void {
+    this.action = true;
+    const dialogRef = this.dialog.open(ConfirmationIndisponibleOfferDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result == true) {
+          this.offerService.updateStateOffer(offer.id, offer.state, 'INDISPONIBLE').subscribe(
+            response => {
+              this.updateOffer(response.id, response.state);
+              this.notifService.success('Offre indisponible', 'vous avez rendu indisponible une offre');
+            }, err => {
+              this.notifService.error('Erreur', err.error.message);
+            }
+          );
+        }
+      }
+    );
+  }
+
+  publierOffer(offer: Offer): void {
+    this.action = true;
+    this.offerService.updateStateOffer(offer.id, offer.state, 'EN_VALIDATION').subscribe(
+      response => {
+        this.updateOffer(response.id, response.state);
+        this.notifService.success('Offre publiée', 'vous avez publié une offre');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
+  }
+
+  supprimerOffer(offer: Offer): void {
+    this.action = true;
+    this.offerService.updateStateOffer(offer.id, offer.state, 'SUPPRIME').subscribe(
+      response => {
+        this.updateOffer(response.id, response.state);
+        this.notifService.success('Offre supprimée', 'vous avez supprimé une offre');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
+  }
+
+  statusToLabel(status: string): string {
+    if(status) {
+      return WorkflowState.find(x => x.variable === status).label;
+    }
   }
 
 }
