@@ -10,13 +10,13 @@
                     Etats des entreprises enregistrées
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
+            <mat-card routerLink="/companies" [queryParams]="{ status: 'VALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
                 {{ getNumberFromState(company_states, "VALIDE") }} Entreprises Validées
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
+            <mat-card routerLink="/companies" [queryParams]="{ status: 'ENREGISTRE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
                 {{ getNumberFromState(company_states, "ENREGISTRE") }} Entreprises Enregistrées
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
+            <mat-card routerLink="/companies" [queryParams]="{ status: 'INVALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
                 {{ getNumberFromState(company_states, "INVALIDE") }} Entreprises Invalides
             </mat-card>
         </mat-expansion-panel>
@@ -30,16 +30,16 @@
                     Etats des étudiants enregistrés
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
+            <mat-card routerLink="/students" [queryParams]="{ status: 'VALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
                 {{ getNumberFromState(student_states, "VALIDE") }} Etudiants Validés
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
+            <mat-card routerLink="/students" [queryParams]="{ status: 'ENREGISTRE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
                 {{ getNumberFromState(student_states, "ENREGISTRE") }} Etudiants Enregistrés
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
+            <mat-card routerLink="/students" [queryParams]="{ status: 'INDISPONIBLE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
                 {{ getNumberFromState(student_states, "INDISPONIBLE") }} Etudiants Indisponibles
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
+            <mat-card routerLink="/students" [queryParams]="{ status: 'INVALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
                 {{ getNumberFromState(student_states, "INVALIDE") }} Etudiants Invalides
             </mat-card>
         </mat-expansion-panel>
@@ -56,16 +56,16 @@
                     Etats de vos offres
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
+            <mat-card routerLink="/offers" [queryParams]="{ status: 'DISPONIBLE' }" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
                 {{ getNumberFromState(offer_states, "DISPONIBLE") }} Offres Disponibles
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
+            <mat-card routerLink="/offers" [queryParams]="{ status: 'EN_VALIDATION' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
                 {{ getNumberFromState(offer_states, "EN_VALIDATION") }} Offres En validation
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'" *ngIf="user.role == 'ROLE_COMPANY'" style="cursor: pointer">
+            <mat-card routerLink="/offers" [queryParams]="{ status: 'BROUILLON' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" *ngIf="user.role == 'ROLE_COMPANY'" style="cursor: pointer">
                 {{ getNumberFromState(offer_states, "BROUILLON") }} Offres Brouillon
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
+            <mat-card routerLink="/offers" [queryParams]="{ status: 'INDISPONIBLE' }" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
                 {{ getNumberFromState(offer_states, "INDISPONIBLE") }} Offres Indisponibles
             </mat-card>
         </mat-expansion-panel>
@@ -82,16 +82,16 @@
                     Etats de vos voeux 
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
+            <mat-card class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
                 {{ getNumberFromState(wish_states, "MEETING_ORGANISE") }} Meetings Organisés
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
+            <mat-card class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
                 {{ getNumberFromState(wish_states, "VALIDE") }} Voeux Validés
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
+            <mat-card class="card card-expansion-panel" [style.backgroundColor]="'orange'">
                 {{ getNumberFromState(wish_states, "TRANSMIS") }} Voeux Transmis
             </mat-card>
-            <mat-card routerLink="/" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
+            <mat-card class="card card-expansion-panel" [style.backgroundColor]="'salmon'">
                 {{ getNumberFromState(wish_states, "REFUSE") }} Voeux Refusés
             </mat-card>
         </mat-expansion-panel>

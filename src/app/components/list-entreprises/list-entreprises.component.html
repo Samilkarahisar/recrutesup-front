@@ -1,24 +1,42 @@
 <mat-card class="card card-container">
-    <h3 style="display: inline">Entreprises participant au forum</h3>  
+    <h3 style="display: inline">Entreprises {{ statusToLabel(status) }}</h3>  
     <button style="width:150px; height: 25px;background-color:lightpink; line-height: 1rem; margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-employee">
         Ajout salarié
     </button>
     <button style="width:150px; height: 25px;background-color:lightpink; line-height: 1rem; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-company">
         Ajout entreprise
     </button>
-    <mat-accordion multi *ngIf="role == 'ROLE_STUDENT'">
-        <div *ngFor="let company of allCompanies">
-            <mat-card *ngIf="company.state == 'VALIDE'" routerLink = "/company/{{company.id}}" class="card card-expansion-panel">
-                <div style="float:left;"> {{company.name}} </div>
-                </mat-card>
+    <br><br><br>
+    <div *ngIf="role == 'ROLE_STUDENT'">
+        <div style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 75%; display: inline-block;"> Nom de l'entreprise </div>
         </div>
-    </mat-accordion>
-    <mat-accordion multi *ngIf="role == 'ROLE_ADMIN'">
-        <mat-card *ngFor="let company of allCompanies" routerLink = "/company/{{company.id}}" class="card card-expansion-panel">
-            <div style="float:left;"> {{company.name}} </div>
-            <div *ngIf="company.state == 'ENREGISTRE' || company.state == 'VALIDE' "  style="float:right; padding-left: 2%;"><button   (click)="invalidateOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; ">Invalider</button> </div>
-            <div *ngIf="company.state == 'ENREGISTRE' || company.state == 'INVALIDE'  "   style="float:right; padding-left: 2%;"><button (click)="validateOffer(j)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Valider</button> </div>
-            <div style="padding-left:2%;float:right;"> {{company.state}} </div> 
+        <mat-divider></mat-divider> <br>
+        <div *ngFor="let company of allCompanies">
+            <mat-card *ngIf="company.state == 'VALIDE'" (click)="goToCompany(company.id)" class="card card-expansion-panel">
+                <div style="float:left;"> {{company.name}} </div>
+            </mat-card>
+        </div>
+        <div *ngIf="allCompanies.length == 0" style="text-align: center;">Aucune entreprise</div>
+    </div>
+    <div *ngIf="role == 'ROLE_ADMIN'">
+        <div style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 10%; display: inline-block;"> Statut </div> 
+            <div style="width: 75%; display: inline-block;"> Nom </div>
+        </div>
+        <mat-divider></mat-divider> <br>
+        <mat-card *ngFor="let company of allCompanies" (click)="goToCompany(company.id)" class="card card-expansion-panel">
+            <div style="width: 10%; display: inline-block;"> {{ statusToLabel(company.state) }} </div> 
+            <div style="width: 75%; display: inline-block;"> {{company.name}} </div>
+            <div style="width: 15%; display: inline-block;">
+                <div style="width: 50%; display: inline-block;" *ngIf="company.state == 'ENREGISTRE' || company.state == 'VALIDE' ">
+                    <button (click)="invaliderCompany(company)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; ">Invalider</button>
+                </div>
+                <div style="width: 50%; display: inline-block;" *ngIf="company.state == 'ENREGISTRE' || company.state == 'INVALIDE'  ">
+                    <button (click)="validerCompany(company)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;">Valider</button>
+                </div>
+            </div>
         </mat-card>
-    </mat-accordion>
+        <div *ngIf="allCompanies.length == 0" style="text-align: center;">Aucune entreprise</div>
+    </div>
 </mat-card>

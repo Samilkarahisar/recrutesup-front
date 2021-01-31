@@ -6,6 +6,8 @@
         <div class="resume">
             <span>
                 <h2 style="display: inline">{{ company.name }}</h2> <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ company.state }}</h3>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (company.state == 'ENREGISTRE' || company.state == 'INVALIDE')" (click)="validerCompany()" style="margin-left: 20px; height: 25px;background-color:green; line-height: 1rem; " class="btn btn-primary btn-block">Valider</button>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (company.state == 'ENREGISTRE' || company.state == 'VALIDE')" (click)="invaliderCompany()" style="margin-left: 20px; height: 25px;background-color:red; line-height: 1rem; " class="btn btn-primary btn-block">Invalider</button>
             </span>
             <p>{{ company.description }}</p>
             <mat-icon style="vertical-align: middle; margin: 5px;">mail_outline</mat-icon> {{ company.mailAddress }} <br>
@@ -17,12 +19,24 @@
                 <div *ngIf="company.offers.length == 0">Aucune offre</div>
                 <div *ngFor="let offer of company.offers">
                     <mat-card *ngIf="(role == 'ROLE_ADMIN' && offer.state != 'BROUILLON') || (role != 'ROLE_ADMIN' && offer.state == 'DISPONIBLE')" [routerLink]="['/offer/', offer.id]" class="item" style="cursor: pointer">
-                        <div style="float:left;">{{ offer.label }}  ({{ offer.city }})</div>
-                        <div style="float:right">{{ offer.state }} ({{ offer.creationDate | date: 'dd/MM/yyyy' }})</div>
+                        <div style="width: 15%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN'">{{offer.state}}</div>
+                        <div style="width: 15%; display: inline-block;">{{offer.city}}</div>
+                        <div style="width: 40%; display: inline-block;">{{offer.label}}</div>
+                        <div style="width: 30%; display: inline-block;">
+                            <div style="width: 33%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'EN_VALIDATION'" >
+                                <button (click)="validateOffer(j)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Valider</button>
+                            </div>
+                            <div style="width: 33%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'EN_VALIDATION'">
+                                <button (click)="invalidateOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; ">Invalider</button>
+                            </div>
+                            <div style="width: 33%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'DISPONIBLE'">
+                                <button (click)="makeIndisponibleOffer(j)" mat-flat-button  style="height: 25px;background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button>
+                            </div>
+                        </div>
                     </mat-card>
                 </div>
             </div>
-    
+            <br>
             <div *ngIf="role == 'ROLE_ADMIN'" class="sendedWishes">
                 <h4>Voeux envoyés</h4>
                 <div *ngIf="company.wishSendList.length == 0">Aucun voeu envoyé</div>
@@ -33,7 +47,7 @@
                     </mat-card>
                 </div>
             </div>
-    
+            <br>
             <div *ngIf="role == 'ROLE_ADMIN'" class="receivedWishes">
                 <h4>Voeux reçus</h4>
                 <div *ngIf="company.offers.length == 0">Aucun voeu reçu</div>
@@ -46,14 +60,15 @@
                     </div>
                 </div>
             </div>
-
+            <br>
             <div *ngIf="role == 'ROLE_ADMIN'" class="employees">
                 <h4>Salariés enregistrés</h4>
                 <div *ngIf="company.employees.length == 0">Aucun salarié enregistré</div>
                 <div *ngFor="let employee of company.employees">
                     <mat-card class="item">
-                      <div style="float:left;">{{ employee.firstname }} {{ employee.lastname }}</div>
-                      <div style="float:right;"> {{ employee.mailAddress }} {{ employee.phoneNumber }} </div>
+                      <div style="width: 33%; display: inline-block;">{{ employee.firstname }} {{ employee.lastname }}</div>
+                      <div style="width: 33%; display: inline-block;"> {{ employee.mailAddress }} </div>
+                      <div style="width: 33%; display: inline-block;"> {{ employee.phoneNumber }} </div>
                     </mat-card>
                 </div>
             </div>

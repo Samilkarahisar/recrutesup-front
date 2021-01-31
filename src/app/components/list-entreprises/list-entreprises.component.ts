@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { WorkflowState } from 'src/app/constants/workflowState';
 import { Admin } from 'src/app/models/admin';
 import { Company } from 'src/app/models/company';
 import { Student } from 'src/app/models/student';
@@ -20,34 +21,87 @@ export class ListEntreprisesComponent implements OnInit {
   user: User = null;
   student: Student = null;
   admin: Admin = null;
-  allCompanies = null;
+  allCompanies: Company[] = [];
   role: String = null;
 
+  status: string = null;
 
-  constructor(private router: Router,
+  // booléen pour savoir si l'utilisateur clique sur la mat-card ou sur les boutons de mise à jour de status
+  action: boolean = false;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private tokenStorageService: TokenStorageService,
     private companyService: CompanyService,
-    private studentService: StudentService
+    private notifService: NotifService,
     ) { }
 
     ngOnInit(): void {
-
       this.user = this.tokenStorageService.getUser();
       this.role = this.user.role;
-      
-      this.companyService.getAllCompanies().subscribe(data=>{
-        this.allCompanies = data;
-        console.log(this.allCompanies);
-      },err=>{
-      });
 
-      if(this.user.role === "ROLE_STUDENT"){
-       
-      }else if(this.user.role==="ROLE_ADMIN"){
-        
-      }
-  
-  
+      this.route.queryParams.subscribe(
+        params => {
+          this.companyService.getAllCompanies().subscribe(
+            data => {
+              if(params['status']) {
+                this.allCompanies = data.filter(company => company.state == params['status']);
+                this.status = params['status']; 
+              } else {
+                this.allCompanies = data;
+              }
+          }, err => {
+              this.notifService.error('Erreur', err.error.message);
+          });
+        }
+      );
     }
 
+    goToCompany(idCompany: number): void {
+      if(!this.action) {
+        this.router.navigate(['/company/' + idCompany]);
+      }
+      this.action = false;
+    }
+
+    updateCompany(idCompany: number, newState: string): void {
+      for(let company of this.allCompanies) {
+        if(company.id == idCompany) {
+          company.state = newState;
+        }
+      }
+
+      this.allCompanies = this.allCompanies.filter(company => company.state == this.status);
+    }
+
+    invaliderCompany(company: Company): void {
+      this.action = true;
+      this.companyService.updateStateCompany(company.id, company.state, 'INVALIDE').subscribe(
+        response => {
+          this.updateCompany(response.id, response.state);
+          this.notifService.success('Entreprise invalidée', 'vous avez invalidé une entreprise');
+        }, err => {
+          this.notifService.error('Erreur', err.error.message);
+        }
+      );
+    }
+  
+    validerCompany(company: Company): void {
+      this.action = true;
+      this.companyService.updateStateCompany(company.id, company.state, 'VALIDE').subscribe(
+        response => {
+          this.updateCompany(response.id, response.state);
+          this.notifService.success('Entreprise validée', 'vous avez validé une entreprise');
+        }, err => {
+          this.notifService.error('Erreur', err.error.message);
+        }
+      );
+    }
+
+    statusToLabel(status: string): string {
+      if(status) {
+        return WorkflowState.find(x => x.variable === status).label;
+      }
+    }
 }

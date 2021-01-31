@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Modification d'une offre</h1>
+<mat-dialog-content>
+    <p>
+        Vous allés rendre cet étudiant <strong>Indisponible</strong><br>
+        celui-ci ne sera plus visible par les entreprises, vous ne pourrez plus le rendre à nouveau disponible.
+        <br><br>
+        Vous confirmez la modification de cet étudiant ?
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close]="true">Oui</button>
+  <button mat-button [mat-dialog-close]="false">Non</button>
+</mat-dialog-actions>

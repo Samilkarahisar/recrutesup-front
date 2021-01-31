@@ -1,25 +1,50 @@
 <mat-card class="card card-container">
-    <h3 style="display: inline">Etudiants enregistrés au forum</h3> 
+    <h3 style="display: inline">Etudiants {{ statusToLabel(status) }}</h3> 
     <button mat-icon-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-student">
         <mat-icon style="vertical-align: middle;">add_box</mat-icon>
     </button>
-    <mat-accordion multi *ngIf="role == 'ROLE_COMPANY'">
+    <br><br><br>
+    <div *ngIf="role == 'ROLE_COMPANY'">
+        <div style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 15%; display: inline-block;"> Prénom NOM </div>
+            <div style="width: 15%; display: inline-block;"> Année scolaire </div>
+            <div style="width: 70%; display: inline-block; font-size: 15px;"> Label </div>
+        </div>
+        <mat-divider></mat-divider> <br>
         <div *ngFor="let student of allStudents">
-            <mat-card *ngIf="student.state == 'VALIDE'" routerLink = "/student/{{student.id}}" class="card card-expansion-panel">
-                <div style="float:left;"> {{student.firstname}} {{student.lastname}} </div>
-                <div style="padding-left:2%;float:right;"> {{student.schoolYear}}  - </div>
-                <div style="padding-left:2%;float:right;"> {{student.label}} </div>
+            <mat-card *ngIf="student.state == 'VALIDE'" (click)="goToStudent(student.id)" class="card card-expansion-panel">
+                <div style="width: 15%; display: inline-block;"> {{student.firstname}} {{student.lastname}} </div>
+                <div style="width: 15%; display: inline-block;"> {{student.schoolYear}} </div>
+                <div style="width: 70%; display: inline-block; font-size: 15px;"> {{student.label}} </div>
             </mat-card>
         </div>
-    </mat-accordion>
-    <mat-accordion multi *ngIf="role == 'ROLE_ADMIN'">
-        <mat-card *ngFor="let student of allStudents" routerLink = "/student/{{student.id}}" class="card card-expansion-panel">
-            <div style="float:left;"> {{student.firstname}} {{student.lastname}} </div>
-            <div *ngIf="student.state == 'ENREGISTRE' || student.state == 'VALIDE' "  style="float:right; padding-left: 2%;"><button   (click)="invalidateOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; ">Invalider</button> </div>
-            <div *ngIf="student.state == 'ENREGISTRE' || student.state == 'INVALIDE'  "   style="float:right; padding-left: 2%;"><button (click)="validateOffer(j)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Valider</button> </div>
-            <div style="padding-left:2%;float:right;"> {{student.state}} </div>
-            <div style="padding-left:2%;float:right;"> {{student.schoolYear}}  - </div>
-            <div style="padding-left:2%;float:right;"> {{student.label}} </div>
-            </mat-card>
-    </mat-accordion>
+        <div *ngIf="allStudents.length == 0" style="text-align: center;">Aucun étudiant</div>
+    </div>
+    <div *ngIf="role == 'ROLE_ADMIN'">
+        <div style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 11%; display: inline-block;"> Statut  </div>
+            <div style="width: 13%; display: inline-block;"> Prénom NOM </div>
+            <div style="width: 5%; display: inline-block;"> Année </div>
+            <div style="width: 55%; display: inline-block; font-size: 15px;"> Label </div>
+        </div>
+        <mat-divider></mat-divider> <br>
+        <mat-card *ngFor="let student of allStudents" (click)="goToStudent(student.id)" class="card card-expansion-panel">
+            <div style="width: 11%; display: inline-block;"> {{ statusToLabel(student.state) }}  </div>
+            <div style="width: 13%; display: inline-block;"> {{student.firstname}} {{student.lastname}} </div>
+            <div style="width: 5%; display: inline-block;"> {{student.schoolYear}} </div>
+            <div style="width: 55%; display: inline-block; font-size: 15px;"> {{student.label}} </div>
+            <div style="width: 15%; display: inline-block;">
+                <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'ENREGISTRE' || student.state == 'VALIDE'">
+                    <button (click)="invaliderStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:red; line-height: 1rem; ">Invalider</button>
+                </div>
+                <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'ENREGISTRE' || student.state == 'INVALIDE'">
+                    <button (click)="validerStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:green; line-height: 1rem;">Valider</button>
+                </div>
+                <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'VALIDE'">
+                    <button (click)="indisponibleStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button>
+                </div>
+            </div>
+        </mat-card>
+        <div *ngIf="allStudents.length == 0" style="text-align: center;">Aucun étudiant</div>
+    </div>
 </mat-card>

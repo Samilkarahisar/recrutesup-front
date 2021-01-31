@@ -37,6 +37,9 @@ import { ListEntreprisesComponent } from './components/list-entreprises/list-ent
 import { ListStudentsComponent } from './components/list-students/list-students.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { AboutComponent } from './components/about/about.component';
+import { ConfirmationModifOfferDialogComponent } from './components/dialogs/confirmation-modif-offer-dialog/confirmation-modif-offer-dialog.component';
+import { ConfirmationIndisponibleOfferDialogComponent } from './components/dialogs/confirmation-indisponible-offer-dialog/confirmation-indisponible-offer-dialog.component';
+import { ConfirmationIndisponibleStudentDialogComponent } from './components/dialogs/confirmation-indisponible-student-dialog/confirmation-indisponible-student-dialog.component';
 
 
 @NgModule({
@@ -65,7 +68,10 @@ import { AboutComponent } from './components/about/about.component';
     ListEntreprisesComponent,
     ListStudentsComponent,
     ContactsComponent,
-    AboutComponent
+    AboutComponent,
+    ConfirmationModifOfferDialogComponent,
+    ConfirmationIndisponibleOfferDialogComponent,
+    ConfirmationIndisponibleStudentDialogComponent
   ],
   imports: [
     BrowserModule,

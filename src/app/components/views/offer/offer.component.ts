@@ -10,6 +10,8 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { WishService } from 'src/app/services/wish.service';
 import { Employee } from 'src/app/models/employee';
 import { User } from 'src/app/models/user';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationIndisponibleOfferDialogComponent } from '../../dialogs/confirmation-indisponible-offer-dialog/confirmation-indisponible-offer-dialog.component';
 
 @Component({
   selector: 'app-offer',
@@ -28,7 +30,8 @@ export class OfferComponent implements OnInit {
     private offerService: OfferService,
     private wishService: WishService,
     private notifService: NotifService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +77,73 @@ export class OfferComponent implements OnInit {
   }
 
   canModify(): boolean {
-    return this.role == 'ROLE_COMPANY' && this.offer != null && this.offer.companyId == this.user.idCompany;
+    return this.role == 'ROLE_COMPANY' &&
+           this.offer != null &&
+           this.offer.companyId == this.user.idCompany &&
+           this.offer.state != 'EN_VALIDATION' &&
+           this.offer.state != 'INDISPONIBLE' &&
+           this.offer.state != 'SUPPRIME';
+  }
+
+  validerOffer(): void {
+    this.offerService.updateStateOffer(this.offer.id, this.offer.state, 'DISPONIBLE').subscribe(
+      response => {
+        this.offer = response;
+        this.notifService.success('Offre validée', 'vous avez validé une offre');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
+  }
+
+  invaliderOffer(): void {
+    this.offerService.updateStateOffer(this.offer.id, this.offer.state, 'BROUILLON').subscribe(
+      response => {
+        this.offer = response;
+        this.notifService.success('Offre invalidée', 'vous avez invalidé une offre');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
+  }
+
+  indisponibleOffer(): void {
+    const dialogRef = this.dialog.open(ConfirmationIndisponibleOfferDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result == true) {
+          this.offerService.updateStateOffer(this.offer.id, this.offer.state, 'INDISPONIBLE').subscribe(
+            response => {
+              this.offer = response;
+              this.notifService.success('Offre indisponible', 'vous avez rendu indisponible une offre');
+            }, err => {
+              this.notifService.error('Erreur', err.error.message);
+            }
+          );
+        }
+      }
+    );
+  }
+
+  publierOffer(): void {
+    this.offerService.updateStateOffer(this.offer.id, this.offer.state, 'EN_VALIDATION').subscribe(
+      response => {
+        this.offer = response;
+        this.notifService.success('Offre publiée', 'vous avez publié une offre');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
+  }
+
+  supprimerOffer(): void {
+    this.offerService.updateStateOffer(this.offer.id, this.offer.state, 'SUPPRIME').subscribe(
+      response => {
+        this.offer = response;
+        this.notifService.success('Offre supprimée', 'vous avez supprimé une offre');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
   }
 }

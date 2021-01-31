@@ -4,8 +4,9 @@
     </p>
     <div *ngFor="let admin of admins">
         <mat-card class="admin">
-          <div style="float:left;">{{ admin.firstname }} {{ admin.lastname }}</div>
-          <div style="float:right;"> {{ admin.mailAddress }} {{ admin.phoneNumber }} </div>
+          <div style="width: 33%; display: inline-block;">{{ admin.firstname }} {{ admin.lastname }}</div>
+          <div style="width: 33%; display: inline-block;"> {{ admin.mailAddress }} </div>
+          <div style="width: 33%; display: inline-block;"> {{ admin.phoneNumber }} </div>
         </mat-card>
       </div>
 </mat-card>

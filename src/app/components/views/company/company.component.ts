@@ -23,8 +23,8 @@ export class CompanyComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private companyService: CompanyService,
-    private wishService: WishService,
     private imageService: ImageService,
+    private notifService: NotifService,
     private tokenStorage: TokenStorageService
   ) { }
 
@@ -36,7 +36,6 @@ export class CompanyComponent implements OnInit {
         this.companyService.getCompany(idCompany).subscribe(
           company => {
             this.company = company;
-            console.log(company.description);
           },
           err => {
             this.location.back();            
@@ -46,5 +45,27 @@ export class CompanyComponent implements OnInit {
         this.location.back();
       }
     });
+  }
+
+  invaliderCompany(): void {
+    this.companyService.updateStateCompany(this.company.id, this.company.state, 'INVALIDE').subscribe(
+      response => {
+        this.company = response;
+        this.notifService.success('Entreprise invalidée', 'vous avez invalidé une entreprise');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
+  }
+
+  validerCompany(): void {
+    this.companyService.updateStateCompany(this.company.id, this.company.state, 'VALIDE').subscribe(
+      response => {
+        this.company = response;
+        this.notifService.success('Entreprise validée', 'vous avez validé une entreprise');
+      }, err => {
+        this.notifService.error('Erreur', err.error.message);
+      }
+    );
   }
 }
