@@ -1,0 +1,87 @@
+<mat-card class="card card-container">
+    <h3 *ngIf="role == 'ROLE_COMPANY'">Envoyer un message à {{ wish.receiver }} </h3>
+    <h3 *ngIf="role == 'ROLE_STUDENT'">Envoyer un message pour l'offre "{{ wish.receiver }}" </h3>
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit(f)"
+      #f="ngForm"
+      novalidate
+    >
+  
+      <p>
+        <mat-form-field class="form-group" style="width: 800px;" appearance="outline">
+          <mat-label for="message">Message</mat-label> <br>
+          <textarea
+            matInput
+            required
+            cols="300"
+            rows="10"
+            class="form-control"
+            name="message"
+            [(ngModel)]="form.message"
+            #message="ngModel"
+            style="resize: 'none'"
+          >
+          </textarea>
+        </mat-form-field>
+      </p>
+
+      <div>
+        <p style="display: inline">
+          <mat-form-field style="width: 250px" *ngIf="role == 'ROLE_COMPANY'" class="form-group">
+            <mat-label for="student">De :</mat-label>
+            <input
+              matInput 
+              disabled
+              type="text"
+              class="form-control"
+              name="employee"
+              [(ngModel)]="form.employee"
+              required
+              #employee="ngModel"
+            />
+          </mat-form-field>
+        </p>
+  
+        <p style="display: inline; margin-left: 20px">
+          <mat-form-field style="width: 250px" class="form-group">
+            <mat-label *ngIf="role == 'ROLE_COMPANY'" for="student">Pour :</mat-label>
+            <mat-label *ngIf="role == 'ROLE_STUDENT'" for="student">De :</mat-label>
+            <input
+              matInput 
+              disabled
+              type="text"
+              class="form-control"
+              name="student"
+              [(ngModel)]="form.student"
+              required
+              #student="ngModel"
+            />
+          </mat-form-field>
+        </p>
+      
+
+        <p style="display: inline; margin-left: 20px">
+          <mat-form-field style="width: 600px;" *ngIf="role == 'ROLE_STUDENT'" class="form-group">
+            <mat-label for="offer">Pour</mat-label>
+            <input
+              matInput 
+              disabled
+              type="text"
+              class="form-control"
+              name="offer"
+              [(ngModel)]="form.offer"
+              required
+              #offer="ngModel" 
+            />
+          </mat-form-field>
+        </p>
+      </div>
+
+        <span style="margin-left: 10px" class="form-group">
+          <button mat-raised-button color="primary" class="btn btn-primary btn-block">
+            Envoyer le message
+          </button>
+        </span>
+    </form>
+</mat-card>

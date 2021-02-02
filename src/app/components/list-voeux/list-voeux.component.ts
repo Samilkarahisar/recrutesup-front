@@ -37,8 +37,8 @@ export class ListVoeuxComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.user = this.tokenStorageService.getUser();
+    
     if(this.user.role === "ROLE_COMPANY") {
       this.companyService.getCompany(this.user.idCompany).subscribe(
         data => {
