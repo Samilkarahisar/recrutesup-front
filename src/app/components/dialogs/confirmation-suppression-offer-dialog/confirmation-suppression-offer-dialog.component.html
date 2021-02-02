@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Suppression d'une offre</h1>
+<mat-dialog-content>
+    <p>
+        Vous allés <strong>supprimer</strong> cette offre<br>
+        celle-ci ne sera plus visible du tout, vous ne pourrez plus la modifier ni la rendre à nouveau disponible.
+        <br><br>
+        Vous confirmez la suppression de cette offre ?
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close]="true">Oui</button>
+  <button mat-button [mat-dialog-close]="false">Non</button>
+</mat-dialog-actions>

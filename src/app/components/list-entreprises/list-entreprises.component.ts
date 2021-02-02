@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { WorkflowState } from 'src/app/constants/workflowState';
 import { Admin } from 'src/app/models/admin';
 import { Company } from 'src/app/models/company';
 import { Student } from 'src/app/models/student';
 import { User } from 'src/app/models/user';
-import { AdminService } from 'src/app/services/admin.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotifService } from 'src/app/services/notif.service';
-import { OfferService } from 'src/app/services/offer.service';
-import { StudentService } from 'src/app/services/student.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 @Component({
   selector: 'app-list-entreprises',
@@ -23,8 +21,6 @@ export class ListEntreprisesComponent implements OnInit {
   admin: Admin = null;
   allCompanies: Company[] = [];
   role: String = null;
-
-  status: string = null;
 
   // booléen pour savoir si l'utilisateur clique sur la mat-card ou sur les boutons de mise à jour de status
   action: boolean = false;
@@ -47,15 +43,36 @@ export class ListEntreprisesComponent implements OnInit {
             data => {
               if(params['status']) {
                 this.allCompanies = data.filter(company => company.state == params['status']);
-                this.status = params['status']; 
               } else {
                 this.allCompanies = data;
               }
+              this.allCompanies = this.allCompanies.sort(function (a, b) { return (a.name < b.name ? -1 : 1) * (true ? 1 : -1); });
           }, err => {
               this.notifService.error('Erreur', err.error.message);
           });
         }
       );
+    }
+
+    sortData(sort: Sort) {
+      const data = this.allCompanies;
+      if (!sort.active || sort.direction === '') {
+        this.allCompanies = data;
+        return;
+      }
+  
+      this.allCompanies = data.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'name': return this.compare(a.name, b.name, isAsc);
+          case 'status': return this.compare(a.state, b.state, isAsc);
+          default: return 0;
+        }
+      });
+    }
+
+    compare(a: number | string, b: number | string, isAsc: boolean) {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
     goToCompany(idCompany: number): void {
@@ -72,7 +89,13 @@ export class ListEntreprisesComponent implements OnInit {
         }
       }
 
-      this.allCompanies = this.allCompanies.filter(company => company.state == this.status);
+      this.route.queryParams.subscribe(
+        params => {
+          if(params['status']) {
+            this.allCompanies = this.allCompanies.filter(company => company.state == params['status']);
+          }
+        });
+      
     }
 
     invaliderCompany(company: Company): void {

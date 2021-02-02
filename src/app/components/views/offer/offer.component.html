@@ -35,12 +35,20 @@
             <div *ngIf="role != 'ROLE_STUDENT'" class="receivedWishes">
                 <h4>Voeux reçus</h4>
                 <div *ngIf="offer.wishReceivedList.length == 0">Aucun voeu reçu</div>
-                <div *ngFor="let wish of offer.wishReceivedList">
-                    <mat-card class="item">
-                        <div style="float:left;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
-                        <div style="float:right;"> {{wish.state}} </div>
-                    </mat-card>
-                </div>
+                <mat-card *ngFor="let wish of offer.wishReceivedList" class="item">
+                    <div style="width: 20%; display: inline-block;">{{ statusToLabel(wish.state) }}</div>
+                    <div style="width: 20%; display: inline-block; text-align: right;">{{wish.sender}}</div>
+                    <div style="width: 5%; display: inline-block; text-align: center;"><mat-icon style="vertical-align: middle;">trending_flat</mat-icon> </div>
+                    <div style="width: 40%; display: inline-block;">{{wish.receiver}}</div>
+                    <div *ngIf="role == 'ROLE_COMPANY'" style="width: 15%; display: inline-block;">
+                        <div style="width: 50%; display: inline-block;" *ngIf="wish.state == 'TRANSMIS'">
+                            <button mat-flat-button (click)="refuserWish(wish.id, wish.type)" style="height: 25px;background-color:red; line-height: 1rem; ">Refuser</button>
+                        </div>
+                        <div style="width: 50%; display: inline-block;" *ngIf="wish.state == 'TRANSMIS'">
+                            <button mat-flat-button (click)="validerWish(wish.id, wish.type)" style="height: 25px;background-color:green; line-height: 1rem;">Valider</button>
+                        </div>
+                    </div>
+                </mat-card>
             </div>
         </div>
     </div>

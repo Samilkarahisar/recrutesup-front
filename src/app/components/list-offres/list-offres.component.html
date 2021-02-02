@@ -1,31 +1,36 @@
 <mat-card class="card card-container">
-    <h3 style="display: inline">Offres {{ statusToLabel(status) }}</h3>
+    <h3 style="display: inline">Offres</h3>
     <button mat-icon-button *ngIf="user.role == 'ROLE_COMPANY'" routerLink="/add-offer">
         <mat-icon style="vertical-align: middle;">add_box</mat-icon>
     </button>
     <br><br><br>
     <div *ngIf="role == 'ROLE_STUDENT' ">
-        <div style="padding-left: 15px; padding-bottom: 10px">
-            <div style="width: 15%; display: inline-block;">Nom de l'entreprise</div>
-            <div style="width: 15%; display: inline-block;">Ville</div>
-            <div style="width: 25%; display: inline-block;">Label de l'offre</div>
+        <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="name" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 15%; display: inline-block;" mat-sort-header="name">Nom de l'entreprise</div>
+            <div style="width: 15%; display: inline-block;" mat-sort-header="city">Ville</div>
+            <div style="width: 25%; display: inline-block;" mat-sort-header="label">Label de l'offre</div>
         </div>
         <mat-divider></mat-divider> <br>
         <div *ngFor="let offre of allOffers">
             <mat-card routerLink = "/offer/{{offre.id}}"  class="card card-expansion-panel">
                 <div style="width: 15%; display: inline-block;"> {{offre.companyName}} </div>
                 <div style="width: 15%; display: inline-block;">{{offre.city}}</div>
-                <div style="width: 70%; display: inline-block;">{{offre.label}}</div>
+                <div style="width: 60%; display: inline-block;">{{offre.label}}</div>
+                <div style="width: 10%; display: inline-block;">
+                    <div style="width: 100%; display: inline-block;" *ngIf="wishAlreadySent(offre.id)">
+                        Voeu adressé
+                    </div>
+                </div>
             </mat-card>
         </div>
         <div *ngIf="allOffers.length == 0" style="text-align: center;">Aucune offre</div>
     </div>
     <div *ngIf="role == 'ROLE_ADMIN' ">
-        <div style="padding-left: 15px; padding-bottom: 10px">
-            <div style="width: 15%; display: inline-block;">Statut</div>
-            <div style="width: 15%; display: inline-block;">Nom de l'entreprise</div>
-            <div style="width: 15%; display: inline-block;">Ville</div>
-            <div style="width: 25%; display: inline-block;">Label de l'offre</div>
+        <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="name" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 15%; display: inline-block;" mat-sort-header="status">Statut</div>
+            <div style="width: 15%; display: inline-block;" mat-sort-header="name">Nom de l'entreprise</div>
+            <div style="width: 15%; display: inline-block;" mat-sort-header="city">Ville</div>
+            <div style="width: 25%; display: inline-block;" mat-sort-header="label">Label de l'offre</div>
         </div>
         <mat-divider></mat-divider> <br>
         <mat-card *ngFor="let offre of allOffers" (click)="goToOffer(offre.id)"  class="card card-expansion-panel">
@@ -50,10 +55,10 @@
         <div *ngIf="allOffers.length == 0" style="text-align: center;">Aucune offre</div>
     </div>
     <div *ngIf="role == 'ROLE_COMPANY' ">
-        <div style="padding-left: 15px; padding-bottom: 10px">
-            <div style="width: 15%; display: inline-block;">Statut</div>
-            <div style="width: 15%; display: inline-block;">Ville</div>
-            <div style="width: 25%; display: inline-block;">Label de l'offre</div>
+        <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="status" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 15%; display: inline-block;" mat-sort-header="status">Statut</div>
+            <div style="width: 15%; display: inline-block;" mat-sort-header="city">Ville</div>
+            <div style="width: 25%; display: inline-block;" mat-sort-header="label">Label de l'offre</div>
         </div>
         <mat-divider></mat-divider> <br>
         <mat-card *ngFor="let offre of allOffers" (click)="goToOffer(offre.id)"  class="card card-expansion-panel">
