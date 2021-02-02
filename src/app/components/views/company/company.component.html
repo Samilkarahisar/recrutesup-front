@@ -16,21 +16,27 @@
         <div class="items">
             <div class="offers">
                 <h4>Offres</h4>
-                <div *ngIf="company.offers.length == 0">Aucune offre</div>
-                <div *ngFor="let offer of company.offers">
-                    <mat-card *ngIf="(role == 'ROLE_ADMIN' && offer.state != 'BROUILLON') || (role != 'ROLE_ADMIN' && offer.state == 'DISPONIBLE')" [routerLink]="['/offer/', offer.id]" class="item" style="cursor: pointer">
-                        <div style="width: 15%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN'">{{offer.state}}</div>
+                <div *ngIf="offers.length == 0">Aucune offre</div>
+                <div *ngIf="offers.length != 0" matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="city" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
+                    <div style="width: 15%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN'" mat-sort-header="status">Statut</div>
+                    <div style="width: 15%; display: inline-block;" mat-sort-header="city">Ville</div>
+                    <div style="width: 40%; display: inline-block;" mat-sort-header="label">Label de l'offre</div>
+                </div>
+                <mat-divider *ngIf="offers.length != 0"></mat-divider> <br>
+                <div *ngFor="let offer of offers">
+                    <mat-card *ngIf="(role == 'ROLE_ADMIN' && offer.state != 'BROUILLON') || (role != 'ROLE_ADMIN' && offer.state == 'DISPONIBLE')" (click)="goToOffer(offre.id)" class="item" style="cursor: pointer">
+                        <div style="width: 15%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN'">{{ statusToLabel(offer.state) }}</div>
                         <div style="width: 15%; display: inline-block;">{{offer.city}}</div>
-                        <div style="width: 40%; display: inline-block;">{{offer.label}}</div>
-                        <div style="width: 30%; display: inline-block;">
-                            <div style="width: 33%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'EN_VALIDATION'" >
-                                <button (click)="validateOffer(j)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;">Valider</button>
+                        <div style="width: 50%; display: inline-block;">{{offer.label}}</div>
+                        <div style="width: 20%; display: inline-block;">
+                            <div style="width: 50%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'EN_VALIDATION'" >
+                                <button (click)="validerOffer(offer)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;">Valider</button>
                             </div>
-                            <div style="width: 33%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'EN_VALIDATION'">
-                                <button (click)="invalidateOffer(j)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; ">Invalider</button>
+                            <div style="width: 50%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'EN_VALIDATION'">
+                                <button (click)="invaliderOffer(offer)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; ">Invalider</button>
                             </div>
-                            <div style="width: 33%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'DISPONIBLE'">
-                                <button (click)="makeIndisponibleOffer(j)" mat-flat-button  style="height: 25px;background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button>
+                            <div style="width: 50%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'DISPONIBLE'">
+                                <button (click)="indisponibleOffer(offer)" mat-flat-button  style="color: white; height: 25px;background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button>
                             </div>
                         </div>
                     </mat-card>
@@ -40,27 +46,27 @@
             <div *ngIf="role == 'ROLE_ADMIN'" class="sendedWishes">
                 <h4>Voeux envoyés</h4>
                 <div *ngIf="company.wishSendList.length == 0">Aucun voeu envoyé</div>
-                <div *ngFor="let wish of company.wishSendList">
-                    <mat-card class="item">
-                        <div style="float:left;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
-                        <div style="float:right;"> {{wish.state}} </div>
-                    </mat-card>
-                </div>
+                <mat-card *ngFor="let wish of company.wishSendList" class="item">
+                    <div style="width: 20%; display: inline-block;">{{ statusToLabel(wish.state) }}</div>
+                    <div style="width: 20%; display: inline-block; text-align: right;">{{wish.sender}}</div>
+                    <div style="width: 5%; display: inline-block; text-align: center;"><mat-icon style="vertical-align: middle;">trending_flat</mat-icon></div>
+                    <div style="width: 45%; display: inline-block;">{{wish.receiver}}</div>
+                </mat-card>
             </div>
-            <br>
+            <br><br>
             <div *ngIf="role == 'ROLE_ADMIN'" class="receivedWishes">
                 <h4>Voeux reçus</h4>
-                <div *ngIf="company.offers.length == 0">Aucun voeu reçu</div>
-                <div *ngFor="let offer of company.offers">
-                    <div *ngFor="let wish of offer.wishReceivedList">
-                        <mat-card class="item">
-                            <div style="float:left;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
-                            <div style="float:right;"> {{wish.state}} </div>
-                        </mat-card>
-                    </div>
+                <div *ngIf="offers.length == 0">Aucun voeu reçu</div>
+                <div *ngFor="let offer of offers">
+                    <mat-card *ngFor="let wish of offer.wishReceivedList" class="item">
+                        <div style="width: 20%; display: inline-block;">{{ statusToLabel(wish.state) }}</div>
+                        <div style="width: 20%; display: inline-block; text-align: right;">{{wish.sender}}</div>
+                        <div style="width: 5%; display: inline-block; text-align: center;"><mat-icon style="vertical-align: middle;">trending_flat</mat-icon> </div>
+                        <div style="width: 40%; display: inline-block;">{{wish.receiver}}</div>
+                    </mat-card >
                 </div>
             </div>
-            <br>
+            <br><br>
             <div *ngIf="role == 'ROLE_ADMIN'" class="employees">
                 <h4>Salariés enregistrés</h4>
                 <div *ngIf="company.employees.length == 0">Aucun salarié enregistré</div>

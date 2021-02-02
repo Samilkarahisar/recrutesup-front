@@ -1,31 +1,36 @@
 <mat-card class="card card-container">
-    <h3 style="display: inline">Etudiants {{ statusToLabel(status) }}</h3> 
+    <h3 style="display: inline">Etudiants</h3> 
     <button mat-icon-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-student">
         <mat-icon style="vertical-align: middle;">add_box</mat-icon>
     </button>
     <br><br><br>
     <div *ngIf="role == 'ROLE_COMPANY'">
-        <div style="padding-left: 15px; padding-bottom: 10px">
-            <div style="width: 15%; display: inline-block;"> Prénom NOM </div>
-            <div style="width: 15%; display: inline-block;"> Année scolaire </div>
-            <div style="width: 70%; display: inline-block; font-size: 15px;"> Label </div>
+        <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="name" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 15%; display: inline-block;" mat-sort-header="name"> Prénom NOM </div>
+            <div style="width: 15%; display: inline-block;" mat-sort-header="year"> Année scolaire </div>
+            <div style="width: 70%; display: inline-block; font-size: 15px;" mat-sort-header="label"> Label </div>
         </div>
         <mat-divider></mat-divider> <br>
         <div *ngFor="let student of allStudents">
             <mat-card *ngIf="student.state == 'VALIDE'" (click)="goToStudent(student.id)" class="card card-expansion-panel">
                 <div style="width: 15%; display: inline-block;"> {{student.firstname}} {{student.lastname}} </div>
                 <div style="width: 15%; display: inline-block;"> {{student.schoolYear}} </div>
-                <div style="width: 70%; display: inline-block; font-size: 15px;"> {{student.label}} </div>
+                <div style="width: 60%; display: inline-block; font-size: 15px;"> {{student.label}} </div>
+                <div style="width: 10%; display: inline-block;">
+                    <div style="width: 100%; display: inline-block;" *ngIf="wishAlreadySent(student.id)">
+                        Voeu adressé
+                    </div>
+                </div>
             </mat-card>
         </div>
         <div *ngIf="allStudents.length == 0" style="text-align: center;">Aucun étudiant</div>
     </div>
     <div *ngIf="role == 'ROLE_ADMIN'">
-        <div style="padding-left: 15px; padding-bottom: 10px">
-            <div style="width: 11%; display: inline-block;"> Statut  </div>
-            <div style="width: 13%; display: inline-block;"> Prénom NOM </div>
-            <div style="width: 5%; display: inline-block;"> Année </div>
-            <div style="width: 55%; display: inline-block; font-size: 15px;"> Label </div>
+        <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="name" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 11%; display: inline-block;" mat-sort-header="status"> Statut </div>
+            <div style="width: 13%; display: inline-block;" mat-sort-header="name"> Prénom NOM </div>
+            <div style="width: 5%; display: inline-block;" mat-sort-header="year"> Année </div>
+            <div style="width: 55%; display: inline-block; font-size: 15px;" mat-sort-header="label"> Label </div>
         </div>
         <mat-divider></mat-divider> <br>
         <mat-card *ngFor="let student of allStudents" (click)="goToStudent(student.id)" class="card card-expansion-panel">

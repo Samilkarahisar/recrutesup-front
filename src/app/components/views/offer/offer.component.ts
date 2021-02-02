@@ -12,6 +12,8 @@ import { Employee } from 'src/app/models/employee';
 import { User } from 'src/app/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationIndisponibleOfferDialogComponent } from '../../dialogs/confirmation-indisponible-offer-dialog/confirmation-indisponible-offer-dialog.component';
+import { WorkflowState } from 'src/app/constants/workflowState';
+import { Wish } from 'src/app/models/wish';
 
 @Component({
   selector: 'app-offer',
@@ -145,5 +147,61 @@ export class OfferComponent implements OnInit {
         this.notifService.error('Erreur', err.error.message);
       }
     );
+  }
+
+  refuserWish(idWish: number, type: string): void {
+    if(type == "COMPANY") {
+      this.wishService.updateStateCompanyWish(idWish, "TRANSMIS", "REFUSE").subscribe(
+        response => {
+          this.notifService.success('Voeu refusé', 'vous avez refusé un voeu');
+          this.updateWish(this.offer.wishReceivedList, response.id, response.state);
+        }, err => {
+          this.notifService.error('Erreur', err.error.message);
+        }
+      );
+    } else if(type == "STUDENT") {
+      this.wishService.updateStateStudentWish(idWish, "TRANSMIS", "REFUSE").subscribe(
+        response => {
+          this.notifService.success('Voeu refusé', 'vous avez refusé un voeu');
+          this.updateWish(this.offer.wishReceivedList, response.id, response.state);
+        }, err => {
+          this.notifService.error('Erreur', err.error.message);
+        }
+      );
+    }
+  }
+
+  validerWish(idWish: number, type: string): void {
+    if(type == "COMPANY") {
+      this.wishService.updateStateCompanyWish(idWish, "TRANSMIS", "VALIDE").subscribe(
+        response => {
+          this.notifService.success('Voeu validé', 'vous avez validé un voeu');
+          this.updateWish(this.offer.wishReceivedList, response.id, response.state);
+        }, err => {
+          this.notifService.error('Erreur', err.error.message);
+        }
+      );
+    } else if(type == "STUDENT") {
+      this.wishService.updateStateStudentWish(idWish, "TRANSMIS", "VALIDE").subscribe(
+        response => {
+          this.notifService.success('Voeu validé', 'vous avez validé un voeu');
+          this.updateWish(this.offer.wishReceivedList, response.id, response.state);
+        }, err => {
+          this.notifService.error('Erreur', err.error.message);
+        }
+      );
+    }
+  }
+
+  updateWish(list: Wish[], idWish: number, newState: string): void {
+    for(let wish of list) {
+      if(wish.id == idWish) {
+        wish.state = newState;
+      }
+    }
+  }
+
+  statusToLabel(status: string): string {
+    return WorkflowState.find(x => x.variable === status).label;
   }
 }

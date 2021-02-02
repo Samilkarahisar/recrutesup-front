@@ -1,5 +1,5 @@
 <mat-card class="card card-container">
-    <h3 style="display: inline">Entreprises {{ statusToLabel(status) }}</h3>  
+    <h3 style="display: inline">Entreprises</h3>  
     <button style="width:150px; height: 25px;background-color:lightpink; line-height: 1rem; margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-employee">
         Ajout salarié
     </button>
@@ -8,8 +8,8 @@
     </button>
     <br><br><br>
     <div *ngIf="role == 'ROLE_STUDENT'">
-        <div style="padding-left: 15px; padding-bottom: 10px">
-            <div style="width: 75%; display: inline-block;"> Nom de l'entreprise </div>
+        <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="name" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 75%; display: inline-block;" mat-sort-header="name"> Nom de l'entreprise </div>
         </div>
         <mat-divider></mat-divider> <br>
         <div *ngFor="let company of allCompanies">
@@ -20,9 +20,9 @@
         <div *ngIf="allCompanies.length == 0" style="text-align: center;">Aucune entreprise</div>
     </div>
     <div *ngIf="role == 'ROLE_ADMIN'">
-        <div style="padding-left: 15px; padding-bottom: 10px">
-            <div style="width: 10%; display: inline-block;"> Statut </div> 
-            <div style="width: 75%; display: inline-block;"> Nom </div>
+        <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="name" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
+            <div style="width: 10%; display: inline-block;" mat-sort-header="status"> Statut </div> 
+            <div style="width: 75%; display: inline-block;" mat-sort-header="name"> Nom de l'entreprise</div>
         </div>
         <mat-divider></mat-divider> <br>
         <mat-card *ngFor="let company of allCompanies" (click)="goToCompany(company.id)" class="card card-expansion-panel">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowState } from 'src/app/constants/workflowState';
 import { Admin } from 'src/app/models/admin';
@@ -20,12 +21,8 @@ import { ConfirmationIndisponibleStudentDialogComponent } from '../dialogs/confi
 export class ListStudentsComponent implements OnInit {
 
   user: User = null;
-  student: Student = null;
-  admin: Admin = null;
-  allStudents = null;
+  allStudents: Student[] = [];
   role: String = null;
-
-  status: string = null;
 
   // booléen pour savoir si l'utilisateur clique sur la mat-card ou sur les boutons de mise à jour de status
   action: boolean = false;
@@ -42,19 +39,59 @@ export class ListStudentsComponent implements OnInit {
       this.user = this.tokenStorageService.getUser();
       this.role = this.user.role;
       
-      this.studentService.getAllStudents().subscribe(
-        data => {
-          this.allStudents = data;
-          this.route.queryParams.subscribe(
-            params => {
+      this.route.queryParams.subscribe(
+        params => {
+          this.studentService.getAllStudents().subscribe(
+            data => {
               if(params['status']) {
-                this.allStudents = this.allStudents.filter(offer => offer.state == params['status']);
-                this.status = params['status']; 
-              } 
-            });
-      },err=>{
-        this.notifService.error('Erreur', err.error.message);
+                this.allStudents = data.filter(student => student.state == params['status']);
+              } else {
+                this.allStudents = data;
+              }
+              this.allStudents = this.allStudents.sort(function (a, b) { return (a.firstname < b.firstname ? -1 : 1) * (true ? 1 : -1); });
+            }, err => {
+              this.notifService.error('Erreur', err.error.message);
+            }
+          );
+        }
+      );
+    }
+
+    wishAlreadySent(idUser: number): boolean {
+      for(let student of this.allStudents) {
+        if(student.id == idUser) {
+          for(let wish of student.wishReceivedList) {
+            if(wish.idSender === this.tokenStorageService.getUser().idCompany) {
+              return true;
+            }
+          }
+        }
+      }
+  
+      return false;
+    }
+
+    sortData(sort: Sort) {
+      const data = this.allStudents;
+      if (!sort.active || sort.direction === '') {
+        this.allStudents = data;
+        return;
+      }
+  
+      this.allStudents = data.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'name': return this.compare(a.firstname, b.firstname, isAsc);
+          case 'year': return this.compare(a.schoolYear, b.schoolYear, isAsc);
+          case 'label': return this.compare(a.label, b.label, isAsc);
+          case 'status': return this.compare(a.state, b.state, isAsc);
+          default: return 0;
+        }
       });
+    }
+
+    compare(a: number | string, b: number | string, isAsc: boolean) {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
     goToStudent(idStudent: number): void {
@@ -71,7 +108,12 @@ export class ListStudentsComponent implements OnInit {
         }
       }
 
-      this.allStudents = this.allStudents.filter(student => student.state == this.status);
+      this.route.queryParams.subscribe(
+        params => {
+          if(params['status']) {
+            this.allStudents = this.allStudents.filter(student => student.state == params['status']);
+          }
+        });
     }
 
     validerStudent(student: Student): void {
