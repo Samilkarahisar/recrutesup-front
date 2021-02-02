@@ -18,6 +18,7 @@ import { AdminProfilComponent } from './components/profils/admin-profil/admin-pr
 import { CompanyProfilComponent } from './components/profils/company-profil/company-profil.component';
 import { EmployeeProfilComponent } from './components/profils/employee-profil/employee-profil.component';
 import { StudentProfilComponent } from './components/profils/student-profil/student-profil.component';
+import { SendMessageComponent } from './components/send-message/send-message.component';
 import { CompanyComponent } from './components/views/company/company.component';
 import { OfferComponent } from './components/views/offer/offer.component';
 import { StudentComponent } from './components/views/student/student.component';
@@ -45,7 +46,8 @@ const routes: Routes = [
   { path: 'company/:idCompany', component: CompanyComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
   { path: 'offer/:idOffer', component: OfferComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Admin, Role.Company] }  },
   { path: 'offer/edit/:idOffer', component: ModifyOfferComponent, canActivate: [AuthGuard], data: { roles: [Role.Company] }  },
-  { path: 'wish/:idWish', component: AddMeetingComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Company] }  },
+  { path: 'wish/:idWish/message', component: SendMessageComponent, canActivate: [AuthGuard], data: { roles: [Role.Student, Role.Company] }  },
+  { path: 'wish/:idWish/meeting', component: AddMeetingComponent, canActivate: [AuthGuard], data: { roles: [Role.Company] }  },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 

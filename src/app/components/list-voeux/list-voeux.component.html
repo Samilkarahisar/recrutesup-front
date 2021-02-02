@@ -3,12 +3,13 @@
         <mat-tab label="Voeux transmis">
             <br>
             <mat-card *ngFor="let voeu of wishSendList" class="card card-expansion-panel">
-                <div style="width: 10%; display: inline-block;">{{ statusToLabel(voeu.state) }}</div>
+                <div style="width: 20%; display: inline-block;">{{ statusToLabel(voeu.state) }}</div>
                 <div style="width: 20%; display: inline-block; text-align: right;">{{voeu.sender}}</div>
                 <div style="width: 5%; display: inline-block; text-align: center;"><mat-icon style="vertical-align: middle;">trending_flat</mat-icon></div>
-                <div style="width: 60%; display: inline-block;">{{voeu.receiver}}</div>
-                <div style="width: 5%; display: inline-block;">
-                    <mat-icon *ngIf="voeu.state == 'VALIDE'" routerLink = "/wish/{{voeu.id}}" style="vertical-align: middle; cursor: pointer;">add_box</mat-icon>
+                <div style="width: 45%; display: inline-block;">{{voeu.receiver}}</div>
+                <div style="width: 10%; display: inline-block;">
+                    <mat-icon *ngIf="voeu.state == 'VALIDE' || voeu.state == 'MEETING_ORGANISE'" routerLink = "/wish/{{voeu.id}}/message" style="vertical-align: middle; cursor: pointer;">message</mat-icon>
+                    <mat-icon *ngIf="user.role == 'ROLE_COMPANY' && voeu.state == 'VALIDE'" routerLink = "/wish/{{voeu.id}}/meeting" style="margin-left: 15px; vertical-align: middle; cursor: pointer;">duo</mat-icon>
                 </div>
             </mat-card>
             <div *ngIf="wishSendList.length == 0" style="text-align: center;">Aucun voeu transmis</div>
@@ -16,10 +17,10 @@
         <mat-tab label="Voeux reçus">
             <br>
             <mat-card *ngFor="let voeu of wishReceivedList" class="card card-expansion-panel">
-                <div style="width: 10%; display: inline-block;">{{ statusToLabel(voeu.state) }}</div>
+                <div style="width: 20%; display: inline-block;">{{ statusToLabel(voeu.state) }}</div>
                 <div style="width: 20%; display: inline-block; text-align: right;">{{voeu.sender}}</div>
                 <div style="width: 5%; display: inline-block; text-align: center;"><mat-icon style="vertical-align: middle;">trending_flat</mat-icon> </div>
-                <div style="width: 50%; display: inline-block;">{{voeu.receiver}}</div>
+                <div style="width: 40%; display: inline-block;">{{voeu.receiver}}</div>
                 <div style="width: 15%; display: inline-block;">
                     <div style="width: 50%; display: inline-block;" *ngIf="voeu.state == 'TRANSMIS'">
                         <button mat-flat-button (click)="refuserWish(voeu.id, voeu.type)" style="height: 25px;background-color:red; line-height: 1rem; ">Refuser</button>

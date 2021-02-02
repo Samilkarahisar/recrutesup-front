@@ -62,6 +62,26 @@ export class WishService {
   }
 
   /**
+   * Envoyer un message à un interlocuteur
+   * @param idWish 
+   * @param type 
+   * @param message 
+   * @param idSender 
+   * @param idInterlocutor 
+   * @param idReceiver 
+   */
+  sendMessage(
+    idWish: number,
+    type: string,
+    message: string,
+    idSender: number,
+    idReceiver: number
+  ): Observable<Wish> {
+    const body = {idWish, type, message, idSender, idReceiver};
+    return this.http.post<Wish>(API + "/message", body, httpOptions);
+  }
+
+  /**
    * Envoyer une demande de création de meeting entre 2 interlocuteurs
    * @param dateMeeting 
    * @param message 
