@@ -13,7 +13,12 @@ export class AppComponent implements OnInit {
 
   constructor(private tokenStorageService: TokenStorageService) { }
 
+  public options = {
+    maxStack: 3,
+  }
+
   ngOnInit(): void {
+    console.log("aled");
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {

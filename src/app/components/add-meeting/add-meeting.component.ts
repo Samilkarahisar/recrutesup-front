@@ -93,6 +93,7 @@ export class AddMeetingComponent implements OnInit {
         idReceiver
       ).subscribe(
         response => {
+          this.notifService.success('Demande d\'entretien envoyée', 'demande envoyée par mail');
           this.router.navigate(['/wishes']);
         }, err => {
           this.notifService.error('Erreur demande', err.error.message);
