@@ -24,7 +24,7 @@
                 </div>
                 <mat-divider *ngIf="offers.length != 0"></mat-divider> <br>
                 <div *ngFor="let offer of offers">
-                    <mat-card *ngIf="(role == 'ROLE_ADMIN' && offer.state != 'BROUILLON') || (role != 'ROLE_ADMIN' && offer.state == 'DISPONIBLE')" (click)="goToOffer(offre.id)" class="item" style="cursor: pointer">
+                    <mat-card *ngIf="(role == 'ROLE_ADMIN' && offer.state != 'BROUILLON') || (role != 'ROLE_ADMIN' && offer.state == 'DISPONIBLE')" (click)="goToOffer(offer.id)" class="item" style="cursor: pointer">
                         <div style="width: 15%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN'">{{ statusToLabel(offer.state) }}</div>
                         <div style="width: 15%; display: inline-block;">{{offer.city}}</div>
                         <div style="width: 50%; display: inline-block;">{{offer.label}}</div>
