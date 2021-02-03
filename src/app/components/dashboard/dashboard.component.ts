@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit {
     {libelle: "BROUILLON", number: 0},
     {libelle: "EN_VALIDATION", number: 0},
     {libelle: "DISPONIBLE", number: 0},
-    {libelle: "SUPPRIME", number: 0},
   ];
 
   wish_states: Array<{libelle: string, number: number}> = [
@@ -64,7 +63,7 @@ export class DashboardComponent implements OnInit {
       this.companyService.getCompany(this.user.idCompany).subscribe(
         company => {
           if(company.offers) {
-            for(let offer of company.offers)  {
+            for(let offer of company.offers.filter(offer => offer.state != 'SUPPRIME'))  {
               this.offer_states.find(x => x.libelle === offer.state).number++;
             }
           }
