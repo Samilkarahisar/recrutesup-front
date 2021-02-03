@@ -6,14 +6,14 @@ const notifBody = {
   showProgressBar: true,
   pauseOnHover: true,
   clickToClose: true,
-  maxLength: 40
+  maxLength: 40,
 };
 
 const permNotifBody = {
   showProgressBar: true,
   pauseOnHover: true,
   clickToClose: true,
-  maxLength: 40
+  maxLength: 40,
 };
 
 @Injectable({

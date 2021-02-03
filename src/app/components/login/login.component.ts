@@ -46,9 +46,12 @@ export class LoginComponent implements OnInit {
                   user.state = company.state;
                   this.tokenStorage.saveUser(user);
                   this.notifService.success('Connecté', 'vous êtes connectés');
+                  if(company.state == "INVALIDE") {
+                    this.notifService.permanentWarn('Status INVALIDE', 'l\'entreprise ' + company.name + ' est invalide, elle ne peut plus interagir avec les étudiants');
+                  }
                   this.router.navigate(['/dashboard']);
                 }, err => {
-                  this.notifService.error('Connexion échouée', err.error.message);
+                  this.notifService.error('Connexion échouée', '');
                 }
               )
             } else if(user.role === "ROLE_STUDENT") {
@@ -58,9 +61,14 @@ export class LoginComponent implements OnInit {
                   user.state = student.state;
                   this.tokenStorage.saveUser(user);
                   this.notifService.success('Connecté', 'vous êtes connectés');
+                  if(student.state == "INVALIDE") {
+                    this.notifService.permanentWarn('Status INVALIDE', 'vous êtes au status invalide');
+                  } else if(student.state == "INDISPONIBLE") {
+                    this.notifService.permanentInfo('Status INDISPONIBLE', 'vous êtes indisponible, vous ne pouvez plus interagir avec les entreprises');
+                  }
                   this.router.navigate(['/dashboard']);
                 }, err => {
-                  this.notifService.error('Connexion échouée', err.error.message);
+                  this.notifService.error('Connexion échouée', '');
                 }
               )
             } else {
@@ -71,7 +79,7 @@ export class LoginComponent implements OnInit {
             } 
           },
           err => {
-            this.notifService.error('Connexion échouée', err.error.message);
+            this.notifService.error('Connexion échouée', '');
           }
       );
     } else {

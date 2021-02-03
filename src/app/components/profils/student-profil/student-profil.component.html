@@ -1,5 +1,6 @@
 <mat-card *ngIf="student != null" class="card card-container">
   <h3 style="display: inline">Profil Utilisateur</h3>
+  <span style="margin-left: 20px;">{{ getLabelFromState() }}</span>
   <button mat-raised-button color="primary" class="btn btn-primary btn-block" style="margin-left: 20px; margin-bottom: 20px;" [routerLink]="['/student/', student.id]">Aperçu du profil</button>
   <button *ngIf="student.state == 'VALIDE'" mat-raised-button color="primary" class="btn btn-primary btn-block" style="background-color: red ;margin-left: 20px; margin-bottom: 20px;" (click)="indisponibleState()">Se rendre indisponible</button>
   <form
