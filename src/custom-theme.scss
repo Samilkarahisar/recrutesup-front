@@ -9,11 +9,78 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+/* For use in src/lib/core/theming/_palette.scss */
+$recrutesup-primary: (
+    50 : #e0f5fd,
+    100 : #b3e7fa,
+    200 : #80d7f7,
+    300 : #4dc6f4,
+    400 : #26baf1,
+    500 : #00aeef,
+    600 : #00a7ed,
+    700 : #009deb,
+    800 : #0094e8,
+    900 : #0084e4,
+    A100 : #ffffff,
+    A200 : #d8ecff,
+    A400 : #a5d4ff,
+    A700 : #8bc8ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$recrutesup-accent: (
+    50 : #e0e9ef,
+    100 : #b3c8d6,
+    200 : #80a4bb,
+    300 : #4d7f9f,
+    400 : #26638b,
+    500 : #004876,
+    600 : #00416e,
+    700 : #003863,
+    800 : #003059,
+    900 : #002146,
+    A100 : #7aacff,
+    A200 : #478bff,
+    A400 : #146bff,
+    A700 : #005dfa,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$recrutesup-front-primary: mat-palette($mat-indigo);
-$recrutesup-front-accent: mat-palette($mat-pink, A200, A100, A400);
+$recrutesup-front-primary: mat-palette($recrutesup-primary);
+$recrutesup-front-accent: mat-palette($recrutesup-accent);
 
 // The warn palette is optional (defaults to red).
 $recrutesup-front-warn: mat-palette($mat-red);

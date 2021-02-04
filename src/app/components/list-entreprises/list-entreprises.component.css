@@ -4,7 +4,7 @@
 
 .card-expansion-panel {
     height: 20px;
+    background-color: #e0f5fd;
     margin-bottom: 10px;
-    background-color: rgb(235, 235, 235);
     cursor: pointer;
 }
