@@ -39,16 +39,16 @@
                 {{offre.companyName}} <mat-icon *ngIf="offre.companyState && offre.companyState == 'INVALIDE'" style="vertical-align: middle;" matTooltip="Cette entreprise est au statut Invalide">warning_amber</mat-icon>
             </div>
             <div style="width: 15%; display: inline-block;">{{offre.city}}</div>
-            <div style="width: 40%; display: inline-block;">{{offre.label}}</div>
-            <div style="width: 15%; display: inline-block;">
+            <div style="width: 43%; display: inline-block;">{{offre.label}}</div>
+            <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'EN_VALIDATION'" >
-                    <button (click)="validerOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;">Valider</button>
+                    <button (click)="validerOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'EN_VALIDATION'">
-                    <button (click)="invaliderOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; ">Invalider</button>
+                    <button (click)="invaliderOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'DISPONIBLE'">
-                    <button (click)="indisponibleOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button>
+                    <button (click)="indisponibleOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Rendre l'offre indisponible" style="color: white">cancel</mat-icon></button>
                 </div>
             </div>
         </mat-card>
@@ -64,16 +64,16 @@
         <mat-card *ngFor="let offre of allOffers" (click)="goToOffer(offre.id)"  class="card card-expansion-panel">
             <div style="width: 15%; display: inline-block;">{{ statusToLabel(offre.state) }}</div>
             <div style="width: 15%; display: inline-block;">{{offre.city}}</div>
-            <div style="width: 51%; display: inline-block;">{{offre.label}}</div>
-            <div style="width: 19%; display: inline-block;">
+            <div style="width: 58%; display: inline-block;">{{offre.label}}</div>
+            <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'DISPONIBLE'">
-                    <button (click)="indisponibleOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button>
+                    <button (click)="indisponibleOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Rendre l'offre indisponible" style="color: white">cancel</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'BROUILLON'">
-                    <button (click)="publierOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;">Publier</button>
+                    <button (click)="publierOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;"><mat-icon matTooltip="Publier" style="color: white">publish</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state !== 'SUPPRIME' && offre.state !== 'EN_VALIDATION' && offre.state !== 'INDISPONIBLE'">
-                    <button (click)="supprimerOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "> <mat-icon style="vertical-align: middle;">clear</mat-icon></button>
+                    <button (click)="supprimerOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Supprimer" style="color: white">delete</mat-icon></button>
                 </div>
             </div>
         </mat-card>

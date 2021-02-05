@@ -1,10 +1,10 @@
 <mat-card class="card card-container">
     <h3 style="display: inline">Entreprises</h3>  
-    <button style="width:150px; height: 25px;background-color:lightpink; line-height: 1rem; margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-employee">
-        Ajout salarié
+    <button matTooltip="Ajouter une entreprise" style="background-color:lightpink; margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-company">
+        <mat-icon>add</mat-icon><mat-icon>business</mat-icon>
     </button>
-    <button style="width:150px; height: 25px;background-color:lightpink; line-height: 1rem; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-company">
-        Ajout entreprise
+    <button matTooltip="Ajouter un salarié" style="background-color:lightpink; margin-right: 5px; margin-bottom:5px;" mat-flat-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-employee">
+        <mat-icon>add</mat-icon><mat-icon>person</mat-icon>
     </button>
     <br><br><br>
     <div *ngIf="role == 'ROLE_STUDENT'">
@@ -27,13 +27,13 @@
         <mat-divider></mat-divider> <br>
         <mat-card *ngFor="let company of allCompanies" (click)="goToCompany(company.id)" class="card card-expansion-panel">
             <div style="width: 10%; display: inline-block;"> {{ statusToLabel(company.state) }} </div> 
-            <div style="width: 75%; display: inline-block;"> {{company.name}} </div>
-            <div style="width: 15%; display: inline-block;">
-                <div style="width: 50%; display: inline-block;" *ngIf="company.state == 'ENREGISTRE' || company.state == 'VALIDE' ">
-                    <button (click)="invaliderCompany(company)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; ">Invalider</button>
-                </div>
+            <div style="width: 78%; display: inline-block;"> {{company.name}} </div>
+            <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="company.state == 'ENREGISTRE' || company.state == 'INVALIDE'  ">
-                    <button (click)="validerCompany(company)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;">Valider</button>
+                    <button (click)="validerCompany(company)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
+                </div>
+                <div style="width: 50%; display: inline-block;" *ngIf="company.state == 'ENREGISTRE' || company.state == 'VALIDE' ">
+                    <button (click)="invaliderCompany(company)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
                 </div>
             </div>
         </mat-card>

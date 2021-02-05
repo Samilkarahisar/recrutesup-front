@@ -1,7 +1,7 @@
 <mat-card class="card card-container">
     <h3 style="display: inline">Etudiants</h3> 
-    <button mat-icon-button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-student">
-        <mat-icon style="vertical-align: middle;">add_box</mat-icon>
+    <button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-student" matTooltip="Ajouter un étudiant" style="background-color:lightpink; margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button>
+        <mat-icon>add</mat-icon><mat-icon>person</mat-icon>
     </button>
     <br><br><br>
     <div *ngIf="role == 'ROLE_COMPANY'">
@@ -29,24 +29,24 @@
         <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="name" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
             <div style="width: 11%; display: inline-block;" mat-sort-header="status"> Statut </div>
             <div style="width: 13%; display: inline-block;" mat-sort-header="name"> Prénom NOM </div>
-            <div style="width: 5%; display: inline-block;" mat-sort-header="year"> Année </div>
-            <div style="width: 55%; display: inline-block; font-size: 15px;" mat-sort-header="label"> Label </div>
+            <div style="width: 6%; display: inline-block;" mat-sort-header="year"> Année </div>
+            <div style="width: 57%; display: inline-block; font-size: 15px;" mat-sort-header="label"> Label </div>
         </div>
         <mat-divider></mat-divider> <br>
         <mat-card *ngFor="let student of allStudents" (click)="goToStudent(student.id)" class="card card-expansion-panel">
             <div style="width: 11%; display: inline-block;"> {{ statusToLabel(student.state) }}  </div>
             <div style="width: 13%; display: inline-block;"> {{student.firstname}} {{student.lastname}} </div>
-            <div style="width: 5%; display: inline-block;"> {{student.schoolYear}} </div>
-            <div style="width: 55%; display: inline-block; font-size: 15px;"> {{student.label}} </div>
-            <div style="width: 15%; display: inline-block;">
-                <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'ENREGISTRE' || student.state == 'VALIDE'">
-                    <button (click)="invaliderStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:red; line-height: 1rem; ">Invalider</button>
-                </div>
+            <div style="width: 6%; display: inline-block;"> {{student.schoolYear}} </div>
+            <div style="width: 57%; display: inline-block; font-size: 15px;"> {{student.label}} </div>
+            <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'ENREGISTRE' || student.state == 'INVALIDE'">
-                    <button (click)="validerStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:green; line-height: 1rem;">Valider</button>
+                    <button (click)="validerStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:green; line-height: 1rem;"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'VALIDE'">
-                    <button (click)="indisponibleStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:rebeccapurple; line-height: 1rem; ">Indisponible</button>
+                    <button (click)="indisponibleStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:red; line-height: 1rem; "><mat-icon matTooltip="Rendre l'étudiant indisponible" style="color: white">cancel</mat-icon></button>
+                </div>
+                <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'ENREGISTRE' || student.state == 'VALIDE'">
+                    <button (click)="invaliderStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:red; line-height: 1rem; "><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
                 </div>
             </div>
         </mat-card>
