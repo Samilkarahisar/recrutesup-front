@@ -10,7 +10,7 @@
                 <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (student.state == 'ENREGISTRE' || student.state == 'VALIDE')" (click)="invaliderStudent()" style="margin-left: 20px; background-color:red;  color: white; " class="btn btn-primary btn-block"><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
                 <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && student.state == 'VALIDE'" style="margin-left: 20px; background-color:red; color: white; " (click)="indisponibleStudent()" class="btn btn-primary btn-block"><mat-icon matTooltip="Rendre l'étudiant indisponible" style="color: white">cancel</mat-icon></button>
 
-                <button mat-raised-button color="primary" *ngIf="role == 'ROLE_COMPANY' && user.state == 'VALIDE' && !wishAlreadySent()" (click)="sendCompanyWish()" style="margin-left: 20px;" class="btn btn-primary btn-block">Adresser un voeu</button>
+                <button mat-raised-button color="accent" *ngIf="role == 'ROLE_COMPANY' && user.state == 'VALIDE' && !wishAlreadySent()" (click)="sendCompanyWish()" style="margin-left: 20px; color: white;" class="btn btn-primary btn-block">Adresser un voeu</button>
                 <button mat-raised-button disabled *ngIf="role == 'ROLE_COMPANY' && wishAlreadySent()" style="margin-left: 20px;" class="btn btn-primary btn-block">Voeu adressé</button>
             </span>
             <h4>{{ student.schoolYear }} - {{ student.label }}</h4>

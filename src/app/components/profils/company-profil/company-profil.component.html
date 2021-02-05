@@ -1,7 +1,7 @@
 <mat-card *ngIf="company != null" class="card card-container">
     <h3 style="display: inline">Profil Entreprise</h3>
     <span style="margin-left: 20px;">{{ getLabelFromState() }}</span>
-    <button mat-raised-button color="primary" class="btn btn-primary btn-block" style="margin-left: 20px; margin-bottom: 20px;" [routerLink]="['/company/', company.id]">Aperçu du profil</button>
+    <button mat-raised-button color="accent" class="btn btn-primary btn-block" style="margin-left: 20px; margin-bottom: 20px;" [routerLink]="['/company/', company.id]">Aperçu du profil</button>
     <form
       *ngIf="company != null"
       (ngSubmit)="f.form.valid && onSubmit()"

@@ -32,14 +32,14 @@
 .item {
   height: 20px;
   margin-bottom: 10px;
-  background-color: rgb(235, 235, 235);
+  background-color: #e0f5fd;
 }
 
 .attachment {
   display:inline-block;
   text-align: center;
   padding-top: 25px;
-  background-color:  rgb(235, 235, 235);
+  background-color: #e0f5fd;
   margin-right: 10px;
   height: 50px;
   width: 200px;

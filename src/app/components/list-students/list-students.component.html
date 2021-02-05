@@ -1,6 +1,6 @@
 <mat-card class="card card-container">
     <h3 style="display: inline">Etudiants</h3> 
-    <button *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-student" matTooltip="Ajouter un étudiant" style="background-color:lightpink; margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button>
+    <button color="accent" *ngIf="user.role == 'ROLE_ADMIN'" routerLink="/add-student" matTooltip="Ajouter un étudiant" style="margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button>
         <mat-icon>add</mat-icon><mat-icon>person</mat-icon>
     </button>
     <br><br><br>

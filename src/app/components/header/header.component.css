@@ -5,3 +5,7 @@
  button {
    margin: 5px;
  }
+
+ h1, a, div {
+   color: white;
+ }
