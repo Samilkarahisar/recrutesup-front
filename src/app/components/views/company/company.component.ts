@@ -167,4 +167,18 @@ export class CompanyComponent implements OnInit {
   statusToLabel(status: string): string {
     return WorkflowState.find(x => x.variable === status).label;
   }
+
+  wishAlreadySent(idOffre: number): boolean {
+    for(let offer of this.offers) {
+      if(offer.id == idOffre) {
+        for(let wish of offer.wishReceivedList) {
+          if(wish.idSender === this.tokenStorage.getUser().id) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
 }
