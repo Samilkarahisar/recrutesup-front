@@ -9,12 +9,12 @@
                 <div style="width: 40%; display: inline-block;">{{voeu.receiver}}</div>
                 <div style="width: 15%; display: inline-block;">
                     <div style="width: 50%; display: inline-block;">
-                        <button style="height: 25px; line-height: 1rem" color="primary" mat-flat-button matTooltip="Rédiger un message" *ngIf="voeu.state == 'VALIDE' || voeu.state == 'MEETING_ORGANISE'" routerLink = "/wish/{{voeu.id}}/message">
+                        <button style="height: 25px; line-height: 1rem" color="accent" mat-flat-button matTooltip="Rédiger un message" *ngIf="voeu.state == 'VALIDE' || voeu.state == 'MEETING_ORGANISE'" routerLink = "/wish/{{voeu.id}}/message">
                             <mat-icon style="color: white;">message</mat-icon>
                         </button>
                     </div>
                     <div style="width: 50%; display: inline-block;">
-                        <button style="height: 25px; line-height: 1rem" color="primary" mat-flat-button matTooltip="Demander un entretien" *ngIf="user.role == 'ROLE_COMPANY' && voeu.state == 'VALIDE'" routerLink = "/wish/{{voeu.id}}/meeting">
+                        <button style="height: 25px; line-height: 1rem" color="accent" mat-flat-button matTooltip="Demander un entretien" *ngIf="user.role == 'ROLE_COMPANY' && voeu.state == 'VALIDE'" routerLink = "/wish/{{voeu.id}}/meeting">
                             <mat-icon style="color: white;">duo</mat-icon>
                         </button>
                     </div>
