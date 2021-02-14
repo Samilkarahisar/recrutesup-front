@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Wish } from '../models/wish';
-
-const API = 'http://localhost:8080/wish';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,13 +13,15 @@ const httpOptions = {
 })
 export class WishService {
 
+  baseUrl: string = environment.baseUrl;
+  
   constructor(private http: HttpClient) { }
 
   /**
    * Récupérer tous les voeux (étudiants et entreprises)
    */
   getAllWishes(): Observable<Wish[]> {
-    return this.http.get<Wish[]>(API + '/all', httpOptions);
+    return this.http.get<Wish[]>(this.baseUrl + '/wish/all', httpOptions);
   }
 
   /**
@@ -28,7 +29,7 @@ export class WishService {
    * @param idWish 
    */
   getStudentWish(idWish: number): Observable<Wish> {
-    return this.http.get<Wish>(API + '/student/' + idWish, httpOptions);
+    return this.http.get<Wish>(this.baseUrl + '/wish/student/' + idWish, httpOptions);
   }
 
   /**
@@ -36,7 +37,7 @@ export class WishService {
    * @param idWish 
    */
   getCompanyWish(idWish: number): Observable<Wish> {
-    return this.http.get<Wish>(API + '/company/' + idWish, httpOptions);
+    return this.http.get<Wish>(this.baseUrl + '/wish/company/' + idWish, httpOptions);
   }
 
   /**
@@ -47,7 +48,7 @@ export class WishService {
   createStudentWish(
     idOffer: number
   ): Observable<Wish> {
-    return this.http.post<Wish>(API + '/student/' + idOffer, httpOptions);
+    return this.http.post<Wish>(this.baseUrl + '/wish/student/' + idOffer, httpOptions);
   }
 
   /**
@@ -58,7 +59,7 @@ export class WishService {
   createCompanyWish(
     idUser: number
   ): Observable<Wish> {
-    return this.http.post<Wish>(API + '/company/' + idUser, httpOptions);
+    return this.http.post<Wish>(this.baseUrl + '/wish/company/' + idUser, httpOptions);
   }
 
   /**
@@ -78,7 +79,7 @@ export class WishService {
     idReceiver: number
   ): Observable<Wish> {
     const body = {idWish, type, message, idSender, idReceiver};
-    return this.http.post<Wish>(API + "/message", body, httpOptions);
+    return this.http.post<Wish>(this.baseUrl + '/wish/message', body, httpOptions);
   }
 
   /**
@@ -99,7 +100,7 @@ export class WishService {
     idReceiver: number
   ): Observable<Wish> {
     const body = {idWish, type, dateMeeting, message, idSender, idInterlocutor, idReceiver};
-    return this.http.post<Wish>(API + "/meeting", body, httpOptions);
+    return this.http.post<Wish>(this.baseUrl + '/wish/meeting', body, httpOptions);
   }
 
   /**
@@ -113,7 +114,7 @@ export class WishService {
     currentState: string,
     nextState: string
   ): Observable<Wish> {
-    return this.http.patch<Wish>(API + '/company/' + idWish + '/' + currentState + '/' + nextState, httpOptions);
+    return this.http.patch<Wish>(this.baseUrl + '/wish/company/' + idWish + '/' + currentState + '/' + nextState, httpOptions);
   }
 
   /**
@@ -127,6 +128,6 @@ export class WishService {
     currentState: string,
     nextState: string
   ): Observable<Wish> {
-    return this.http.patch<Wish>(API + '/student/' + idWish + '/' + currentState + '/' + nextState, httpOptions);
+    return this.http.patch<Wish>(this.baseUrl + '/wish/student/' + idWish + '/' + currentState + '/' + nextState, httpOptions);
   }
 }

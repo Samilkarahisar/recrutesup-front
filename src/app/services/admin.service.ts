@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Admin } from '../models/admin';
-
-const API = 'http://localhost:8080/admin';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,6 +13,8 @@ const httpOptions = {
 })
 export class AdminService {
 
+  baseUrl: string = environment.baseUrl;
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -21,14 +22,14 @@ export class AdminService {
    * @param idUser 
    */
   getAdmin(idUser: number): Observable<Admin> {
-    return this.http.get<Admin>(`${API}/${idUser}`, httpOptions);
+    return this.http.get<Admin>(this.baseUrl + '/admin/' + idUser, httpOptions);
   }
 
   /**
    * Récupèrer tous les admins
    */
   getAllAdmins(): Observable<Admin[]> {
-    return this.http.get<Admin[]>(`${API}/all`, httpOptions);
+    return this.http.get<Admin[]>(this.baseUrl + '/admin/all', httpOptions);
   }
 
   /**
@@ -46,7 +47,7 @@ export class AdminService {
     phoneNumber: string
   ): Observable<Admin> {
     const body = {firstname, lastname, mailAddress, phoneNumber};
-    return this.http.patch<Admin>(API, body, httpOptions);
+    return this.http.patch<Admin>(this.baseUrl + '/admin/', body, httpOptions);
   }
 
   /**
@@ -60,6 +61,6 @@ export class AdminService {
     password: string
   ): Observable<Admin> {
     const body = {mailAddress, password};
-    return this.http.patch<Admin>(API + '/changePW', body, httpOptions);
+    return this.http.patch<Admin>(this.baseUrl + '/admin/changePW', body, httpOptions);
   }
 }

@@ -3,7 +3,8 @@
   }
 
 .card-expansion-panel {
-    height: 20px;
+    height: auto;
+    min-height: 20px;
     background-color: #e0f5fd;
     margin-bottom: 10px;
     cursor: pointer;

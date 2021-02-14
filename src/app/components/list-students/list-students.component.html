@@ -27,16 +27,16 @@
     </div>
     <div *ngIf="role == 'ROLE_ADMIN'">
         <div matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="name" matSortDirection="asc" style="padding-left: 15px; padding-bottom: 10px">
-            <div style="width: 11%; display: inline-block;" mat-sort-header="status"> Statut </div>
-            <div style="width: 13%; display: inline-block;" mat-sort-header="name"> Prénom NOM </div>
-            <div style="width: 6%; display: inline-block;" mat-sort-header="year"> Année </div>
+            <div style="width: 10%; display: inline-block;" mat-sort-header="status"> Statut </div>
+            <div style="width: 15%; display: inline-block;" mat-sort-header="name"> Prénom NOM </div>
+            <div style="width: 5%; display: inline-block;" mat-sort-header="year"> Année </div>
             <div style="width: 57%; display: inline-block; font-size: 15px;" mat-sort-header="label"> Label </div>
         </div>
         <mat-divider></mat-divider> <br>
         <mat-card *ngFor="let student of allStudents" (click)="goToStudent(student.id)" class="card card-expansion-panel">
-            <div style="width: 11%; display: inline-block;"> {{ statusToLabel(student.state) }}  </div>
-            <div style="width: 13%; display: inline-block;"> {{student.firstname}} {{student.lastname}} </div>
-            <div style="width: 6%; display: inline-block;"> {{student.schoolYear}} </div>
+            <div style="width: 10%; display: inline-block;"> {{ statusToLabel(student.state) }}  </div>
+            <div style="width: 15%; display: inline-block;"> {{student.firstname}} {{student.lastname}} </div>
+            <div style="width: 5%; display: inline-block;"> {{student.schoolYear}} </div>
             <div style="width: 57%; display: inline-block; font-size: 15px;"> {{student.label}} </div>
             <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'ENREGISTRE' || student.state == 'INVALIDE'">

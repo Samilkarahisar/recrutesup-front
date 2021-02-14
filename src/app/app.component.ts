@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("aled");
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
