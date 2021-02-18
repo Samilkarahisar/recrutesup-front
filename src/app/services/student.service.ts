@@ -7,7 +7,12 @@ import { Student } from '../models/student';
 const API_IMAGE = 'https://betshare.app/api/upload?userid=';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 
+    'Access-Control-Allow-Origin':'*',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+  })
 };
 
 function DataURIToBlob(dataURI: string) {
