@@ -9,7 +9,7 @@
                 <div style="width: 40%; display: inline-block;">{{voeu.receiver}}</div>
                 <div style="width: 15%; display: inline-block;">
                     <div style="width: 50%; display: inline-block;">
-                        <button style="height: 25px; line-height: 1rem" color="accent" mat-flat-button matTooltip="Rédiger un message" *ngIf="voeu.state == 'VALIDE' || voeu.state == 'MEETING_ORGANISE'" routerLink = "/wish/{{voeu.id}}/message">
+                        <button style="height: 25px; line-height: 1rem" color="accent" mat-flat-button matTooltip="Envoyer un message à {{ voeu.receiver }}" *ngIf="voeu.state == 'VALIDE' || voeu.state == 'MEETING_ORGANISE'" routerLink = "/wish/{{voeu.id}}/message">
                             <mat-icon style="color: white;">message</mat-icon>
                         </button>
                     </div>

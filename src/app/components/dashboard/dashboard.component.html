@@ -1,5 +1,8 @@
 <mat-card class="card card-container">
-    <h3>Tableau de bord</h3>
+    <h3 style="display: inline">Tableau de bord</h3>
+    <button color="accent" matTooltip="Ajouter une offre" style=" margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button>
+        <mat-icon>mail</mat-icon>
+    </button>
     <mat-accordion multi>
         <mat-expansion-panel *ngIf="user.role == 'ROLE_ADMIN'">
             <mat-expansion-panel-header>
@@ -9,15 +12,32 @@
                 <mat-panel-description>
                     Etats des entreprises enregistrées
                 </mat-panel-description>
+                <button style="height: 25px; line-height: 1rem; margin-right: 20px" color="accent" matTooltip="Ajouter une offre" mat-flat-button>
+                    <mat-icon>mail</mat-icon>
+                </button>
             </mat-expansion-panel-header>
             <mat-card routerLink="/companies" [queryParams]="{ status: 'VALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
                 {{ getNumberFromState(company_states, "VALIDE") }} Entreprises Validées
             </mat-card>
             <mat-card routerLink="/companies" [queryParams]="{ status: 'ENREGISTRE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
-                {{ getNumberFromState(company_states, "ENREGISTRE") }} Entreprises Enregistrées
+                <div style="width: 90%; display: inline-block;">
+                    {{ getNumberFromState(company_states, "ENREGISTRE") }} Entreprises Enregistrées
+                </div>
+                <div style="width: 10%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message">
+                        <mat-icon style="color: black;">mail</mat-icon>
+                    </button>
+                </div>
             </mat-card>
             <mat-card routerLink="/companies" [queryParams]="{ status: 'INVALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
-                {{ getNumberFromState(company_states, "INVALIDE") }} Entreprises Invalides
+                <div style="width: 90%; display: inline-block;">
+                    {{ getNumberFromState(company_states, "INVALIDE") }} Entreprises Invalides
+                </div>
+                <div style="width: 10%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message">
+                        <mat-icon style="color: black;">mail</mat-icon>
+                    </button>
+                </div>
             </mat-card>
         </mat-expansion-panel>
 
@@ -29,18 +49,35 @@
                 <mat-panel-description>
                     Etats des étudiants enregistrés
                 </mat-panel-description>
+                <button style="height: 25px; line-height: 1rem; margin-right: 20px" color="accent" matTooltip="Ajouter une offre" mat-flat-button>
+                    <mat-icon>mail</mat-icon>
+                </button>
             </mat-expansion-panel-header>
             <mat-card routerLink="/students" [queryParams]="{ status: 'VALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
                 {{ getNumberFromState(student_states, "VALIDE") }} Etudiants Validés
             </mat-card>
             <mat-card routerLink="/students" [queryParams]="{ status: 'ENREGISTRE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
-                {{ getNumberFromState(student_states, "ENREGISTRE") }} Etudiants Enregistrés
+                <div style="width: 90%; display: inline-block;">
+                    {{ getNumberFromState(student_states, "ENREGISTRE") }} Etudiants Enregistrés
+                </div>
+                <div style="width: 10%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message">
+                        <mat-icon style="color: black;">mail</mat-icon>
+                    </button>
+                </div>
             </mat-card>
             <mat-card routerLink="/students" [queryParams]="{ status: 'INDISPONIBLE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
                 {{ getNumberFromState(student_states, "INDISPONIBLE") }} Etudiants Indisponibles
             </mat-card>
             <mat-card routerLink="/students" [queryParams]="{ status: 'INVALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
-                {{ getNumberFromState(student_states, "INVALIDE") }} Etudiants Invalides
+                <div style="width: 90%; display: inline-block;">
+                    {{ getNumberFromState(student_states, "INVALIDE") }} Etudiants Invalides
+                </div>
+                <div style="width: 10%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message">
+                        <mat-icon style="color: black;">mail</mat-icon>
+                    </button>
+                </div>
             </mat-card>
         </mat-expansion-panel>
 
@@ -83,7 +120,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <mat-card class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
-                {{ getNumberFromState(wish_states, "MEETING_ORGANISE") }} Meetings Organisés
+                {{ getNumberFromState(wish_states, "MEETING_ORGANISE") }} Entretiens demandés
             </mat-card>
             <mat-card class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'">
                 {{ getNumberFromState(wish_states, "VALIDE") }} Voeux Validés
