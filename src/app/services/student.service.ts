@@ -1,11 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Student } from '../models/student';
 
-const API = 'http://localhost:8080/student';
-
-const API_IMAGE = 'https://betshare.app/api/recrutesup/upload?userid=';
+const API_IMAGE = 'https://betshare.app/api/upload?userid=';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -28,6 +27,8 @@ function DataURIToBlob(dataURI: string) {
 })
 export class StudentService {
 
+  baseUrl: string = environment.baseUrl;
+  
   constructor(private http: HttpClient) { }
 
   uploadProfileImage(id,file):Observable<any>{
@@ -44,7 +45,7 @@ export class StudentService {
    * Récupérer tous les étudiants
    */
   getAllStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>(API + '/all', httpOptions);
+    return this.http.get<Student[]>(this.baseUrl + '/student/all', httpOptions);
   }
 
   /**
@@ -52,7 +53,7 @@ export class StudentService {
    * @param idUser 
    */
   getStudent(idUser: number): Observable<Student> {
-    return this.http.get<Student>(API + '/' + idUser, httpOptions);
+    return this.http.get<Student>(this.baseUrl + '/student/' + idUser, httpOptions);
   }
 
   /**
@@ -75,7 +76,7 @@ export class StudentService {
     description: string
   ): Observable<Student> {
     const body = {firstname, lastname, mailAddress, schoolYear, phoneNumber, label, description};
-    return this.http.post<Student>(API, body, httpOptions);
+    return this.http.post<Student>(this.baseUrl + '/student/', body, httpOptions);
   }
 
   /**
@@ -99,7 +100,7 @@ export class StudentService {
     description: string
   ): Observable<Student> {
     const body = {firstname, lastname, mailAddress, schoolYear, phoneNumber, label, description};
-    return this.http.patch<Student>(API, body, httpOptions);
+    return this.http.patch<Student>(this.baseUrl + '/student/', body, httpOptions);
   }
 
   /**
@@ -113,7 +114,7 @@ export class StudentService {
     currentState: string,
     nextState: string
   ): Observable<Student> {
-    return this.http.patch<Student>(API + '/' + idUser + '/' + currentState + '/' + nextState, httpOptions);
+    return this.http.patch<Student>(this.baseUrl + '/student/' + idUser + '/' + currentState + '/' + nextState, httpOptions);
   }
 
   /**
@@ -127,6 +128,6 @@ export class StudentService {
     password: string
   ): Observable<Student> {
     const body = {mailAddress, password};
-    return this.http.patch<Student>(API + '/changePW', body, httpOptions);
+    return this.http.patch<Student>(this.baseUrl + '/student/changePW', body, httpOptions);
   }
 }
