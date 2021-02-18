@@ -1,8 +1,9 @@
 <mat-card class="card card-container">
     <h3 style="display: inline">Tableau de bord</h3>
-    <button color="accent" matTooltip="Ajouter une offre" style=" margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button>
+    <button color="accent" *ngIf="user.role == 'ROLE_ADMIN'" matTooltip="Envoyer un message à tous" style=" margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button>
         <mat-icon>mail</mat-icon>
     </button>
+    <br><br>
     <mat-accordion multi>
         <mat-expansion-panel *ngIf="user.role == 'ROLE_ADMIN'">
             <mat-expansion-panel-header>
@@ -12,7 +13,7 @@
                 <mat-panel-description>
                     Etats des entreprises enregistrées
                 </mat-panel-description>
-                <button style="height: 25px; line-height: 1rem; margin-right: 20px" color="accent" matTooltip="Ajouter une offre" mat-flat-button>
+                <button style="height: 25px; line-height: 1rem; margin-right: 20px" color="accent" matTooltip="Envoyer un message à toutes les entreprises" mat-flat-button>
                     <mat-icon>mail</mat-icon>
                 </button>
             </mat-expansion-panel-header>
@@ -24,8 +25,8 @@
                     {{ getNumberFromState(company_states, "ENREGISTRE") }} Entreprises Enregistrées
                 </div>
                 <div style="width: 10%; display: inline-block;">
-                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message">
-                        <mat-icon style="color: black;">mail</mat-icon>
+                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message aux entreprises enregistrées">
+                        <mat-icon style="color: black; font-size: 30px;">mail</mat-icon>
                     </button>
                 </div>
             </mat-card>
@@ -34,8 +35,8 @@
                     {{ getNumberFromState(company_states, "INVALIDE") }} Entreprises Invalides
                 </div>
                 <div style="width: 10%; display: inline-block;">
-                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message">
-                        <mat-icon style="color: black;">mail</mat-icon>
+                    <button style="height: 25px; line-height: 1rem; background-color: salmon;" mat-flat-button matTooltip="Envoyer un message aux entreprises invalides">
+                        <mat-icon style="color: black; font-size: 30px;">mail</mat-icon>
                     </button>
                 </div>
             </mat-card>
@@ -49,7 +50,7 @@
                 <mat-panel-description>
                     Etats des étudiants enregistrés
                 </mat-panel-description>
-                <button style="height: 25px; line-height: 1rem; margin-right: 20px" color="accent" matTooltip="Ajouter une offre" mat-flat-button>
+                <button style="height: 25px; line-height: 1rem; margin-right: 20px" color="accent" matTooltip="Envoyer un message à tous les étudiants" mat-flat-button>
                     <mat-icon>mail</mat-icon>
                 </button>
             </mat-expansion-panel-header>
@@ -61,8 +62,8 @@
                     {{ getNumberFromState(student_states, "ENREGISTRE") }} Etudiants Enregistrés
                 </div>
                 <div style="width: 10%; display: inline-block;">
-                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message">
-                        <mat-icon style="color: black;">mail</mat-icon>
+                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message aux étudiants enregistrés">
+                        <mat-icon style="color: black; font-size: 30px;">mail</mat-icon>
                     </button>
                 </div>
             </mat-card>
@@ -74,8 +75,8 @@
                     {{ getNumberFromState(student_states, "INVALIDE") }} Etudiants Invalides
                 </div>
                 <div style="width: 10%; display: inline-block;">
-                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message">
-                        <mat-icon style="color: black;">mail</mat-icon>
+                    <button style="height: 25px; line-height: 1rem; background-color: salmon;" mat-flat-button matTooltip="Envoyer un message aux étudiants invalides">
+                        <mat-icon style="color: black; font-size: 30px;">mail</mat-icon>
                     </button>
                 </div>
             </mat-card>

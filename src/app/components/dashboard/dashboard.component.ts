@@ -44,6 +44,9 @@ export class DashboardComponent implements OnInit {
     {libelle: "MEETING_ORGANISE", number: 0},
   ];
 
+  // booléen pour savoir si l'admin clique sur la mat-card ou sur les boutons de'envoi de mails
+  action: boolean = false;
+
   constructor(private router: Router,
               private tokenStorageService: TokenStorageService,
               private companyService: CompanyService,
@@ -157,4 +160,6 @@ export class DashboardComponent implements OnInit {
   getNumberFromState(list: Array<{libelle: string, number: number}>, state: string): Number {
     return list.find(x => x.libelle === state).number;
   }
+
+  
 }
