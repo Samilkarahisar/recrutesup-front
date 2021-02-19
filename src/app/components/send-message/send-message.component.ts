@@ -96,7 +96,7 @@ export class SendMessageComponent implements OnInit {
         this.wish.idReceiver
         ).subscribe(
           response => {
-            this.notifService.success('Message envoyé', ' message envoyé par mail');
+            this.notifService.success('Message envoyé', 'message envoyé par mail');
             this.router.navigate(['/wishes']);
           }, err => {
             this.notifService.error('Erreur', err.error.message);

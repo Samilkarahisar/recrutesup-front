@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Role } from 'src/app/constants/role';
 import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
+import { AdminService } from 'src/app/services/admin.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { NotifService } from 'src/app/services/notif.service';
 import { OfferService } from 'src/app/services/offer.service';
 import { StudentService } from 'src/app/services/student.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { WishService } from 'src/app/services/wish.service';
+import { MessageDialogComponent } from '../dialogs/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,13 +48,19 @@ export class DashboardComponent implements OnInit {
     {libelle: "MEETING_ORGANISE", number: 0},
   ];
 
+  // booléen pour savoir si l'admin clique sur la mat-card ou sur les boutons de'envoi de mails
+  action: boolean = false;
+
   constructor(private router: Router,
               private tokenStorageService: TokenStorageService,
+              private adminService: AdminService,
               private companyService: CompanyService,
               private studentService: StudentService,
               private offerService: OfferService,
               private wishService: WishService,
-              private notifService: NotifService) { }
+              private notifService: NotifService,
+              private dialog: MatDialog
+              ) { }
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
@@ -157,4 +167,33 @@ export class DashboardComponent implements OnInit {
   getNumberFromState(list: Array<{libelle: string, number: number}>, state: string): Number {
     return list.find(x => x.libelle === state).number;
   }
+
+  goTo(route: string, params: Array<{status: string}>): void {
+    if(!this.action) {
+      this.router.navigate([route], { queryParams: params });
+    }
+    this.action = false;
+  }
+
+  sendMessage(role: string, state: string, destinataires: string): void {
+    this.action = true;
+    const dialogRef = this.dialog.open(MessageDialogComponent, {
+      width: '900px',
+      height: '550px',
+      data: {destinataires: destinataires}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.adminService.sendMessage(role, state, result).subscribe(
+          response => {
+            this.notifService.success('Message envoyé', 'message envoyé par mail');
+          }, err => {
+            this.notifService.error('Erreur', err.error.message);
+          }
+        )
+      }
+    });
+  }
+  
 }
