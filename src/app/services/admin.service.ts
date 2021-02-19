@@ -68,4 +68,13 @@ export class AdminService {
     const body = {mailAddress, password};
     return this.http.patch<Admin>(this.baseUrl + '/admin/changePW', body, httpOptions);
   }
+
+  sendMessage(
+    role: string,
+    state: string,
+    message: string
+  ): Observable<Admin> {
+    const body = {role, state, message};
+    return this.http.post<Admin>(this.baseUrl + '/admin/message', body, httpOptions);
+  }
 }

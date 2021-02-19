@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Invalidation d'une offre</h1>
+<mat-dialog-content>
+    <p>
+        Vous allés invalider cette offre, elle repassera donc à l'état <strong>Brouillon</strong><br>
+        et l'entreprise concernée devra alors la re-publier pour validation ultérieure.
+        <br><br>
+        Vous confirmez l'invalidation de cette offre ?
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close]="true">Oui</button>
+  <button mat-button [mat-dialog-close]="false">Non</button>
+</mat-dialog-actions>

@@ -1,6 +1,6 @@
 <mat-card class="card card-container">
     <h3 style="display: inline">Tableau de bord</h3>
-    <button color="accent" *ngIf="user.role == 'ROLE_ADMIN'" matTooltip="Envoyer un message à tous" style=" margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button>
+    <button color="accent" *ngIf="user.role == 'ROLE_ADMIN'" matTooltip="Envoyer un message à tous" style="margin-left: 20px; margin-right: 5px; margin-bottom:5px;" mat-flat-button (click)="sendMessage(null, null, 'à tous les étudiants et toutes les entreprises')">
         <mat-icon>mail</mat-icon>
     </button>
     <br><br>
@@ -13,30 +13,37 @@
                 <mat-panel-description>
                     Etats des entreprises enregistrées
                 </mat-panel-description>
-                <button style="height: 25px; line-height: 1rem; margin-right: 20px" color="accent" matTooltip="Envoyer un message à toutes les entreprises" mat-flat-button>
+                <button style="height: 25px; line-height: 1rem; margin-right: 26px" color="accent" matTooltip="Envoyer un message à toutes les entreprises" mat-flat-button (click)="sendMessage('COMPANY', null, 'à toutes les entreprises')">
                     <mat-icon>mail</mat-icon>
                 </button>
             </mat-expansion-panel-header>
-            <mat-card routerLink="/companies" [queryParams]="{ status: 'VALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
-                {{ getNumberFromState(company_states, "VALIDE") }} Entreprises Validées
-            </mat-card>
-            <mat-card routerLink="/companies" [queryParams]="{ status: 'ENREGISTRE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
-                <div style="width: 90%; display: inline-block;">
-                    {{ getNumberFromState(company_states, "ENREGISTRE") }} Entreprises Enregistrées
+            <mat-card (click)="goTo('/companies', { status: 'VALIDE' })" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
+                <div style="width: 93%; display: inline-block;">
+                    {{ getNumberFromState(company_states, "VALIDE") }} Entreprises Validées
                 </div>
-                <div style="width: 10%; display: inline-block;">
-                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message aux entreprises enregistrées">
-                        <mat-icon style="color: black; font-size: 30px;">mail</mat-icon>
+                <div style="width: 7%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: rgb(75, 177, 75);" mat-flat-button matTooltip="Envoyer un message aux entreprises validées" (click)="sendMessage('COMPANY', 'VALIDE', 'à toutes les entreprises validées')">
+                        <mat-icon style="color: white">mail</mat-icon>
                     </button>
                 </div>
             </mat-card>
-            <mat-card routerLink="/companies" [queryParams]="{ status: 'INVALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
-                <div style="width: 90%; display: inline-block;">
+            <mat-card (click)="goTo('/companies', { status: 'ENREGISTRE' })" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
+                <div style="width: 93%; display: inline-block;">
+                    {{ getNumberFromState(company_states, "ENREGISTRE") }} Entreprises Enregistrées
+                </div>
+                <div style="width: 7%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: rgb(177, 121, 75);" mat-flat-button matTooltip="Envoyer un message aux entreprises enregistrées" (click)="sendMessage('COMPANY', 'ENREGISTRE', 'à toutes les entreprises enregistrées')">
+                        <mat-icon style="color: white">mail</mat-icon>
+                    </button>
+                </div>
+            </mat-card>
+            <mat-card (click)="goTo('/companies', { status: 'INVALIDE' })" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
+                <div style="width: 93%; display: inline-block;">
                     {{ getNumberFromState(company_states, "INVALIDE") }} Entreprises Invalides
                 </div>
-                <div style="width: 10%; display: inline-block;">
-                    <button style="height: 25px; line-height: 1rem; background-color: salmon;" mat-flat-button matTooltip="Envoyer un message aux entreprises invalides">
-                        <mat-icon style="color: black; font-size: 30px;">mail</mat-icon>
+                <div style="width: 7%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: rgb(177, 75, 75);" mat-flat-button matTooltip="Envoyer un message aux entreprises invalides" (click)="sendMessage('COMPANY', 'INVALIDE', 'à toutes les entreprises invalides')">
+                        <mat-icon style="color: white">mail</mat-icon>
                     </button>
                 </div>
             </mat-card>
@@ -50,33 +57,47 @@
                 <mat-panel-description>
                     Etats des étudiants enregistrés
                 </mat-panel-description>
-                <button style="height: 25px; line-height: 1rem; margin-right: 20px" color="accent" matTooltip="Envoyer un message à tous les étudiants" mat-flat-button>
+                <button style="height: 25px; line-height: 1rem; margin-right: 26px" color="accent" matTooltip="Envoyer un message à tous les étudiants" mat-flat-button (click)="sendMessage('STUDENT', null, 'à tous les étudiants')">
                     <mat-icon>mail</mat-icon>
                 </button>
             </mat-expansion-panel-header>
-            <mat-card routerLink="/students" [queryParams]="{ status: 'VALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
-                {{ getNumberFromState(student_states, "VALIDE") }} Etudiants Validés
-            </mat-card>
-            <mat-card routerLink="/students" [queryParams]="{ status: 'ENREGISTRE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
-                <div style="width: 90%; display: inline-block;">
-                    {{ getNumberFromState(student_states, "ENREGISTRE") }} Etudiants Enregistrés
+            <mat-card (click)="goTo('/students', { status: 'VALIDE' })" class="card card-expansion-panel" [style.backgroundColor]="'lightgreen'" style="cursor: pointer">
+                <div style="width: 93%; display: inline-block;">
+                    {{ getNumberFromState(student_states, "VALIDE") }} Etudiants Validés
                 </div>
-                <div style="width: 10%; display: inline-block;">
-                    <button style="height: 25px; line-height: 1rem; background-color: orange;" mat-flat-button matTooltip="Envoyer un message aux étudiants enregistrés">
-                        <mat-icon style="color: black; font-size: 30px;">mail</mat-icon>
+                <div style="width: 7%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: rgb(75, 177, 75);" mat-flat-button matTooltip="Envoyer un message aux étudiants validés" (click)="sendMessage('STUDENT', 'VALIDE', 'à tous les étudiants validés')">
+                        <mat-icon style="color: white">mail</mat-icon>
                     </button>
                 </div>
             </mat-card>
-            <mat-card routerLink="/students" [queryParams]="{ status: 'INDISPONIBLE' }" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
-                {{ getNumberFromState(student_states, "INDISPONIBLE") }} Etudiants Indisponibles
+            <mat-card (click)="goTo('/students', { status: 'ENREGISTRE' })" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
+                <div style="width: 93%; display: inline-block;">
+                    {{ getNumberFromState(student_states, "ENREGISTRE") }} Etudiants Enregistrés
+                </div>
+                <div style="width: 7%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: rgb(177, 121, 75);" mat-flat-button matTooltip="Envoyer un message aux étudiants enregistrés" (click)="sendMessage('STUDENT', 'ENREGISTRE', 'à tous les étudiants enregistrés')">
+                        <mat-icon style="color: white">mail</mat-icon>
+                    </button>
+                </div>
             </mat-card>
-            <mat-card routerLink="/students" [queryParams]="{ status: 'INVALIDE' }" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
-                <div style="width: 90%; display: inline-block;">
+            <mat-card (click)="goTo('/students', { status: 'INDISPONIBLE' })" class="card card-expansion-panel" [style.backgroundColor]="'orange'" style="cursor: pointer">
+                <div style="width: 93%; display: inline-block;">
+                    {{ getNumberFromState(student_states, "INDISPONIBLE") }} Etudiants Indisponibles
+                </div>
+                <div style="width: 7%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: rgb(177, 121, 75);" mat-flat-button matTooltip="Envoyer un message aux étudiants indisponbiles" (click)="sendMessage('STUDENT', 'INDISPONIBLE', 'à tous les étudiants indisponibles')">
+                        <mat-icon style="color: white">mail</mat-icon>
+                    </button>
+                </div>
+            </mat-card>
+            <mat-card (click)="goTo('/students', { status: 'INVALIDE' })" class="card card-expansion-panel" [style.backgroundColor]="'salmon'" style="cursor: pointer">
+                <div style="width: 93%; display: inline-block;">
                     {{ getNumberFromState(student_states, "INVALIDE") }} Etudiants Invalides
                 </div>
-                <div style="width: 10%; display: inline-block;">
-                    <button style="height: 25px; line-height: 1rem; background-color: salmon;" mat-flat-button matTooltip="Envoyer un message aux étudiants invalides">
-                        <mat-icon style="color: black; font-size: 30px;">mail</mat-icon>
+                <div style="width: 7%; display: inline-block;">
+                    <button style="height: 25px; line-height: 1rem; background-color: rgb(177, 75, 75);" mat-flat-button matTooltip="Envoyer un message aux étudiants invalides" (click)="sendMessage('STUDENT', 'INVALIDE', 'à tous les étudiants invalides')">
+                        <mat-icon style="color: white">mail</mat-icon>
                     </button>
                 </div>
             </mat-card>

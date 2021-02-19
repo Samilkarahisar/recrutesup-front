@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Envoyer un message {{ data.destinataires }}</h1>
+<div mat-dialog-content>
+  <mat-form-field style="width: 800px;" appearance="outline">
+    <textarea
+    matInput
+    #message = "ngModel"
+    name="message"
+    class="form-control"
+    style="resize: 'none'; height: 300px"
+    [(ngModel)]="data.message"
+    value=""
+    >
+    </textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="accent" [mat-dialog-close]="data.message" [disabled]="message.value == null || message.value.length == 0">Envoyer</button>
+</div>

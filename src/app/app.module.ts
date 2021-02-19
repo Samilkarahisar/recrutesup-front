@@ -42,6 +42,9 @@ import { ConfirmationIndisponibleOfferDialogComponent } from './components/dialo
 import { ConfirmationIndisponibleStudentDialogComponent } from './components/dialogs/confirmation-indisponible-student-dialog/confirmation-indisponible-student-dialog.component';
 import { SendMessageComponent } from './components/send-message/send-message.component';
 import { ConfirmationSuppressionOfferDialogComponent } from './components/dialogs/confirmation-suppression-offer-dialog/confirmation-suppression-offer-dialog.component';
+import { ConfirmationInvalidationOfferDialogComponent } from './components/dialogs/confirmation-invalidation-offer-dialog/confirmation-invalidation-offer-dialog.component';
+import { ConfirmationValidationOfferDialogComponent } from './components/dialogs/confirmation-validation-offer-dialog/confirmation-validation-offer-dialog.component';
+import { MessageDialogComponent } from './components/dialogs/message-dialog/message-dialog.component';
 
 
 @NgModule({
@@ -75,7 +78,10 @@ import { ConfirmationSuppressionOfferDialogComponent } from './components/dialog
     ConfirmationIndisponibleOfferDialogComponent,
     ConfirmationIndisponibleStudentDialogComponent,
     SendMessageComponent,
-    ConfirmationSuppressionOfferDialogComponent
+    ConfirmationSuppressionOfferDialogComponent,
+    ConfirmationInvalidationOfferDialogComponent,
+    ConfirmationValidationOfferDialogComponent,
+    MessageDialogComponent
   ],
   imports: [
     BrowserModule,

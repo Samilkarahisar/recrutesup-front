@@ -10,6 +10,8 @@ import { Offer } from 'src/app/models/offer';
 import { ConfirmationIndisponibleOfferDialogComponent } from '../dialogs/confirmation-indisponible-offer-dialog/confirmation-indisponible-offer-dialog.component';
 import { WorkflowState } from 'src/app/constants/workflowState';
 import { Sort } from '@angular/material/sort';
+import { ConfirmationInvalidationOfferDialogComponent } from '../dialogs/confirmation-invalidation-offer-dialog/confirmation-invalidation-offer-dialog.component';
+import { ConfirmationValidationOfferDialogComponent } from '../dialogs/confirmation-validation-offer-dialog/confirmation-validation-offer-dialog.component';
 
 @Component({
   selector: 'app-list-offres',
@@ -147,24 +149,38 @@ export class ListOffresComponent implements OnInit {
 
   validerOffer(offer: Offer): void {
     this.action = true;
-    this.offerService.updateStateOffer(offer.id, offer.state, 'DISPONIBLE').subscribe(
-      response => {
-        this.updateOffer(response.id, response.state);
-        this.notifService.success('Offre validée', 'vous avez validé une offre');
-      }, err => {
-        this.notifService.error('Erreur', err.error.message);
+    const dialogRef = this.dialog.open(ConfirmationValidationOfferDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result == true) {
+          this.offerService.updateStateOffer(offer.id, offer.state, 'DISPONIBLE').subscribe(
+            response => {
+              this.updateOffer(response.id, response.state);
+              this.notifService.success('Offre validée', 'vous avez validé une offre');
+            }, err => {
+              this.notifService.error('Erreur', err.error.message);
+            }
+          );
+        }
       }
     );
   }
 
   invaliderOffer(offer: Offer): void {
     this.action = true;
-    this.offerService.updateStateOffer(offer.id, offer.state, 'BROUILLON').subscribe(
-      response => {
-        this.updateOffer(response.id, response.state);
-        this.notifService.success('Offre invalidée', 'vous avez invalidé une offre');
-      }, err => {
-        this.notifService.error('Erreur', err.error.message);
+    const dialogRef = this.dialog.open(ConfirmationInvalidationOfferDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result == true) {
+          this.offerService.updateStateOffer(offer.id, offer.state, 'BROUILLON').subscribe(
+            response => {
+              this.updateOffer(response.id, response.state);
+              this.notifService.success('Offre invalidée', 'vous avez invalidé une offre');
+            }, err => {
+              this.notifService.error('Erreur', err.error.message);
+            }
+          );
+        }
       }
     );
   }
