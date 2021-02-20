@@ -40,13 +40,13 @@
             <div style="width: 57%; display: inline-block; font-size: 15px;"> {{student.label}} </div>
             <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'ENREGISTRE' || student.state == 'INVALIDE'">
-                    <button (click)="validerStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:green; line-height: 1rem;"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
+                    <button matTooltip="Valider" (click)="validerStudent(student)" mat-flat-button  style="height: 25px; background-color:green; line-height: 1rem;"><mat-icon style="color: white">check_circle_outline</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'VALIDE'">
-                    <button (click)="indisponibleStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:red; line-height: 1rem; "><mat-icon matTooltip="Rendre l'étudiant indisponible" style="color: white">cancel</mat-icon></button>
+                    <button matTooltip="Rendre l'étudiant indisponible" (click)="indisponibleStudent(student)" mat-flat-button  style="height: 25px; background-color:red; line-height: 1rem; "><mat-icon style="color: white">cancel</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="student.state == 'ENREGISTRE' || student.state == 'VALIDE'">
-                    <button (click)="invaliderStudent(student)" mat-flat-button  style="color: white; height: 25px; background-color:red; line-height: 1rem; "><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
+                    <button matTooltip="Invalider" (click)="invaliderStudent(student)" mat-flat-button  style="height: 25px; background-color:red; line-height: 1rem; "><mat-icon style="color: white">remove_circle_outline</mat-icon></button>
                 </div>
             </div>
         </mat-card>

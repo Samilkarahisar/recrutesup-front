@@ -20,6 +20,7 @@ const httpOptions = {
 export class CompanyService {
 
   baseUrl: string = environment.baseUrl;
+  companyEndPoint: string = '/company/';
 
   constructor(private http: HttpClient) {}
 
@@ -27,7 +28,7 @@ export class CompanyService {
    * Récupérer toutes les entreprises
    */
   getAllCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>(this.baseUrl + '/company/all', httpOptions);
+    return this.http.get<Company[]>(this.baseUrl + this.companyEndPoint + 'all', httpOptions);
   }
 
   /**
@@ -35,7 +36,7 @@ export class CompanyService {
    * @param idCompany
    */
   getCompany(idCompany: number): Observable<Company> {
-    return this.http.get<Company>(this.baseUrl + '/company/' + idCompany, httpOptions);
+    return this.http.get<Company>(this.baseUrl + this.companyEndPoint + idCompany, httpOptions);
   }
 
   /**
@@ -43,7 +44,7 @@ export class CompanyService {
    * @param idUser 
    */
   getCompanyContainingEmployee(idUser: number): Observable<Company> {
-    return this.http.get<Company>(this.baseUrl + '/company/byemployee/' + idUser, httpOptions);
+    return this.http.get<Company>(this.baseUrl + this.companyEndPoint + 'byemployee/' + idUser, httpOptions);
   }
 
   /**
@@ -61,7 +62,7 @@ export class CompanyService {
     description: string
   ): Observable<Company> {
     const body = {name, mailAddress, websiteUrl, description};
-    return this.http.patch<Company>(this.baseUrl + '/company/', body, httpOptions);
+    return this.http.patch<Company>(this.baseUrl + this.companyEndPoint, body, httpOptions);
   }
 
   /**
@@ -75,7 +76,7 @@ export class CompanyService {
     currentState: string,
     nextState: string
   ): Observable<Company> {
-    return this.http.patch<Company>(this.baseUrl + '/company/' + idCompany + '/' + currentState + '/' + nextState, httpOptions);
+    return this.http.patch<Company>(this.baseUrl + this.companyEndPoint + idCompany + '/' + currentState + '/' + nextState, httpOptions);
   }
 
   /**
@@ -90,7 +91,7 @@ export class CompanyService {
     websiteUrl: string
     ): Observable<Company> {
     const body =  {name, mailAddress, websiteUrl};
-    return this.http.post<Company>(this.baseUrl + '/company/', body, httpOptions);
+    return this.http.post<Company>(this.baseUrl + this.companyEndPoint, body, httpOptions);
   }
 
 
@@ -101,7 +102,7 @@ export class CompanyService {
    * Récupérer tous les employés
    */
   getAllEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.baseUrl + '/company/employee/all', httpOptions);
+    return this.http.get<Employee[]>(this.baseUrl + this.companyEndPoint + 'employee/all', httpOptions);
   }
 
   /**
@@ -109,7 +110,7 @@ export class CompanyService {
    * @param idCompany 
    */
   getAllEmployeesByCompany(idCompany: number) : Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.baseUrl + '/company/employee/all/' + idCompany, httpOptions);
+    return this.http.get<Employee[]>(this.baseUrl + this.companyEndPoint + 'employee/all/' + idCompany, httpOptions);
   }
 
   /**
@@ -117,7 +118,7 @@ export class CompanyService {
    * @param idUser 
    */
   getEmployee(idUser: number): Observable<Employee> {
-    return this.http.get<Employee>(this.baseUrl + '/company/employee/' + idUser, httpOptions);
+    return this.http.get<Employee>(this.baseUrl + this.companyEndPoint + 'employee/' + idUser, httpOptions);
   }
 
   /**
@@ -136,7 +137,7 @@ export class CompanyService {
     idCompany: number
     ): Observable<Employee> {
     const body = {firstname, lastname, mailAddress, phoneNumber, idCompany};
-    return this.http.post<Employee>(this.baseUrl + '/company/employee', body, httpOptions);
+    return this.http.post<Employee>(this.baseUrl + this.companyEndPoint + 'employee', body, httpOptions);
   }
 
   /**
@@ -156,7 +157,7 @@ export class CompanyService {
     idCompany: number
   ): Observable<Employee> {
     const body = {firstname, lastname, mailAddress, phoneNumber, idCompany};
-    return this.http.patch<Employee>(this.baseUrl + '/company/employee', body, httpOptions);
+    return this.http.patch<Employee>(this.baseUrl + this.companyEndPoint + 'employee', body, httpOptions);
   }
 
   /**
@@ -170,7 +171,7 @@ export class CompanyService {
     password: string
   ): Observable<Employee> {
     const body = {mailAddress, password};
-    return this.http.patch<Employee>(this.baseUrl + '/company/changePW', body, httpOptions);
+    return this.http.patch<Employee>(this.baseUrl + this.companyEndPoint + 'changePW', body, httpOptions);
   }
 
 }

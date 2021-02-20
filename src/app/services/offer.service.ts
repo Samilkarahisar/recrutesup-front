@@ -19,7 +19,8 @@ const httpOptions = {
 export class OfferService {
 
   baseUrl: string = environment.baseUrl;
-  
+  offerEndPoint: string = '/offer/';
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -27,14 +28,14 @@ export class OfferService {
    * @param idOffer 
    */
   getOffer(idOffer: number): Observable<Offer> {
-    return this.http.get<Offer>(this.baseUrl + '/offer/' + idOffer, httpOptions);
+    return this.http.get<Offer>(this.baseUrl + this.offerEndPoint + idOffer, httpOptions);
   }
 
   /**
    * Récupérer toutes les offres
    */
   getAllOffers(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.baseUrl + '/offer/all/', httpOptions);
+    return this.http.get<Offer[]>(this.baseUrl + this.offerEndPoint + 'all/', httpOptions);
   }
 
   /**
@@ -42,14 +43,14 @@ export class OfferService {
    * @param idCompany 
    */
   getAllOffersByCompany(idCompany: number): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.baseUrl + '/offer/all/' + idCompany, httpOptions);
+    return this.http.get<Offer[]>(this.baseUrl + this.offerEndPoint + 'all/' + idCompany, httpOptions);
   }
 
   /**
    * Récupérer toutes les offres en objets légers
    */
   getAllOffersLight(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.baseUrl + '/offer/light/all', httpOptions);
+    return this.http.get<Offer[]>(this.baseUrl + this.offerEndPoint + 'light/all', httpOptions);
   }
 
   /**
@@ -57,7 +58,7 @@ export class OfferService {
    * @param idCompany 
    */
   getAllOfferLightByCompany(idCompany: number): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.baseUrl + '/offer/light/all/' + idCompany, httpOptions);
+    return this.http.get<Offer[]>(this.baseUrl + this.offerEndPoint + 'light/all/' + idCompany, httpOptions);
   }
 
   /**
@@ -80,7 +81,7 @@ export class OfferService {
     userId: number
   ): Observable<Offer> {
     const body =  {label, description, address, city, mailAddress, attachmentNamesList, userId};
-    return this.http.post<Offer>(this.baseUrl + '/offer/', body, httpOptions);
+    return this.http.post<Offer>(this.baseUrl + this.offerEndPoint, body, httpOptions);
   }
 
   /**
@@ -105,7 +106,7 @@ export class OfferService {
     userId: number
   ): Observable<Offer> {
     const body =  {label, description, address, city, mailAddress, attachmentNamesList, userId};
-    return this.http.patch<Offer>(this.baseUrl + '/offer/' + idOffer, body, httpOptions);
+    return this.http.patch<Offer>(this.baseUrl + this.offerEndPoint + idOffer, body, httpOptions);
   }
 
   /**
@@ -119,7 +120,7 @@ export class OfferService {
     currentState: string,
     nextState: string
   ): Observable<Offer> {
-    return this.http.patch<Offer>(this.baseUrl + '/offer/' + idOffer + '/' + currentState + '/' + nextState, httpOptions);
+    return this.http.patch<Offer>(this.baseUrl + this.offerEndPoint + idOffer + '/' + currentState + '/' + nextState, httpOptions);
   }
 
   /**
@@ -127,7 +128,7 @@ export class OfferService {
    * @param idOffer 
    */
   deleteOffer(idOffer: number) {
-    return this.http.delete<Offer>(this.baseUrl + '/offer/' + idOffer, httpOptions);
+    return this.http.delete<Offer>(this.baseUrl + this.offerEndPoint + idOffer, httpOptions);
   }
 
 }

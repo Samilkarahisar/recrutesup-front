@@ -33,6 +33,7 @@ function DataURIToBlob(dataURI: string) {
 export class StudentService {
 
   baseUrl: string = environment.baseUrl;
+  studentEndPoint: string = '/student/';
   
   constructor(private http: HttpClient) { }
 
@@ -50,7 +51,7 @@ export class StudentService {
    * Récupérer tous les étudiants
    */
   getAllStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>(this.baseUrl + '/student/all', httpOptions);
+    return this.http.get<Student[]>(this.baseUrl + this.studentEndPoint + 'all', httpOptions);
   }
 
   /**
@@ -58,7 +59,7 @@ export class StudentService {
    * @param idUser 
    */
   getStudent(idUser: number): Observable<Student> {
-    return this.http.get<Student>(this.baseUrl + '/student/' + idUser, httpOptions);
+    return this.http.get<Student>(this.baseUrl + this.studentEndPoint + idUser, httpOptions);
   }
 
   /**
@@ -81,7 +82,7 @@ export class StudentService {
     description: string
   ): Observable<Student> {
     const body = {firstname, lastname, mailAddress, schoolYear, phoneNumber, label, description};
-    return this.http.post<Student>(this.baseUrl + '/student/', body, httpOptions);
+    return this.http.post<Student>(this.baseUrl + this.studentEndPoint, body, httpOptions);
   }
 
   /**
@@ -105,7 +106,7 @@ export class StudentService {
     description: string
   ): Observable<Student> {
     const body = {firstname, lastname, mailAddress, schoolYear, phoneNumber, label, description};
-    return this.http.patch<Student>(this.baseUrl + '/student/', body, httpOptions);
+    return this.http.patch<Student>(this.baseUrl + this.studentEndPoint, body, httpOptions);
   }
 
   /**
@@ -119,7 +120,7 @@ export class StudentService {
     currentState: string,
     nextState: string
   ): Observable<Student> {
-    return this.http.patch<Student>(this.baseUrl + '/student/' + idUser + '/' + currentState + '/' + nextState, httpOptions);
+    return this.http.patch<Student>(this.baseUrl + this.studentEndPoint + idUser + '/' + currentState + '/' + nextState, httpOptions);
   }
 
   /**
@@ -133,6 +134,6 @@ export class StudentService {
     password: string
   ): Observable<Student> {
     const body = {mailAddress, password};
-    return this.http.patch<Student>(this.baseUrl + '/student/changePW', body, httpOptions);
+    return this.http.patch<Student>(this.baseUrl + this.studentEndPoint + 'changePW', body, httpOptions);
   }
 }

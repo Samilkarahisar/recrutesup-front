@@ -19,7 +19,8 @@ const httpOptions = {
 export class AuthService {
 
   baseUrl: string = environment.baseUrl;
-  
+  authEndPoint: string = '/auth/';
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -32,7 +33,7 @@ export class AuthService {
     password: string
   ): Observable<User> {
     const body = {mailAddress, password}
-    return this.http.post<User>(this.baseUrl + '/auth/signin', body, httpOptions);
+    return this.http.post<User>(this.baseUrl + this.authEndPoint + 'signin', body, httpOptions);
   }
 
   /**
@@ -40,7 +41,7 @@ export class AuthService {
    * @param mailAddress 
    */
   recupPassword(mailAddress): Observable<Object> {
-    return this.http.post<Object>(this.baseUrl + '/auth/forgottenPW/' + mailAddress, httpOptions);
+    return this.http.post<Object>(this.baseUrl + this.authEndPoint + 'forgottenPW/' + mailAddress, httpOptions);
   }
 
 }

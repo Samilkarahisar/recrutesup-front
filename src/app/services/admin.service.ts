@@ -19,6 +19,7 @@ const httpOptions = {
 export class AdminService {
 
   baseUrl: string = environment.baseUrl;
+  adminEndPoint: string = '/admin/';
 
   constructor(private http: HttpClient) { }
 
@@ -27,14 +28,14 @@ export class AdminService {
    * @param idUser 
    */
   getAdmin(idUser: number): Observable<Admin> {
-    return this.http.get<Admin>(this.baseUrl + '/admin/' + idUser, httpOptions);
+    return this.http.get<Admin>(this.baseUrl + this.adminEndPoint + idUser, httpOptions);
   }
 
   /**
    * Récupèrer tous les admins
    */
   getAllAdmins(): Observable<Admin[]> {
-    return this.http.get<Admin[]>(this.baseUrl + '/admin/all', httpOptions);
+    return this.http.get<Admin[]>(this.baseUrl + this.adminEndPoint + 'all', httpOptions);
   }
 
   /**
@@ -52,7 +53,7 @@ export class AdminService {
     phoneNumber: string
   ): Observable<Admin> {
     const body = {firstname, lastname, mailAddress, phoneNumber};
-    return this.http.patch<Admin>(this.baseUrl + '/admin/', body, httpOptions);
+    return this.http.patch<Admin>(this.baseUrl + this.adminEndPoint, body, httpOptions);
   }
 
   /**
@@ -66,7 +67,7 @@ export class AdminService {
     password: string
   ): Observable<Admin> {
     const body = {mailAddress, password};
-    return this.http.patch<Admin>(this.baseUrl + '/admin/changePW', body, httpOptions);
+    return this.http.patch<Admin>(this.baseUrl + this.adminEndPoint + 'changePW', body, httpOptions);
   }
 
   sendMessage(
@@ -75,6 +76,6 @@ export class AdminService {
     message: string
   ): Observable<Admin> {
     const body = {role, state, message};
-    return this.http.post<Admin>(this.baseUrl + '/admin/message', body, httpOptions);
+    return this.http.post<Admin>(this.baseUrl + this.adminEndPoint + 'message', body, httpOptions);
   }
 }

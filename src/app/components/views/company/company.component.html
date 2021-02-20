@@ -5,9 +5,9 @@
         </div>
         <div class="resume">
             <span>
-                <h2 style="display: inline">{{ company.name }}</h2> <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ company.state }}</h3>
-                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (company.state == 'ENREGISTRE' || company.state == 'INVALIDE')" (click)="validerCompany()" style="margin-left: 20px; background-color:green; color: white; " class="btn btn-primary btn-block"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
-                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (company.state == 'ENREGISTRE' || company.state == 'VALIDE')" (click)="invaliderCompany()" style="margin-left: 20px; background-color:red; color: white; " class="btn btn-primary btn-block"><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
+                <h2 style="display: inline">{{ company.name }}</h2> <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ statusToLabel(company.state) }}</h3>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (company.state == 'ENREGISTRE' || company.state == 'INVALIDE')" (click)="validerCompany()" matTooltip="Valider" style="margin-left: 20px; background-color:green;" class="btn btn-primary btn-block"><mat-icon style="color: white">check_circle_outline</mat-icon></button>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (company.state == 'ENREGISTRE' || company.state == 'VALIDE')" (click)="invaliderCompany()" matTooltip="Invalider" style="margin-left: 20px; background-color:red;" class="btn btn-primary btn-block"><mat-icon style="color: white">remove_circle_outline</mat-icon></button>
             </span>
             <p>{{ company.description }}</p>
             <mat-icon style="vertical-align: middle; margin: 5px;">mail_outline</mat-icon> {{ company.mailAddress }} <br>
@@ -30,13 +30,13 @@
                         <div style="width: 58%; display: inline-block;">{{offer.label}}</div>
                         <div style="width: 12%; display: inline-block;">
                             <div style="width: 50%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'EN_VALIDATION'" >
-                                <button (click)="validerOffer(offer)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
+                                <button matTooltip="Valider" (click)="validerOffer(offer)" mat-flat-button style="height: 25px;background-color:green; line-height: 1rem;"><mat-icon style="color: white">check_circle_outline</mat-icon></button>
                             </div>
                             <div style="width: 50%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'EN_VALIDATION'">
-                                <button (click)="invaliderOffer(offer)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
+                                <button matTooltip="Invalider" (click)="invaliderOffer(offer)" mat-flat-button style="height: 25px;background-color:red; line-height: 1rem; "><mat-icon style="color: white">remove_circle_outline</mat-icon></button>
                             </div>
                             <div style="width: 50%; display: inline-block;" *ngIf="role == 'ROLE_ADMIN' && offer.state == 'DISPONIBLE'">
-                                <button (click)="indisponibleOffer(offer)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Rendre l'offre indisponible" style="color: white">cancel</mat-icon></button>
+                                <button matTooltip="Rendre l'offre indisponible" (click)="indisponibleOffer(offer)" mat-flat-button style="height: 25px;background-color:red; line-height: 1rem; "><mat-icon style="color: white">cancel</mat-icon></button>
                             </div>
                             <div style="width: 100%; display: inline-block;" *ngIf="wishAlreadySent(offer.id)">
                                 Voeu adressé

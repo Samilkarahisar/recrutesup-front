@@ -42,13 +42,13 @@
             <div style="width: 43%; display: inline-block;">{{offre.label}}</div>
             <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'EN_VALIDATION'" >
-                    <button (click)="validerOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
+                    <button matTooltip="Valider" (click)="validerOffer(offre)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;"><mat-icon style="color: white">check_circle_outline</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'EN_VALIDATION'">
-                    <button (click)="invaliderOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
+                    <button matTooltip="Invalider" (click)="invaliderOffer(offre)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; "><mat-icon style="color: white">remove_circle_outline</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'DISPONIBLE'">
-                    <button (click)="indisponibleOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Rendre l'offre indisponible" style="color: white">cancel</mat-icon></button>
+                    <button matTooltip="Rendre l'offre indisponible" (click)="indisponibleOffer(offre)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; "><mat-icon style="color: white">cancel</mat-icon></button>
                 </div>
             </div>
         </mat-card>
@@ -67,13 +67,13 @@
             <div style="width: 58%; display: inline-block;">{{offre.label}}</div>
             <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'DISPONIBLE'">
-                    <button (click)="indisponibleOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Rendre l'offre indisponible" style="color: white">cancel</mat-icon></button>
+                    <button matTooltip="Rendre l'offre indisponible" (click)="indisponibleOffer(offre)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; "><mat-icon style="color: white">cancel</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state == 'BROUILLON'">
-                    <button (click)="publierOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;"><mat-icon matTooltip="Publier" style="color: white">publish</mat-icon></button>
+                    <button matTooltip="Publier" (click)="publierOffer(offre)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;"><mat-icon style="color: white">publish</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="offre.state !== 'SUPPRIME' && offre.state !== 'EN_VALIDATION' && offre.state !== 'INDISPONIBLE'">
-                    <button (click)="supprimerOffer(offre)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Supprimer" style="color: white">delete</mat-icon></button>
+                    <button matTooltip="Supprimer" (click)="supprimerOffer(offre)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; "><mat-icon style="color: white">delete</mat-icon></button>
                 </div>
             </div>
         </mat-card>

@@ -5,10 +5,10 @@
         </div>
         <div class="resume">
             <span>
-                <h2 style="display: inline">{{ student.firstname }} {{ student.lastname }}</h2>  <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ student.state }}</h3>
-                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (student.state == 'ENREGISTRE' || student.state == 'INVALIDE')" (click)="validerStudent()" style="margin-left: 20px; background-color:green; color: white; " class="btn btn-primary btn-block"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
-                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && student.state == 'VALIDE'" style="margin-left: 20px; background-color:red; color: white; " (click)="indisponibleStudent()" class="btn btn-primary btn-block"><mat-icon matTooltip="Rendre l'étudiant indisponible" style="color: white">cancel</mat-icon></button>
-                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (student.state == 'ENREGISTRE' || student.state == 'VALIDE')" (click)="invaliderStudent()" style="margin-left: 20px; background-color:red;  color: white; " class="btn btn-primary btn-block"><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
+                <h2 style="display: inline">{{ student.firstname }} {{ student.lastname }}</h2>  <h3 *ngIf="role == 'ROLE_ADMIN'" style="display: inline"> - {{ statusToLabel(student.state) }}</h3>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (student.state == 'ENREGISTRE' || student.state == 'INVALIDE')" (click)="validerStudent()" matTooltip="Valider" style="margin-left: 20px; background-color:green;" class="btn btn-primary btn-block"><mat-icon style="color: white">check_circle_outline</mat-icon></button>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && student.state == 'VALIDE'" matTooltip="Rendre l'étudiant indisponible" style="margin-left: 20px; background-color:red;" (click)="indisponibleStudent()" class="btn btn-primary btn-block"><mat-icon style="color: white">cancel</mat-icon></button>
+                <button mat-raised-button *ngIf="role == 'ROLE_ADMIN' && (student.state == 'ENREGISTRE' || student.state == 'VALIDE')" (click)="invaliderStudent()" matTooltip="Invalider" style="margin-left: 20px; background-color:red;" class="btn btn-primary btn-block"><mat-icon style="color: white">remove_circle_outline</mat-icon></button>
 
                 <button mat-raised-button color="accent" *ngIf="role == 'ROLE_COMPANY' && user.state == 'VALIDE' && !wishAlreadySent()" (click)="sendCompanyWish()" style="margin-left: 20px; color: white;" class="btn btn-primary btn-block">Adresser un voeu</button>
                 <button mat-raised-button disabled *ngIf="role == 'ROLE_COMPANY' && wishAlreadySent()" style="margin-left: 20px;" class="btn btn-primary btn-block">Voeu adressé</button>
@@ -32,23 +32,23 @@
             <div *ngIf="role == 'ROLE_ADMIN'" class="sendedWishes">
                 <h4>Voeux envoyés</h4>
                 <div *ngIf="student.wishSendList.length == 0">Aucun voeu envoyé</div>
-                <div *ngFor="let wish of student.wishSendList">
-                    <mat-card class="item">
-                        <div style="float:left;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
-                        <div style="float:right;"> {{wish.state}} </div>
-                    </mat-card>
-                </div>
+                <mat-card *ngFor="let wish of student.wishSendList" class="item">
+                    <div style="width: 20%; display: inline-block;">{{ statusToLabel(wish.state) }}</div>
+                    <div style="width: 20%; display: inline-block; text-align: right;">{{wish.sender}}</div>
+                    <div style="width: 5%; display: inline-block; text-align: center;"><mat-icon style="vertical-align: middle;">trending_flat</mat-icon></div>
+                    <div style="width: 45%; display: inline-block;">{{wish.receiver}}</div>
+                </mat-card>
             </div>
             <br>
             <div *ngIf="role == 'ROLE_ADMIN'" class="receivedWishes">
                 <h4>Voeux reçus</h4>
                 <div *ngIf="student.wishReceivedList.length == 0">Aucun voeu reçu</div>
-                <div *ngFor="let wish of student.wishReceivedList">
-                    <mat-card class="item">
-                        <div style="float:left;">{{wish.sender}} <mat-icon style="vertical-align: middle;">trending_flat</mat-icon> {{wish.receiver}}</div>
-                        <div style="float:right;"> {{wish.state}} </div>
-                    </mat-card>
-                </div>
+                <mat-card *ngFor="let wish of student.wishReceivedList" class="item">
+                    <div style="width: 20%; display: inline-block;">{{ statusToLabel(wish.state) }}</div>
+                    <div style="width: 20%; display: inline-block; text-align: right;">{{wish.sender}}</div>
+                    <div style="width: 5%; display: inline-block; text-align: center;"><mat-icon style="vertical-align: middle;">trending_flat</mat-icon> </div>
+                    <div style="width: 40%; display: inline-block;">{{wish.receiver}}</div>
+                </mat-card >
             </div>
         </div>
     </div>

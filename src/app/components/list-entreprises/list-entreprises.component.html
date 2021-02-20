@@ -31,10 +31,10 @@
             <div style="width: 78%; display: inline-block;"> {{company.name}} </div>
             <div style="width: 12%; display: inline-block;">
                 <div style="width: 50%; display: inline-block;" *ngIf="company.state == 'ENREGISTRE' || company.state == 'INVALIDE'  ">
-                    <button (click)="validerCompany(company)" mat-flat-button  style="color: white; height: 25px;background-color:green; line-height: 1rem;"><mat-icon matTooltip="Valider" style="color: white">check_circle_outline</mat-icon></button>
+                    <button matTooltip="Valider" (click)="validerCompany(company)" mat-flat-button  style="height: 25px;background-color:green; line-height: 1rem;"><mat-icon style="color: white">check_circle_outline</mat-icon></button>
                 </div>
                 <div style="width: 50%; display: inline-block;" *ngIf="company.state == 'ENREGISTRE' || company.state == 'VALIDE' ">
-                    <button (click)="invaliderCompany(company)" mat-flat-button  style="color: white; height: 25px;background-color:red; line-height: 1rem; "><mat-icon matTooltip="Invalider" style="color: white">remove_circle_outline</mat-icon></button>
+                    <button matTooltip="Invalider" (click)="invaliderCompany(company)" mat-flat-button  style="height: 25px;background-color:red; line-height: 1rem; "><mat-icon style="color: white">remove_circle_outline</mat-icon></button>
                 </div>
             </div>
         </mat-card>

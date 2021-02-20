@@ -12,6 +12,7 @@ import { Wish } from 'src/app/models/wish';
 import { ConfirmationIndisponibleStudentDialogComponent } from '../../dialogs/confirmation-indisponible-student-dialog/confirmation-indisponible-student-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user';
+import { WorkflowState } from 'src/app/constants/workflowState';
 
 @Component({
   selector: 'app-student',
@@ -115,6 +116,10 @@ export class StudentComponent implements OnInit {
           );
         }
       });
+  }
+
+  statusToLabel(status: string): string {
+    return WorkflowState.find(x => x.variable === status).label;
   }
 
 }

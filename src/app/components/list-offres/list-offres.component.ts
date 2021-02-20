@@ -12,6 +12,7 @@ import { WorkflowState } from 'src/app/constants/workflowState';
 import { Sort } from '@angular/material/sort';
 import { ConfirmationInvalidationOfferDialogComponent } from '../dialogs/confirmation-invalidation-offer-dialog/confirmation-invalidation-offer-dialog.component';
 import { ConfirmationValidationOfferDialogComponent } from '../dialogs/confirmation-validation-offer-dialog/confirmation-validation-offer-dialog.component';
+import { ConfirmationSuppressionOfferDialogComponent } from '../dialogs/confirmation-suppression-offer-dialog/confirmation-suppression-offer-dialog.component';
 
 @Component({
   selector: 'app-list-offres',
@@ -218,7 +219,7 @@ export class ListOffresComponent implements OnInit {
 
   supprimerOffer(offer: Offer): void {
     this.action = true;
-    const dialogRef = this.dialog.open(ConfirmationIndisponibleOfferDialogComponent);
+    const dialogRef = this.dialog.open(ConfirmationSuppressionOfferDialogComponent);
     dialogRef.afterClosed().subscribe(
       result => {
         if(result == true) {
