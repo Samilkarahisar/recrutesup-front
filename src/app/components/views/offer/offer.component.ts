@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationIndisponibleOfferDialogComponent } from '../../dialogs/confirmation-indisponible-offer-dialog/confirmation-indisponible-offer-dialog.component';
 import { WorkflowState } from 'src/app/constants/workflowState';
 import { Wish } from 'src/app/models/wish';
+import { ConfirmationSuppressionOfferDialogComponent } from '../../dialogs/confirmation-suppression-offer-dialog/confirmation-suppression-offer-dialog.component';
 
 @Component({
   selector: 'app-offer',
@@ -139,12 +140,19 @@ export class OfferComponent implements OnInit {
   }
 
   supprimerOffer(): void {
-    this.offerService.updateStateOffer(this.offer.id, this.offer.state, 'SUPPRIME').subscribe(
-      response => {
-        this.offer = response;
-        this.notifService.success('Offre supprimée', 'vous avez supprimé une offre');
-      }, err => {
-        this.notifService.error('Erreur', err.error.message);
+    const dialogRef = this.dialog.open(ConfirmationSuppressionOfferDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result == true) {
+          this.offerService.updateStateOffer(this.offer.id, this.offer.state, 'SUPPRIME').subscribe(
+            response => {
+              this.offer = response;
+              this.notifService.success('Offre supprimée', 'vous avez supprimé une offre');
+            }, err => {
+              this.notifService.error('Erreur', err.error.message);
+            }
+          );
+        }
       }
     );
   }
