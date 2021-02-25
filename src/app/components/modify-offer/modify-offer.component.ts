@@ -52,32 +52,37 @@ export class ModifyOfferComponent implements OnInit {
   }
 
   onSubmit(f: NgForm): void {
-
-    if(this.offer.state == 'DISPONIBLE') {
+    if(this.offer.state != 'BROUILLON') {
       const dialogRef = this.dialog.open(ConfirmationModifOfferDialogComponent);
       dialogRef.afterClosed().subscribe(
         result => {
           if(result == true) {
-            this.offerService.updateOffer(
-            this.offer.id,
-            this.offer.label,
-            this.offer.description,
-            this.offer.address,
-            this.offer.city,
-            this.offer.mailAddress,
-            null,
-            this.offer.userId
-            ).subscribe(
-            response => {
-              this.notifService.success('Offre mise à jour', 'Votre offre a été mise à jour');
-            },
-            err => {
-              this.notifService.error('Erreur Miodification', err.error.message);
-            }
-          )
+            this.updateOffer();
           }
       });
+    } else {
+      this.updateOffer();
     }
+  }
+
+  updateOffer(): void {
+    this.offerService.updateOffer(
+      this.offer.id,
+      this.offer.label,
+      this.offer.description,
+      this.offer.address,
+      this.offer.city,
+      this.offer.mailAddress,
+      null,
+      this.offer.userId
+      ).subscribe(
+      response => {
+        this.notifService.success('Offre mise à jour', 'Votre offre a été mise à jour');
+      },
+      err => {
+        this.notifService.error('Erreur Miodification', err.error.message);
+      }
+    )
   }
 
 }
